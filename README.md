@@ -1,6 +1,8 @@
-# com.the_tinkering.wk
+# Smouldering Durtles
 
-com.the_tinkering.wk is an Android app for WaniKani
+Smouldering Durtles is an Android app for WaniKani, forked from the existing codebase of Flaming Durtles, the popular open source client that has fallen into disprear. I'm Joeni over on the site and took on updating the application to support changes in WaniKani's API, in the hopes that Android users will continue to have access.
+
+The following is the original information regarding licencing and sharing:
 
 It's set up as an Android project with Google's default gradle set up.
 Use Android Studio or the Gradle command line to build it.
