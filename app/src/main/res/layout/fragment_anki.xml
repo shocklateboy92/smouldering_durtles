@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
+  ~ Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.the_tinkering.wk.views.SubjectInfoButtonView
+                <com.smouldering_durtles.wk.views.SubjectInfoButtonView
                     android:id="@+id/questionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                     app:layout_constraintTop_toBottomOf="@id/levelUpToastText"
                     style="@style/WK.TextView.CustomToast"/>
 
-                <com.the_tinkering.wk.views.StarRatingView
+                <com.smouldering_durtles.wk.views.StarRatingView
                     android:id="@+id/starRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
                 android:focusable="false"
                 android:visibility="gone"/>
 
-            <com.the_tinkering.wk.views.SubjectInfoView
+            <com.smouldering_durtles.wk.views.SubjectInfoView
                 android:id="@+id/subjectInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

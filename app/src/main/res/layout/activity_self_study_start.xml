@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
+  ~ Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorBackground"
-    tools:context="com.the_tinkering.wk.activities.SelfStudyStartActivity">
+    tools:context="com.smouldering_durtles.wk.activities.SelfStudyStartActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -111,7 +111,7 @@
 
             </LinearLayout>
 
-            <com.the_tinkering.wk.views.DividerView
+            <com.smouldering_durtles.wk.views.DividerView
                 android:id="@+id/presetDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -125,7 +125,7 @@
                 android:layout_marginTop="8dp"
                 style="@style/WK.TextView.Large"/>
 
-            <com.the_tinkering.wk.views.AdvancedSearchFormView
+            <com.smouldering_durtles.wk.views.AdvancedSearchFormView
                 android:id="@+id/searchForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

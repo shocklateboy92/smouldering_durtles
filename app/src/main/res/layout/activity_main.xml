@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
+  ~ Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorBackground"
-    tools:context="com.the_tinkering.wk.activities.MainActivity">
+    tools:context="com.smouldering_durtles.wk.activities.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -168,7 +168,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.the_tinkering.wk.views.FirstTimeSetupView
+    <com.smouldering_durtles.wk.views.FirstTimeSetupView
         android:id="@+id/firstTimeSetupView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -191,19 +191,19 @@
             android:padding="8dp"
             android:orientation="vertical">
 
-            <com.the_tinkering.wk.views.LevelDurationView
+            <com.smouldering_durtles.wk.views.LevelDurationView
                 android:id="@+id/levelDurationView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"/>
 
-            <com.the_tinkering.wk.views.AvailableSessionsView
+            <com.smouldering_durtles.wk.views.AvailableSessionsView
                 android:id="@+id/availableSessionsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"/>
 
-            <com.the_tinkering.wk.views.UpcomingReviewsView
+            <com.smouldering_durtles.wk.views.UpcomingReviewsView
                 android:id="@+id/upcomingReviewsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -211,7 +211,7 @@
                 android:text=""
                 android:gravity="center_horizontal"/>
 
-            <com.the_tinkering.wk.views.SyncProgressView
+            <com.smouldering_durtles.wk.views.SyncProgressView
                 android:id="@+id/syncProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -219,13 +219,13 @@
                 android:text=""
                 android:gravity="center_horizontal"/>
 
-            <com.the_tinkering.wk.views.SessionButtonsView
+            <com.smouldering_durtles.wk.views.SessionButtonsView
                 android:id="@+id/sessionButtonsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"/>
 
-            <com.the_tinkering.wk.views.LessonReviewBreakdownView
+            <com.smouldering_durtles.wk.views.LessonReviewBreakdownView
                 android:id="@+id/lessonReviewBreakdownView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -233,56 +233,56 @@
                 android:padding="4dp"
                 android:visibility="gone"/>
 
-            <com.the_tinkering.wk.views.TimeLineBarChart
+            <com.smouldering_durtles.wk.views.TimeLineBarChart
                 android:id="@+id/timeLineBarChart"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="8dp"/>
 
-            <com.the_tinkering.wk.views.SrsBreakDownView
+            <com.smouldering_durtles.wk.views.SrsBreakDownView
                 android:id="@+id/srsBreakDownView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <com.the_tinkering.wk.views.LevelProgressView
+            <com.smouldering_durtles.wk.views.LevelProgressView
                 android:id="@+id/levelProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <com.the_tinkering.wk.views.Post60ProgressView
+            <com.smouldering_durtles.wk.views.Post60ProgressView
                 android:id="@+id/post60ProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:visibility="gone"/>
 
-            <com.the_tinkering.wk.views.JoyoProgressView
+            <com.smouldering_durtles.wk.views.JoyoProgressView
                 android:id="@+id/joyoProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <com.the_tinkering.wk.views.JlptProgressView
+            <com.smouldering_durtles.wk.views.JlptProgressView
                 android:id="@+id/jlptProgressView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <com.the_tinkering.wk.views.LiveRecentUnlocksSubjectTableView
+            <com.smouldering_durtles.wk.views.LiveRecentUnlocksSubjectTableView
                 android:id="@+id/recentUnlocksView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <com.the_tinkering.wk.views.LiveCriticalConditionSubjectTableView
+            <com.smouldering_durtles.wk.views.LiveCriticalConditionSubjectTableView
                 android:id="@+id/criticalConditionView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <com.the_tinkering.wk.views.LiveBurnedItemsSubjectTableView
+            <com.smouldering_durtles.wk.views.LiveBurnedItemsSubjectTableView
                 android:id="@+id/burnedItemsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

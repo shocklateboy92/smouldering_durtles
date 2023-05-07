@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
+  ~ Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -61,18 +61,18 @@
 
     </LinearLayout>
 
-    <com.the_tinkering.wk.views.SwipingScrollView
+    <com.smouldering_durtles.wk.views.SwipingScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.the_tinkering.wk.views.SubjectInfoView
+        <com.smouldering_durtles.wk.views.SubjectInfoView
             android:id="@+id/subjectInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"/>
 
-    </com.the_tinkering.wk.views.SwipingScrollView>
+    </com.smouldering_durtles.wk.views.SwipingScrollView>
 
 </LinearLayout>
