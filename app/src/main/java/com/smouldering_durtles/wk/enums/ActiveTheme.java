@@ -30,15 +30,15 @@ public enum ActiveTheme {
             true,
             R.style.WKLightTheme,
             R.drawable.ic_arrow_up_small,
-            new int[] {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
-            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFFFDBC4A},
-            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3,0xFFFDBC4A},
-            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFFFDBC4A},
-            new int[] {0xFFEEEEEE, 0xFFC1C0C1, 0xFFD80088, 0xFF7D2893, 0xFF2344D6, 0xFF0094EB, 0xFF444444},
-            new int[] {0xFFD6AFCA, 0xFFCB8FB3, 0xFFD660AB, 0xFFD80088},
-            new int[] {0xFF9D30A3, 0xFF7D2893},
-            new int[] {0xFF621899, 0xFFD80088, 0xFFD73099, 0xFFD660AB, 0xFFD077AF, 0xFFCB8FB3, 0xFFD09FBE, 0xFFD6AFCA, 0xFFC1C0C1, 0xFFEEEEEE},
-            new int[] {0xFF909000, 0xFF909000, 0xFF00A000, 0xFFA00000, 0xFFFFFFFF, 0xFF909000}) {
+            new int[] {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}, // Subject Text Colour
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFFFDBC4A},  // Subject Type Background
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3,0xFFFDBC4A},  // Subject Type Button Background
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFFFDBC4A},  // Subject Type Bucket Colours
+            new int[] {0xFFEEEEEE, 0xFFC1C0C1, 0xFFD80088, 0xFF7D2893, 0xFF2344D6, 0xFF0094EB, 0xFF444444}, // Base Stage Bucket Colours
+            new int[] {0xFFD6AFCA, 0xFFCB8FB3, 0xFFD660AB, 0xFFD80088}, // Base Stage Pre-Passed Bucket Colours
+            new int[] {0xFF9D30A3, 0xFF7D2893}, // Bass Stage Passed Bucket Colours
+            new int[] {0xFF621899, 0xFFD80088, 0xFFD73099, 0xFFD660AB, 0xFFD077AF, 0xFFCB8FB3, 0xFFD09FBE, 0xFFD6AFCA, 0xFFC1C0C1, 0xFFEEEEEE}, //Bass Level Progression Bucket Colours
+            new int[] {0xFF909000, 0xFF909000, 0xFF00A000, 0xFFA00000, 0xFFFFFFFF, 0xFF909000}) { // Bass Anki Colors
         @Override
         protected void loadCustomizations() {
             final List<Integer> custom = GlobalSettings.Display.getThemeCustomizations(this);
