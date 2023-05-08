@@ -15,6 +15,7 @@
   ~ limitations under the License.
   -->
 
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -30,41 +31,58 @@
     android:elevation="4dp"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:ignore="UnusedAttribute">
 
     <com.smouldering_durtles.wk.views.SubjectInfoButtonView
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"/>
 
-    <TextView
-        android:id="@+id/meaning"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center_horizontal"
-        android:text=""
-        android:textColor="?attr/colorPrimaryLight"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="3"
-        style="@style/WK.TextView.Small"/>
+        android:layout_weight="1"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text=""
-        android:textColor="?attr/colorPrimaryLight"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="3"
-        style="@style/WK.TextView.Small"/>
+        <TextView
+            android:id="@+id/meaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:text=""
+            android:textColor="?attr/colorPrimaryLight"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="3"
+            style="@style/WK.TextView.Small"/>
+
+        <TextView
+            android:id="@+id/progress"
+            style="@style/WK.TextView.Small"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="3"
+            android:text=""
+            android:textColor="?attr/colorPrimaryLight" />
+
+    </LinearLayout>
 
 </LinearLayout>

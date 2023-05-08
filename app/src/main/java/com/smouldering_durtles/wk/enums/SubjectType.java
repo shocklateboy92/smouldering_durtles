@@ -198,11 +198,11 @@ public enum SubjectType {
         }
     },
     /**
-     * A WaniKani vocab.
+     * A WaniKani kana vocab.
      */
-    WANIKANI_KANA_VOCAB("kana_Vocabulary",
-            true, false, false,30, false, false, true, true, false,
-            "Kana Vocabulary", "Kana Vocabulary", "Kana Vocab", "Used kanji:", "kana vocabulary", "kana vocabulary", 2) {
+    WANIKANI_KANA_VOCAB("kana_vocabulary",
+            true, false, false,30, false, false, false, true, false,
+            "Kana Vocabulary", "Kana Vocabulary", "Kana Vocab", "Used kanji:", "kana_vocabulary", "kana_vocabulary", 2) {
         @Override
         public int getTextColor() {
             return ActiveTheme.getSubjectTypeTextColors()[3];
@@ -292,11 +292,14 @@ public enum SubjectType {
      * @return the SubjectType instance that corresponds to this.
      */
     public static SubjectType from(final String dbTypeName) {
+        System.out.println("Looking for SubjectType: " + dbTypeName); // Add this line for debugging
         for (final SubjectType type: values()) {
             if (type.dbTypeName.equals(dbTypeName)) {
+                System.out.println("Found matching SubjectType: " + type); // Add this line for debugging
                 return type;
             }
         }
+        System.out.println("Falling back to WANIKANI_KANA_VOCAB"); // Add this line for debugging
         return WANIKANI_RADICAL;
     }
 
@@ -415,6 +418,7 @@ public enum SubjectType {
     public boolean isVocabulary() {
         return vocabulary;
     }
+
     /**
      * Is this a kana vocabulary type?.
      * @return the value

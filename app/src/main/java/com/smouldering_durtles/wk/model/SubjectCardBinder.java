@@ -84,7 +84,10 @@ public final class SubjectCardBinder {
         if (subjectType.isVocabulary()) {
             return inflater.inflate(layoutIds.get(2), parent, false);
         }
-        return inflater.inflate(layoutIds.get(3), parent, false); // returns kana_vocabulary
+        if (subjectType.isKanaVocabulary()) { // Add this block for kana vocabulary
+            return inflater.inflate(layoutIds.get(3), parent, false);
+        }
+        return inflater.inflate(layoutIds.get(3), parent, false); // returns kana_vocabulary as a fallback
     }
 
     private static void bindCommon(final View view, final Subject subject, final View.OnClickListener onClickListener,
