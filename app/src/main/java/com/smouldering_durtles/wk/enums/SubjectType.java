@@ -262,7 +262,6 @@ public enum SubjectType {
     private final boolean radical;
     private final boolean kanji;
     private final boolean vocabulary;
-
     private final boolean kanaVocabulary;
     private final boolean hasLevelUpTarget;
     private final String description;

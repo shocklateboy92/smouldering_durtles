@@ -171,6 +171,10 @@ public final class SearchResultAdapter extends RecyclerView.Adapter<ResultItemVi
                     final View view = binder.createView(SubjectType.WANIKANI_VOCAB, parent);
                     return new SubjectItemViewHolder(this, view, binder, fragmentRef.get());
                 }
+                case R.id.viewTypeResultKanaVocabulary: {
+                    final View view = binder.createView(SubjectType.WANIKANI_KANA_VOCAB, parent);
+                    return new SubjectItemViewHolder(this, view, binder, fragmentRef.get());
+                }
                 case R.id.viewTypeResultSearchForm: {
                     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                     final View view = inflater.inflate(R.layout.search_result_form, parent, false);

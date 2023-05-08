@@ -245,11 +245,11 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     }
 
     private static int getBaseColor(final int index) {
-        if (index < 3) {
+        if (index < 4) {
             return ActiveTheme.getBaseSubjectTypeBucketColors()[index];
         }
         if (index < 10) {
-            return ActiveTheme.getBaseShallowStageBucketColors()[index-3];
+            return ActiveTheme.getBaseShallowStageBucketColors()[index-4];
         }
         if (index < 14) {
             return ActiveTheme.getBasePrePassedBucketColors()[index-10];
@@ -269,7 +269,7 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     private void updateSelection(final int index) {
         final int chosenColor = chosenColors[index];
 
-        if (index < 3) {
+        if (index < 4) {
             final int textColor = (ActiveTheme.getCurrentTheme().hasIdentBackground() || chosenColor == 0)
                     ? ActiveTheme.getBaseSubjectTypeTextColors()[index] : chosenColor;
             final int backgroundColor = (!ActiveTheme.getCurrentTheme().hasIdentBackground() || chosenColor == 0)
@@ -278,7 +278,7 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
         else if (index < 10) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseShallowStageBucketColors()[index-3] : chosenColor;
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseShallowStageBucketColors()[index-4] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
         else if (index < 14) {

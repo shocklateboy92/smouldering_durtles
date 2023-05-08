@@ -147,6 +147,7 @@ public final class AdvancedSearchFormView extends TableLayout {
         itemTypeSwitches.add(new ViewProxy(this, R.id.itemTypeRadical));
         itemTypeSwitches.add(new ViewProxy(this, R.id.itemTypeKanji));
         itemTypeSwitches.add(new ViewProxy(this, R.id.itemTypeVocabulary));
+        itemTypeSwitches.add(new ViewProxy(this, R.id.itemTypeKanaVocabulary));
 
         jlptLevelSwitches.add(new ViewProxy(this, R.id.jlptLevelNone));
         jlptLevelSwitches.add(new ViewProxy(this, R.id.jlptLevelN5));
@@ -249,6 +250,7 @@ public final class AdvancedSearchFormView extends TableLayout {
         itemTypeSwitches.get(0).setTag(R.id.advancedSearchSwitchTag, SubjectType.WANIKANI_RADICAL);
         itemTypeSwitches.get(1).setTag(R.id.advancedSearchSwitchTag, SubjectType.WANIKANI_KANJI);
         itemTypeSwitches.get(2).setTag(R.id.advancedSearchSwitchTag, SubjectType.WANIKANI_VOCAB);
+        itemTypeSwitches.get(2).setTag(R.id.advancedSearchSwitchTag, SubjectType.WANIKANI_KANA_VOCAB);
 
         jlptLevelSwitches.get(0).setTag(R.id.advancedSearchSwitchTag, 0);
         jlptLevelSwitches.get(1).setTag(R.id.advancedSearchSwitchTag, 5);

@@ -55,6 +55,9 @@ public final class SubjectItem extends ResultItem {
         if (subject.getType().isKanji()) {
             return R.id.viewTypeResultKanji;
         }
+        if (subject.getType().isKanaVocabulary()) {
+            return R.id.viewTypeResultKanaVocabulary;
+        }
         return R.id.viewTypeResultVocabulary;
     }
 

@@ -1,0 +1,36 @@
+INSTRUMENTATION_STATUS: class=com.smouldering_durtles.wk.test.WaniKaniApiTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+com.smouldering_durtles.wk.test.WaniKaniApiTest:
+INSTRUMENTATION_STATUS: test=testGetApiCallWithNewApiResponse
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.smouldering_durtles.wk.test.WaniKaniApiTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.fasterxml.jackson.databind.JsonNode.toString()' on a null object reference
+at com.smouldering_durtles.wk.test.WaniKaniApiTest.testGetApiCallWithNewApiResponse(WaniKaniApiTest.java:87)
+
+INSTRUMENTATION_STATUS: stream=
+Error in testGetApiCallWithNewApiResponse(com.smouldering_durtles.wk.test.WaniKaniApiTest):
+java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.fasterxml.jackson.databind.JsonNode.toString()' on a null object reference
+at com.smouldering_durtles.wk.test.WaniKaniApiTest.testGetApiCallWithNewApiResponse(WaniKaniApiTest.java:87)
+
+INSTRUMENTATION_STATUS: test=testGetApiCallWithNewApiResponse
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 0.458
+There was 1 failure:
+1) testGetApiCallWithNewApiResponse(com.smouldering_durtles.wk.test.WaniKaniApiTest)
+java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.fasterxml.jackson.databind.JsonNode.toString()' on a null object reference
+at com.smouldering_durtles.wk.test.WaniKaniApiTest.testGetApiCallWithNewApiResponse(WaniKaniApiTest.java:87)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
+

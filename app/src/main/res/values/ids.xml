@@ -22,6 +22,7 @@
     <item type="id" name="viewTypeResultRadical"/>
     <item type="id" name="viewTypeResultKanji"/>
     <item type="id" name="viewTypeResultVocabulary"/>
+    <item type="id" name="viewTypeResultKanaVocabulary"/>
     <item type="id" name="viewTypeResultSearchForm"/>
     <item type="id" name="viewTypeResultItemTypeHeader"/>
     <item type="id" name="viewTypeResultLevelHeader"/>

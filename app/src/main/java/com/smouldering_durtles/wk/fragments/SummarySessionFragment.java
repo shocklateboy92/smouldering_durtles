@@ -74,6 +74,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
     private final ViewProxy correctRadicals = new ViewProxy();
     private final ViewProxy correctKanji = new ViewProxy();
     private final ViewProxy correctVocabulary = new ViewProxy();
+    private final ViewProxy correctKanaVocabulary = new ViewProxy();
     private final ViewProxy incorrectHeader = new ViewProxy();
     private final ViewProxy incorrectTable = new ViewProxy();
     private final ViewProxy incorrectSummary = new ViewProxy();
@@ -81,6 +82,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
     private final ViewProxy incorrectRadicals = new ViewProxy();
     private final ViewProxy incorrectKanji = new ViewProxy();
     private final ViewProxy incorrectVocabulary = new ViewProxy();
+    private final ViewProxy incorrectKanaVocabulary = new ViewProxy();
     private final ViewProxy finishProgressBar = new ViewProxy();
     private final ViewProxy incorrectStarSpinner = new ViewProxy();
     private final ViewProxy incorrectStarButton = new ViewProxy();
@@ -145,6 +147,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
         correctRadicals.setDelegate(view, R.id.correctRadicals);
         correctKanji.setDelegate(view, R.id.correctKanji);
         correctVocabulary.setDelegate(view, R.id.correctVocabulary);
+        correctKanaVocabulary.setDelegate(view, R.id.correctKanaVocabulary);
         incorrectHeader.setDelegate(view, R.id.incorrectHeader);
         incorrectTable.setDelegate(view, R.id.incorrectTable);
         incorrectSummary.setDelegate(view, R.id.incorrectSummary);
@@ -152,6 +155,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
         incorrectRadicals.setDelegate(view, R.id.incorrectRadicals);
         incorrectKanji.setDelegate(view, R.id.incorrectKanji);
         incorrectVocabulary.setDelegate(view, R.id.incorrectVocabulary);
+        incorrectKanaVocabulary.setDelegate(view, R.id.incorrectKanaVocabulary);
         finishProgressBar.setDelegate(view, R.id.finishProgressBar);
         incorrectStarSpinner.setDelegate(view, R.id.incorrectStarSpinner);
         incorrectStarButton.setDelegate(view, R.id.incorrectStarButton);
@@ -161,10 +165,12 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
         int numCorrectRadicals = 0;
         int numCorrectKanji = 0;
         int numCorrectVocabulary = 0;
+        int numCorrectKanaVocabulary = 0;
         int correctTotal = 0;
         int totalRadical = 0;
         int totalKanji = 0;
         int totalVocabulary = 0;
+        int totalKanaVocabulary = 0;
         int total = 0;
         for (final SessionItem item: session.getItems()) {
             if (item.isAbandoned()) {
@@ -196,6 +202,14 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
                     correctTotal++;
                 }
             }
+            if (subject.getType().isKanaVocabulary()) {
+                total++;
+                totalKanaVocabulary++;
+                if (incorrect == 0) {
+                    numCorrectKanaVocabulary++;
+                    correctTotal++;
+                }
+            }
         }
         final float correctFraction = (total == 0) ? 0 : ((float) correctTotal) / total;
         final int totalPercentage = Math.round(correctFraction * 100);
@@ -204,11 +218,13 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
         correctRadicals.setText(numCorrectRadicals);
         correctKanji.setText(numCorrectKanji);
         correctVocabulary.setText(numCorrectVocabulary);
+        correctKanaVocabulary.setText(numCorrectKanaVocabulary);
 
         incorrectPercentage.setTextFormat("%d%%", 100-totalPercentage);
         incorrectRadicals.setText(totalRadical-numCorrectRadicals);
         incorrectKanji.setText(totalKanji-numCorrectKanji);
         incorrectVocabulary.setText(totalVocabulary-numCorrectVocabulary);
+        incorrectKanaVocabulary.setText(totalKanaVocabulary-numCorrectKanaVocabulary);
 
         specialButton1.setVisibility(GlobalSettings.AdvancedOther.getSpecialButton1Behavior().canShow());
         specialButton1.setText(GlobalSettings.AdvancedOther.getSpecialButton1Behavior().getLabel());

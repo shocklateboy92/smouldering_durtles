@@ -48,7 +48,7 @@ public final class Constants {
     /**
      * The number of theme customization options offered.
      */
-    public static final int NUM_THEME_CUSTOMIZATION_OPTIONS = 32;
+    public static final int NUM_THEME_CUSTOMIZATION_OPTIONS = 33;
 
     /**
      * Short names of weekdays for timeline bar chart.

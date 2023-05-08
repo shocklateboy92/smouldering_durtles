@@ -119,17 +119,17 @@ public final class WaniKaniTagHandler implements Html.TagHandler {
                 }
             }
         }
-        else if (tag.equalsIgnoreCase("kana_vocabulary") || tag.equalsIgnoreCase("kvoc")) {
+        else if (tag.equalsIgnoreCase("kana_vocabulary") || tag.equalsIgnoreCase("kanavoc")) {
             if (opening) {
-                start(output, new Vocabulary());
+                start(output, new kanaVocabulary());
             }
             else {
                 if (GlobalSettings.SubjectInfo.getHighlightSubjectTags()) {
-                    end(output, Vocabulary.class,
-                            new ButtonStyleSpan(ActiveTheme.getSubjectTypeTextColors()[2], ActiveTheme.getSubjectTypeBackgroundColors()[2]));
+                    end(output, kanaVocabulary.class,
+                            new ButtonStyleSpan(ActiveTheme.getSubjectTypeTextColors()[3], ActiveTheme.getSubjectTypeBackgroundColors()[3]));
                 }
                 else {
-                    end(output, Vocabulary.class, new StyleSpan(Typeface.BOLD));
+                    end(output, kanaVocabulary.class, new StyleSpan(Typeface.BOLD));
                 }
             }
         }
@@ -308,6 +308,12 @@ public final class WaniKaniTagHandler implements Html.TagHandler {
      * Dummy marker class.
      */
     private static final class Vocabulary {
+        //
+    }
+    /**
+     * Dummy marker class.
+     */
+    private static final class kanaVocabulary {
         //
     }
 

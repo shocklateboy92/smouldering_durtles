@@ -89,7 +89,7 @@ public abstract class ApiTask {
      * @param uri the request URI, which is either absolute (https://...) or site-relative (starts with '/')
      * @return the response body, parsed as a JSON document
      */
-    private static @Nullable JsonNode getApiCall(final String uri) {
+     private  static @Nullable JsonNode getApiCall(final String uri) {
         RateLimiter.getInstance().prepare();
         final ObjectMapper mapper = Converters.getObjectMapper();
         final AppDatabase db = WkApplication.getDatabase();
