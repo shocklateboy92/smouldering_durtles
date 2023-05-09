@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.smouldering_durtles.wk.WkApplication;
-import com.smouldering_durtles.wk.services.BackgroundSyncWorker;
+import com.smouldering_durtles.wk.fragments.services.BackgroundSyncWorker;
 
 import java.util.Collections;
 import java.util.List;

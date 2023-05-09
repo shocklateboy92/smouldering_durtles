@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,29 +25,9 @@ public final class StableIds {
     }
 
     /**
-     * The ID for jobs running in the JobRunnerService.
-     */
-    public static final int JOB_RUNNER_SERVICE_JOB_ID = 1;
-
-    /**
-     * The ID for jobs running in the ApiTaskService.
-     */
-    public static final int API_TASK_SERVICE_JOB_ID = 2;
-
-    /**
      * Activity result code when importing a font file.
      */
     public static final int FONT_IMPORT_RESULT_CODE = 3;
-
-    /**
-     * Activity result code when importing search presets.
-     */
-    public static final int SEARCH_PRESET_IMPORT_RESULT_CODE = 4;
-
-    /**
-     * Activity result code when importing star ratings.
-     */
-    public static final int STAR_RATINGS_IMPORT_RESULT_CODE = 5;
 
     /**
      * Request code for background alarm - old pre-19 variant.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ public final class HeaderItemViewHolder extends LogItemViewHolder implements Vie
         final int icon = item.isCollapsed() ? R.drawable.ic_expand_less : R.drawable.ic_expand_more;
         final @Nullable Drawable drawable = ContextCompat.getDrawable(itemView.getContext(), icon);
         if (drawable != null) {
-            drawable.setColorFilter(new SimpleColorFilter(ThemeUtil.getColor(R.attr.colorPrimary)));
+            drawable.setColorFilter(new SimpleColorFilter(ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary)));
             arrowHead.setImageDrawable(drawable);
         }
 
@@ -81,15 +81,15 @@ public final class HeaderItemViewHolder extends LogItemViewHolder implements Vie
             if (item.isCollapsed()) {
                 item.setCollapsed(false);
                 final int count = item.getCount() - 1;
-                adapter.notifyItemChanged(getAdapterPosition());
-                adapter.notifyItemRangeInserted(getAdapterPosition() + 1, count);
+                adapter.notifyItemChanged(getBindingAdapterPosition());
+                adapter.notifyItemRangeInserted(getBindingAdapterPosition() + 1, count);
                 adapter.getCollapsedTags().remove(item.getTag());
             }
             else {
                 final int count = item.getCount() - 1;
                 item.setCollapsed(true);
-                adapter.notifyItemChanged(getAdapterPosition());
-                adapter.notifyItemRangeRemoved(getAdapterPosition() + 1, count);
+                adapter.notifyItemChanged(getBindingAdapterPosition());
+                adapter.notifyItemRangeRemoved(getBindingAdapterPosition() + 1, count);
                 adapter.getCollapsedTags().add(item.getTag());
             }
         });

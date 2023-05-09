@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -202,7 +202,7 @@ public enum SubjectType {
      */
     WANIKANI_KANA_VOCAB("kana_vocabulary",
             true, false, false,30, false, false, false, true, false,
-            "Kana Vocabulary", "Kana Vocabulary", "Kana Vocab", "Used kanji:", "kana_vocabulary", "kana_vocabulary", 2) {
+            "Kana-only Vocabulary", "Vocabulary", "Kana-only Vocab", "Used kanji:", "vocabulary", "vocabulary", 2) {
         @Override
         public int getTextColor() {
             return ActiveTheme.getSubjectTypeTextColors()[3];
@@ -217,10 +217,13 @@ public enum SubjectType {
         public int getButtonBackgroundColor() {
             return ActiveTheme.getSubjectTypeButtonBackgroundColors()[3];
         }
-
+        @Override
+        public String getInfoTitleLabel() {
+            return "Kana-only Vocab"; // Change this to the desired label
+        }
         @Override
         public String getSimpleInfoTitle(final int level) {
-            return String.format(Locale.ROOT, "Level %d kana vocabulary", level);
+            return String.format(Locale.ROOT, "Level %d kana-only vocabulary", level);
         }
 
         @Override

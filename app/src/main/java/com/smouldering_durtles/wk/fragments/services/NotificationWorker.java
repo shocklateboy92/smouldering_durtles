@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.smouldering_durtles.wk.services;
+package com.smouldering_durtles.wk.fragments.services;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -72,7 +73,7 @@ public final class NotificationWorker {
             final String name = "NewReviewsChannel";
             final String description = "New reviews available";
             final int importance = GlobalSettings.Other.getNotificationPriority().getManagerImportance();
-            final NotificationChannel channel = new NotificationChannel(name, name, importance);
+            @SuppressLint("WrongConstant") final NotificationChannel channel = new NotificationChannel(name, name, importance);
             channel.setDescription(description);
             final @Nullable NotificationManager notificationManager = WkApplication.getInstance().getSystemService(NotificationManager.class);
             if (notificationManager != null) {

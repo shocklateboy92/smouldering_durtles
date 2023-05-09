@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,9 @@ public enum ActiveTheme {
             R.style.WKLightTheme,
             R.drawable.ic_arrow_up_small,
             new int[] {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF}, // Subject Text Colour
-            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFFFDBC4A},  // Subject Type Background
-            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3,0xFFFDBC4A},  // Subject Type Button Background
-            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFFFDBC4A},  // Subject Type Bucket Colours
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFF9808F3},  // Subject Type Background
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3,0xFF9808F3},  // Subject Type Button Background
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFF9808F3},  // Subject Type Bucket Colours
             new int[] {0xFFEEEEEE, 0xFFC1C0C1, 0xFFD80088, 0xFF7D2893, 0xFF2344D6, 0xFF0094EB, 0xFF444444}, // Base Stage Bucket Colours
             new int[] {0xFFD6AFCA, 0xFFCB8FB3, 0xFFD660AB, 0xFFD80088}, // Base Stage Pre-Passed Bucket Colours
             new int[] {0xFF9D30A3, 0xFF7D2893}, // Bass Stage Passed Bucket Colours
@@ -100,7 +100,7 @@ public enum ActiveTheme {
             false,
             R.style.WKDarkTheme,
             R.drawable.ic_arrow_up_small_dark,
-            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFFF65700},
+            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},
             new int[] {0xFF232629, 0xFF232629, 0xFF232629, 0xFF232629},
             new int[] {0xFF404040, 0xFF404040, 0xFF404040, 0xFF404040},
             new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFFF65700},
@@ -170,7 +170,7 @@ public enum ActiveTheme {
             false,
             R.style.WKBlackTheme,
             R.drawable.ic_arrow_up_small_dark,
-            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFFF67400},
+            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},
             new int[] {0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000},
             new int[] {0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000},
             new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},

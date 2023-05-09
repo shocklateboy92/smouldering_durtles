@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package com.smouldering_durtles.wk.activities;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,6 +26,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.io.IOException;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -48,12 +48,13 @@ import static com.smouldering_durtles.wk.util.FontStorageUtil.flushCache;
 import static com.smouldering_durtles.wk.util.FontStorageUtil.getNames;
 import static com.smouldering_durtles.wk.util.FontStorageUtil.getTypefaceConfiguration;
 import static com.smouldering_durtles.wk.util.FontStorageUtil.hasFontFile;
-import static com.smouldering_durtles.wk.util.FontStorageUtil.importFontFile;
 import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
 import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safeNullable;
 import static java.util.Objects.requireNonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 
 /**
  * An activity for importing fonts for quiz questions.
@@ -105,6 +106,27 @@ public final class FontImportActivity extends AbstractActivity {
             fontTable.addView(row, rowLayoutParams);
         }
     }
+    private final ActivityResultLauncher<Intent> importFontResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
+                    final Uri uri = result.getData().getData();
+                    final @Nullable String fileName = resolveFileName(uri);
+                    if (fileName == null) {
+                        return;
+                    }
+                    if (hasFontFile(fileName)) {
+                        new AlertDialog.Builder(this)
+                                .setTitle("Overwrite file?")
+                                .setMessage(String.format("A file named '%s' already exists. Do you want to overwrite it?", fileName))
+                                .setIcon(R.drawable.ic_baseline_warning_24px)
+                                .setNegativeButton("No", (dialog, which) -> {})
+                                .setPositiveButton("Yes", (dialog, which) -> safe(() -> importFile(uri, fileName))).create().show();
+                    } else {
+                        importFile(uri, fileName);
+                    }
+                }
+            });
 
     private @Nullable String resolveFileName(final Uri uri) {
         return safeNullable(() -> {
@@ -134,11 +156,20 @@ public final class FontImportActivity extends AbstractActivity {
         });
     }
 
+    private void importFontFile(final InputStream inputStream, final String fileName) throws IOException {
+        FontStorageUtil.importFontFile(inputStream, fileName);
+        flushCache(fileName);
+        updateFileList();
+    }
     private void importFile(final Uri uri, final String fileName) {
         runAsync(this, () -> {
             try (final @Nullable InputStream is = WkApplication.getInstance().getContentResolver().openInputStream(uri)) {
                 if (is != null) {
-                    importFontFile(is, fileName);
+                    try {
+                        importFontFile(is, fileName);
+                    } catch (IOException e) {
+                        throw new RuntimeException("Error importing font file", e);
+                    }
                 }
             }
             return null;
@@ -182,19 +213,16 @@ public final class FontImportActivity extends AbstractActivity {
         });
     }
 
-    @TargetApi(19)
-    private void importFontPost19() {
-        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    private void importFontFile() {
+        Intent intent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        } else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+        }
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, FONT_IMPORT_RESULT_CODE);
-    }
-
-    private void importFontPre19() {
-        final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(Intent.createChooser(intent, "Select a TTF font file to import"), FONT_IMPORT_RESULT_CODE);
+        importFontResultLauncher.launch(Intent.createChooser(intent, "Select a TTF font file to import"));
     }
 
     /**
@@ -203,14 +231,7 @@ public final class FontImportActivity extends AbstractActivity {
      * @param view the button.
      */
     public void importFont(@SuppressWarnings("unused") final View view) {
-        safe(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                importFontPost19();
-            }
-            else {
-                importFontPre19();
-            }
-        });
+        safe(this::importFontFile);
     }
 
     /**

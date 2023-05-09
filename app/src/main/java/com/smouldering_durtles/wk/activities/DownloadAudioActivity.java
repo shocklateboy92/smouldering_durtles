@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import com.smouldering_durtles.wk.livedata.LiveAudioDownloadStatus;
 import com.smouldering_durtles.wk.livedata.LiveAudioMoveStatus;
 import com.smouldering_durtles.wk.livedata.LiveTaskCounts;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
-import com.smouldering_durtles.wk.services.JobRunnerService;
+import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.AudioUtil;
 import com.smouldering_durtles.wk.views.DownloadAudioBracketView;
 

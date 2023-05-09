@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.smouldering_durtles.wk.services;
+package com.smouldering_durtles.wk.fragments.services;
 
-import android.content.Intent;
-
-import androidx.core.app.JobIntentService;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.WkApplication;
@@ -31,14 +30,16 @@ import com.smouldering_durtles.wk.tasks.ApiTask;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static com.smouldering_durtles.wk.StableIds.API_TASK_SERVICE_JOB_ID;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
 /**
- * An intent service for running tasks. Tasks are actions that need to run
+ * A service for running tasks. Tasks are actions that need to run
  * in the background, don't have to run immediately, may take a long time to
  * complete (usually because they are network calls), and must be persisted
  * so they will be executed even across restarts and when errors occur.
@@ -49,7 +50,7 @@ import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
  *     status.
  * </p>
  */
-public final class ApiTaskService extends JobIntentService {
+public final class ApiTaskService extends Service {
     /**
      * A single dummy object to synchronize on, to make sure the background sync doesn't
      * overlap with this.
@@ -61,8 +62,8 @@ public final class ApiTaskService extends JobIntentService {
      * This is regularly called from job housekeeping.
      */
     public static void schedule() {
-        final Intent intent = new Intent(WkApplication.getInstance(), ApiTaskService.class);
-        enqueueWork(WkApplication.getInstance(), ApiTaskService.class, API_TASK_SERVICE_JOB_ID, intent);
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(ApiTaskWorker.class).build();
+        WorkManager.getInstance(WkApplication.getInstance()).enqueue(workRequest);
     }
 
     private static void runTasksImpl() throws Exception {
@@ -133,8 +134,10 @@ public final class ApiTaskService extends JobIntentService {
         safe(ApiTaskService::runTasksImpl);
     }
 
+    @androidx.annotation.Nullable
     @Override
-    protected void onHandleWork(final @Nonnull Intent intent) {
-        runTasks();
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
+

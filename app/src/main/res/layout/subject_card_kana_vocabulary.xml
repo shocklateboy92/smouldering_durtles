@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+  ~ Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -68,11 +68,23 @@
             style="@style/WK.TextView.Small"/>
 
         <TextView
+            android:id="@+id/reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:text=""
+            android:textColor="?attr/colorPrimaryLight"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="3"
+            style="@style/WK.TextView.Normal"/>
+
+        <TextView
             android:id="@+id/progress"
             style="@style/WK.TextView.Small"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
+            android:layout_width="79dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="end"

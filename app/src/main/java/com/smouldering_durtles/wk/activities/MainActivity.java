@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,11 +36,11 @@ import com.smouldering_durtles.wk.livedata.LiveTimeLine;
 import com.smouldering_durtles.wk.model.Session;
 import com.smouldering_durtles.wk.model.TimeLine;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
-import com.smouldering_durtles.wk.services.BackgroundAlarmReceiver;
-import com.smouldering_durtles.wk.services.BackgroundAlarmReceiverPost19;
-import com.smouldering_durtles.wk.services.BackgroundAlarmReceiverPost23;
-import com.smouldering_durtles.wk.services.BackgroundSyncWorker;
-import com.smouldering_durtles.wk.services.JobRunnerService;
+import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
+import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost19;
+import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost23;
+import com.smouldering_durtles.wk.fragments.services.BackgroundSyncWorker;
+import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
 import com.smouldering_durtles.wk.views.AvailableSessionsView;
 import com.smouldering_durtles.wk.views.FirstTimeSetupView;
 import com.smouldering_durtles.wk.views.JlptProgressView;

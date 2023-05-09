@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 
 import javax.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Presets for the advanced search form.
@@ -46,4 +47,16 @@ public final class AdvancedSearchParameters {
     public final Collection<SubjectType> itemTypes = EnumSet.noneOf(SubjectType.class);
     public final Collection<Integer> jlptLevels = new HashSet<>();
     public final Collection<Integer> joyoGrades = new HashSet<>();
+
+
+    @JsonIgnore
+    private String displayLabel;
+
+    public String getDisplayLabel() {
+        return displayLabel;
+    }
+
+    public void setDisplayLabel(String displayLabel) {
+        this.displayLabel = displayLabel;
+    }
 }

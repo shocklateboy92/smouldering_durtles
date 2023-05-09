@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ public final class SubjectCardBinder {
     }
 
     private static void bindCommon(final View view, final Subject subject, final View.OnClickListener onClickListener,
-                            final boolean showMeaning, final boolean showReading) {
+                                   final boolean showMeaning, final boolean showReading) {
         final ViewProxy button = new ViewProxy(view, R.id.button);
         final ViewProxy meaning = new ViewProxy(view, R.id.meaning);
         final ViewProxy reading = new ViewProxy(view, R.id.reading);
@@ -115,6 +115,10 @@ public final class SubjectCardBinder {
             reading.setJapaneseLocale();
             reading.setVisibility(true);
         }
+        else if (subject.getType().isKanaVocabulary()) {
+            reading.setText(subject.getCharacters());
+            reading.setVisibility(true);
+        }
         else {
             reading.setVisibility(false);
         }
@@ -133,7 +137,9 @@ public final class SubjectCardBinder {
         final ViewProxy progress = new ViewProxy(view, R.id.progress);
 
         final SrsSystem.Stage stage = subject.getSrsStage();
-        final String stageName = subject.getType().isVocabulary() ? stage.getName() : stage.getShortName();
+        final boolean isVocabulary = subject.getType().isVocabulary();
+        final boolean isKanaVocabulary = subject.getType().isKanaVocabulary();
+        final String stageName = isVocabulary || isKanaVocabulary ? stage.getName() : stage.getShortName();
         if (stage.isLocked()) {
             progress.setVisibility(false);
         }
@@ -172,10 +178,10 @@ public final class SubjectCardBinder {
             final int bgColor;
             if (availableNow) {
                 textColor = ThemeUtil.getColor(R.attr.colorBackground);
-                bgColor = ThemeUtil.getColor(R.attr.colorPrimary);
+                bgColor = ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary);
             }
             else {
-                textColor = ThemeUtil.getColor(R.attr.colorPrimary);
+                textColor = ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary);
                 bgColor = ThemeUtil.getColor(R.attr.colorBackground);
             }
 
@@ -200,7 +206,7 @@ public final class SubjectCardBinder {
 
             if (ThemeUtil.isLightColor(bgColor)) {
                 stageLetter.setShadowLayer(0, 0, 0, 0);
-                textColor = ThemeUtil.getColor(R.attr.colorPrimaryDark);
+                textColor = ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimaryDark);
             }
             else {
                 stageLetter.setShadowLayer(3, 1, 1, Color.BLACK);

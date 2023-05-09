@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -169,7 +169,7 @@ public final class Constants {
             + " service created by <a href=\"https://www.tofugu.com/\">Tofugu</a>.<br/><br/>"
             + " Are you new to WaniKani? Check out their <a href=\"https://knowledge.wanikani.com/\">knowledge base</a>"
             + " for more information. You will need an active WaniKani account to be able to use this app.<br/><br/> "
-            + Identification.APP_NAME + " was re-coded by " + Identification.AUTHOR_NAME + "(known as Joeni) &lt;<a href=\"mailto:" + Identification.AUTHOR_EMAIL
+            + Identification.APP_NAME + " was re-coded by " + Identification.AUTHOR_NAME + " (known as Joeni) &lt;<a href=\"mailto:" + Identification.AUTHOR_EMAIL
             + "\">" + Identification.AUTHOR_EMAIL + "</a>&gt; on the original work of Ernst Jan Plugge who developed the open-source code and supported it for many years. The community thanks them for their sterling work. <br/><br/>"
             + " This app has been independently developed, and is not supported by, affiliated with or endorsed by Tofugu.<br/><br/>"
             + Identification.APP_NAME + " uses these Open Source third party components:<ul>"

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,8 +52,12 @@ public final class LevelProgress {
      * @param userLevel the user's level
      */
     public LevelProgress(final int userLevel) {
-        for (int i=1; i<=userLevel; i++) {
-            for (final SubjectType type: SubjectType.values()) {
+        for (int i = 1; i <= userLevel; i++) {
+            for (final SubjectType type : SubjectType.values()) {
+                // Skip creating a separate bar for kana_vocabulary
+                if (type == SubjectType.WANIKANI_KANA_VOCAB) {
+                    continue;
+                }
                 entries.add(new BarEntry(i, type));
             }
         }

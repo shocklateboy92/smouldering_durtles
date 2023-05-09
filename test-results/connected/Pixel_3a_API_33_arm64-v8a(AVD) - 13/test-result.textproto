@@ -29,7 +29,7 @@ test_result {
       namespace: "android"
     }
     source_path {
-      path: "/Users/jerry/smoldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/logcat-com.smouldering_durtles.wk.test.WaniKaniApiTest-testGetApiCallWithNewApiResponse.txt"
+      path: "/Users/jerry/Smouldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/logcat-com.smouldering_durtles.wk.test.WaniKaniApiTest-testGetApiCallWithNewApiResponse.txt"
     }
   }
   output_artifact {
@@ -38,7 +38,7 @@ test_result {
       namespace: "android"
     }
     source_path {
-      path: "/Users/jerry/smoldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/device-info.pb"
+      path: "/Users/jerry/Smouldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/device-info.pb"
     }
   }
   output_artifact {
@@ -47,7 +47,7 @@ test_result {
       namespace: "android"
     }
     source_path {
-      path: "/Users/jerry/smoldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/meminfo"
+      path: "/Users/jerry/Smouldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/meminfo"
     }
   }
   output_artifact {
@@ -56,7 +56,7 @@ test_result {
       namespace: "android"
     }
     source_path {
-      path: "/Users/jerry/smoldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/cpuinfo"
+      path: "/Users/jerry/Smouldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/cpuinfo"
     }
   }
 }
@@ -66,7 +66,7 @@ output_artifact {
     namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
   }
   source_path {
-    path: "/Users/jerry/smoldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/testlog/test-results.log"
+    path: "/Users/jerry/Smouldering_durtles/test-results/connected/Pixel_3a_API_33_arm64-v8a(AVD) - 13/testlog/test-results.log"
   }
   type: TEST_DATA
   mime_type: "text/plain"

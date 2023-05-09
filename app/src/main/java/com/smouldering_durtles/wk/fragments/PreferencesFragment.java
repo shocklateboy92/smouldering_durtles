@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ import com.smouldering_durtles.wk.components.TaggedUrlPreference;
 import com.smouldering_durtles.wk.components.TaggedUrlPreferenceDialogFragment;
 import com.smouldering_durtles.wk.jobs.ResetDatabaseJob;
 import com.smouldering_durtles.wk.livedata.LiveApiState;
-import com.smouldering_durtles.wk.services.JobRunnerService;
+import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.AudioUtil;
 import com.smouldering_durtles.wk.util.DbLogger;
 import com.smouldering_durtles.wk.util.ThemeUtil;
@@ -76,7 +76,7 @@ import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
  */
 public final class PreferencesFragment extends PreferenceFragmentCompat {
     @Override
-    public void onCreatePreferences(final Bundle savedInstanceState, final String rootKey) {
+    public void onCreatePreferences(final Bundle savedInstanceState, @Nullable final String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
     }
 
@@ -243,26 +243,24 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
     public void onDisplayPreferenceDialog(final Preference preference) {
         safe(() -> {
             if (preference instanceof TaggedUrlPreference) {
-                if (getParentFragmentManager().findFragmentByTag("TaggedUrlPreference") != null) {
-                    return;
-                }
-                final DialogFragment f = TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey());
-                f.setTargetFragment(this, 0);
-                f.show(getParentFragmentManager(), "TaggedUrlPreference");
+                displayCustomPreferenceDialog("TaggedUrlPreference", TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey()));
                 return;
             }
             if (preference instanceof NumberRangePreference) {
-                if (getParentFragmentManager().findFragmentByTag("NumberRangePreference") != null) {
-                    return;
-                }
-                final DialogFragment f = NumberRangePreferenceDialogFragment.newInstance(preference.getKey());
-                f.setTargetFragment(this, 0);
-                f.show(getParentFragmentManager(), "NumberRangePreference");
+                displayCustomPreferenceDialog("NumberRangePreference", NumberRangePreferenceDialogFragment.newInstance(preference.getKey()));
                 return;
             }
 
             super.onDisplayPreferenceDialog(preference);
         });
+    }
+
+    private void displayCustomPreferenceDialog(String tag, DialogFragment dialogFragment) {
+        if (getParentFragmentManager().findFragmentByTag(tag) != null) {
+            return;
+        }
+        dialogFragment.setTargetFragment(getParentFragment(), 0);
+        dialogFragment.show(getParentFragmentManager(), tag);
     }
 
     private void goToActivity(final Class<? extends AbstractActivity> clas) {

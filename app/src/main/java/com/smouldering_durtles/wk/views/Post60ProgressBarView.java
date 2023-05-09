@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,7 +101,7 @@ public final class Post60ProgressBarView extends View {
         for (int i=0; i<colors.length; i++) {
             final boolean light = ThemeUtil.isLightColor(colors[i]);
             textColors[i] = light
-                    ? ThemeUtil.getColor(R.attr.colorPrimaryDark)
+                    ? ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimaryDark)
                     : ThemeUtil.getColor(R.attr.colorPrimaryLight);
             textShadow[i] = !light;
         }

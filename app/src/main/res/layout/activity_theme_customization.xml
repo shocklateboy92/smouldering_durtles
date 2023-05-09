@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+  ~ Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="@string/subject_types"
+                    android:text="Subject Types"
                     android:textColor="#D0D0D0" />
 
                 <LinearLayout
@@ -100,7 +100,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="false"
                             android:gravity="center"
-                            android:text="@string/icon"
+                            android:text="亀"
                             android:textSize="24sp" />
                     </FrameLayout>
 
@@ -130,7 +130,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="false"
                             android:gravity="center"
-                            android:text="@string/icon"
+                            android:text="亀"
                             android:textSize="24sp" />
                     </FrameLayout>
 
@@ -160,7 +160,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="false"
                             android:gravity="center"
-                            android:text="@string/icon"
+                            android:text="亀"
                             android:textSize="24sp" />
                     </FrameLayout>
 
@@ -190,7 +190,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="false"
                             android:gravity="center"
-                            android:text="@string/icon"
+                            android:text="亀"
                             android:textSize="24sp" />
                     </FrameLayout>
 
@@ -205,7 +205,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="@string/srs_stages"
+                    android:text="SRS stages:"
                     android:textColor="#D0D0D0" />
 
                 <LinearLayout
@@ -398,7 +398,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="@string/apprentice_and_guru_subsections"
+                    android:text="Apprentice and Guru subsections:"
                     android:textColor="#D0D0D0" />
 
                 <LinearLayout
@@ -568,7 +568,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="@string/level_progression_subsections"
+                    android:text="Level progression subsections:"
                     android:textColor="#D0D0D0" />
 
                 <LinearLayout
@@ -833,7 +833,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="@string/anki_mode_colours"
+                    android:text="Anki mode colours:"
                     android:textColor="#D0D0D0" />
 
                 <LinearLayout
@@ -1026,7 +1026,7 @@
                     android:paddingTop="4dp"
                     android:paddingEnd="4dp"
                     android:paddingRight="4dp"
-                    android:text="@string/reset"
+                    android:text="Reset"
                     tools:ignore="RtlHardcoded" />
 
                 <TextView
@@ -1041,7 +1041,7 @@
                     android:paddingTop="4dp"
                     android:paddingEnd="4dp"
                     android:paddingRight="4dp"
-                    android:text="@string/rgb_values"
+                    android:text="RGB values:"
                     tools:ignore="RtlHardcoded" />
 
                 <com.smouldering_durtles.wk.views.SelfishColorPicker

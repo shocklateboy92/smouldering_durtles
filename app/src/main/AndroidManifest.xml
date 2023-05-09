@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+  ~ Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
@@ -170,9 +171,9 @@
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
 
-        <service android:name="com.smouldering_durtles.wk.services.JobRunnerService"
+        <service android:name="com.smouldering_durtles.wk.fragments.services.JobRunnerService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
-        <service android:name="com.smouldering_durtles.wk.services.ApiTaskService"
+        <service android:name="com.smouldering_durtles.wk.fragments.services.ApiTaskService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <provider
@@ -189,11 +190,11 @@
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths"/>
         </provider>
 
-        <receiver android:name="com.smouldering_durtles.wk.services.BackgroundAlarmReceiver"/>
-        <receiver android:name="com.smouldering_durtles.wk.services.BackgroundAlarmReceiverPost19"/>
-        <receiver android:name="com.smouldering_durtles.wk.services.BackgroundAlarmReceiverPost23"/>
+        <receiver android:name="com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver"/>
+        <receiver android:name="com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost19"/>
+        <receiver android:name="com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost23"/>
 
-        <receiver android:name="com.smouldering_durtles.wk.services.SessionWidgetProvider"
+        <receiver android:name="com.smouldering_durtles.wk.fragments.services.SessionWidgetProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>

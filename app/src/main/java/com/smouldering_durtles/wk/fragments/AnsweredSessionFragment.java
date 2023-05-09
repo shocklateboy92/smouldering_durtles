@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -142,7 +142,7 @@ public final class AnsweredSessionFragment extends AbstractSessionFragment {
         questionEdit.setSingleLine();
         questionEdit.setText(FloatingUiState.getCurrentAnswer());
         questionEdit.setTextSize(GlobalSettings.Font.getFontSizeQuestionEdit());
-        questionEdit.setTextColor(ThemeUtil.getColor(R.attr.colorPrimary));
+        questionEdit.setTextColor(ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary));
         if (question.getType().isAscii()) {
             questionEdit.setRootLocale();
         }

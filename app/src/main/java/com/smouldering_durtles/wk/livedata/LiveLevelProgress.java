@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.db.AppDatabase;
+import com.smouldering_durtles.wk.enums.SubjectType;
 import com.smouldering_durtles.wk.model.LevelProgress;
 import com.smouldering_durtles.wk.model.LevelProgressItem;
 
@@ -31,6 +32,9 @@ public final class LiveLevelProgress extends ConservativeLiveData<LevelProgress>
      * The singleton instance.
      */
     private static final LiveLevelProgress instance = new LiveLevelProgress();
+    private SubjectType type;
+    private int level;
+    private int count;
 
     /**
      * Get the singleton instance.
@@ -48,6 +52,22 @@ public final class LiveLevelProgress extends ConservativeLiveData<LevelProgress>
         //
     }
 
+    public void setType(SubjectType type) {
+        this.type = type;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    public void LevelProgressItem(SubjectType type, int level, int count) {
+        this.type = type;
+        this.level = level;
+        this.count = count;
+    }
     @SuppressLint("NewApi")
     @Override
     protected void updateLocal() {
@@ -55,12 +75,28 @@ public final class LiveLevelProgress extends ConservativeLiveData<LevelProgress>
         final int userLevel = db.propertiesDao().getUserLevel();
         final LevelProgress levelProgress = new LevelProgress(userLevel);
 
-        for (final LevelProgressItem item: db.subjectViewsDao().getLevelProgressTotalItems(userLevel)) {
-            levelProgress.setTotalCount(item);
+        for (final LevelProgressItem item : db.subjectViewsDao().getLevelProgressTotalItems(userLevel)) {
+            if (item.getType() == SubjectType.WANIKANI_KANA_VOCAB) {
+                LevelProgressItem combinedItem = new LevelProgressItem();
+                combinedItem.setType(SubjectType.WANIKANI_VOCAB);
+                combinedItem.setLevel(item.getLevel());
+                combinedItem.setCount(item.getCount());
+                levelProgress.setTotalCount(combinedItem);
+            } else {
+                levelProgress.setTotalCount(item);
+            }
         }
 
-        for (final LevelProgressItem item: db.subjectViewsDao().getLevelProgressPassedItems(userLevel)) {
-            levelProgress.setNumPassed(item);
+        for (final LevelProgressItem item : db.subjectViewsDao().getLevelProgressPassedItems(userLevel)) {
+            if (item.getType() == SubjectType.WANIKANI_KANA_VOCAB) {
+                LevelProgressItem combinedItem = new LevelProgressItem();
+                combinedItem.setType(SubjectType.WANIKANI_VOCAB);
+                combinedItem.setLevel(item.getLevel());
+                combinedItem.setCount(item.getCount());
+                levelProgress.setNumPassed(combinedItem);
+            } else {
+                levelProgress.setNumPassed(item);
+            }
         }
 
         levelProgress.removePassedBars();

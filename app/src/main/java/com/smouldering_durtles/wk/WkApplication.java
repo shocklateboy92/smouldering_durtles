@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jerry Cooke <smoldering_durtles@icloud.com>
+ * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ import com.smouldering_durtles.wk.livedata.LiveTimeLine;
 import com.smouldering_durtles.wk.livedata.LiveVacationMode;
 import com.smouldering_durtles.wk.livedata.LiveWorkInfos;
 import com.smouldering_durtles.wk.model.Session;
-import com.smouldering_durtles.wk.services.JobRunnerService;
+import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.AsyncTask;
 import com.smouldering_durtles.wk.util.DbLogger;
 
