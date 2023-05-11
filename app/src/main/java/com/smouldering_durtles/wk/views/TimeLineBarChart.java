@@ -16,6 +16,11 @@
 
 package com.smouldering_durtles.wk.views;
 
+import static com.smouldering_durtles.wk.Constants.FONT_SIZE_NORMAL;
+import static com.smouldering_durtles.wk.Constants.HOUR;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static com.smouldering_durtles.wk.util.TextUtil.formatShortTimeForDisplay;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -40,6 +45,7 @@ import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.R;
 import com.smouldering_durtles.wk.db.model.Subject;
 import com.smouldering_durtles.wk.enums.ActiveTheme;
+import com.smouldering_durtles.wk.enums.SubjectType;
 import com.smouldering_durtles.wk.livedata.LiveTimeLine;
 import com.smouldering_durtles.wk.livedata.LiveVacationMode;
 import com.smouldering_durtles.wk.model.SrsSystem;
@@ -52,11 +58,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.FONT_SIZE_NORMAL;
-import static com.smouldering_durtles.wk.Constants.HOUR;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static com.smouldering_durtles.wk.util.TextUtil.formatShortTimeForDisplay;
 
 /**
  * Custom bar chart for the timeline.
@@ -646,7 +647,14 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
             final int[] values = {0, 0, 0};
             int count = 0;
             for (final Subject review: reviews) {
-                values[review.getType().getTimeLineBarChartBucket()]++;
+                int bucketIndex = review.getType().getTimeLineBarChartBucket();
+
+                // Check if the item type is WANIKANI_KANA_VOCAB and update the bucket index accordingly
+                if (review.getType() == SubjectType.WANIKANI_KANA_VOCAB) {
+                    bucketIndex = SubjectType.WANIKANI_VOCAB.getTimeLineBarChartBucket();
+                }
+
+                values[bucketIndex]++;
                 count++;
             }
             if (count > maxBarCount) {
@@ -660,6 +668,8 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
 
         legendLabels = new String[] {"Radical", "Kanji", "Vocabulary"};
     }
+
+
 
     /**
      * Build a dummy data test set for testing of the chart code.

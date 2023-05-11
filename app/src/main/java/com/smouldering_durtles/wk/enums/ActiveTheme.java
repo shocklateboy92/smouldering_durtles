@@ -47,7 +47,12 @@ public enum ActiveTheme {
                 subjectTypeTextColors[i] = baseSubjectTypeTextColors[i];
                 subjectTypeBackgroundColors[i] = (color == 0) ? baseSubjectTypeBackgroundColors[i] : color;
                 subjectTypeButtonBackgroundColors[i] = (color == 0) ? baseSubjectTypeButtonBackgroundColors[i] : color;
-                subjectTypeBucketColors[i] = (color == 0) ? baseSubjectTypeBucketColors[i] : color;
+            }
+            for (int i=0; i<4; i++) {
+                if (i < 3) {
+                    final int color = custom.get(i);
+                    subjectTypeBucketColors[i] = (color == 0) ? baseSubjectTypeBucketColors[i] : color;
+                }
             }
             for (int i=0; i<7; i++) {
                 final int color = custom.get(i+3);
@@ -117,7 +122,12 @@ public enum ActiveTheme {
                 subjectTypeTextColors[i] = (color == 0) ? baseSubjectTypeTextColors[i] : color;
                 subjectTypeBackgroundColors[i] = baseSubjectTypeBackgroundColors[i];
                 subjectTypeButtonBackgroundColors[i] = baseSubjectTypeButtonBackgroundColors[i];
-                subjectTypeBucketColors[i] = (color == 0) ? baseSubjectTypeBucketColors[i] : color;
+            }
+            for (int i=0; i<4; i++) {
+                if (i < 3) {
+                    final int color = custom.get(i);
+                    subjectTypeBucketColors[i] = (color == 0) ? baseSubjectTypeBucketColors[i] : color;
+                }
             }
             for (int i=0; i<7; i++) {
                 final int color = custom.get(i+3);
@@ -187,7 +197,12 @@ public enum ActiveTheme {
                 subjectTypeTextColors[i] = (color == 0) ? baseSubjectTypeTextColors[i] : color;
                 subjectTypeBackgroundColors[i] = baseSubjectTypeBackgroundColors[i];
                 subjectTypeButtonBackgroundColors[i] = baseSubjectTypeButtonBackgroundColors[i];
-                subjectTypeBucketColors[i] = (color == 0) ? baseSubjectTypeBucketColors[i] : color;
+            }
+            for (int i=0; i<4; i++) {
+                if (i < 3) {
+                    final int color = custom.get(i);
+                    subjectTypeBucketColors[i] = (color == 0) ? baseSubjectTypeBucketColors[i] : color;
+                }
             }
             for (int i=0; i<7; i++) {
                 final int color = custom.get(i+3);

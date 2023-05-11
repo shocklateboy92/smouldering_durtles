@@ -142,21 +142,6 @@
             android:shadowDy="1"
             android:shadowRadius="3"
             style="@style/WK.TextView.Normal"/>
-        <TextView
-            android:id="@+id/lessonCurrentKanaVoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingStart="4dp"
-            android:paddingRight="4dp"
-            android:paddingEnd="4dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:shadowColor="@color/black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            style="@style/WK.TextView.Normal"/>
 
     </TableRow>
 
@@ -209,21 +194,6 @@
 
         <TextView
             android:id="@+id/lessonPastVoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingStart="4dp"
-            android:paddingRight="4dp"
-            android:paddingEnd="4dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:shadowColor="@color/black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            style="@style/WK.TextView.Normal"/>
-        <TextView
-            android:id="@+id/lessonPastKanaVoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
@@ -302,7 +272,6 @@
             android:shadowDy="1"
             android:shadowRadius="3"
             style="@style/WK.TextView.Normal"/>
-
     </TableRow>
 
     <TableRow
@@ -367,7 +336,6 @@
             android:shadowDy="1"
             android:shadowRadius="3"
             style="@style/WK.TextView.Normal"/>
-
     </TableRow>
 
 </merge>
