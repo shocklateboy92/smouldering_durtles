@@ -16,6 +16,8 @@
 
 package com.smouldering_durtles.wk.views;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TableLayout;
@@ -35,8 +37,6 @@ import com.smouldering_durtles.wk.util.ThemeUtil;
 
 import javax.annotation.Nullable;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 /**
  * A custom view that shows a breakdown of available lessons and reviews.
  */
@@ -50,24 +50,19 @@ public final class LessonReviewBreakdownView extends TableLayout {
     private final ViewProxy lessonCurrentRad = new ViewProxy();
     private final ViewProxy lessonCurrentKan = new ViewProxy();
     private final ViewProxy lessonCurrentVoc = new ViewProxy();
-
-    private final ViewProxy lessonCurrentKanaVoc = new ViewProxy();
     private final ViewProxy lessonPast = new ViewProxy();
     private final ViewProxy lessonPastRad = new ViewProxy();
     private final ViewProxy lessonPastKan = new ViewProxy();
     private final ViewProxy lessonPastVoc = new ViewProxy();
 
-    private final ViewProxy lessonPastKanaVoc = new ViewProxy();
     private final ViewProxy reviewCurrent = new ViewProxy();
     private final ViewProxy reviewCurrentRad = new ViewProxy();
     private final ViewProxy reviewCurrentKan = new ViewProxy();
     private final ViewProxy reviewCurrentVoc = new ViewProxy();
-    private final ViewProxy reviewCurrentKanaVoc = new ViewProxy();
     private final ViewProxy reviewPast = new ViewProxy();
     private final ViewProxy reviewPastRad = new ViewProxy();
     private final ViewProxy reviewPastKan = new ViewProxy();
     private final ViewProxy reviewPastVoc = new ViewProxy();
-    private final ViewProxy reviewPastKanaVoc = new ViewProxy();
 
     /**
      * The constructor.
@@ -101,27 +96,22 @@ public final class LessonReviewBreakdownView extends TableLayout {
         headerRad.setDelegate(this, R.id.headerRad);
         headerKan.setDelegate(this, R.id.headerKan);
         headerVoc.setDelegate(this, R.id.headerVoc);
-        headerVoc.setDelegate(this, R.id.headerKanaVoc);
         lessonCurrent.setDelegate(this, R.id.lessonCurrent);
         lessonCurrentRad.setDelegate(this, R.id.lessonCurrentRad);
         lessonCurrentKan.setDelegate(this, R.id.lessonCurrentKan);
         lessonCurrentVoc.setDelegate(this, R.id.lessonCurrentVoc);
-        lessonCurrentVoc.setDelegate(this, R.id.lessonCurrentKanaVoc);
         lessonPast.setDelegate(this, R.id.lessonPast);
         lessonPastRad.setDelegate(this, R.id.lessonPastRad);
         lessonPastKan.setDelegate(this, R.id.lessonPastKan);
         lessonPastVoc.setDelegate(this, R.id.lessonPastVoc);
-        lessonPastVoc.setDelegate(this, R.id.lessonPastKanaVoc);
         reviewCurrent.setDelegate(this, R.id.reviewCurrent);
         reviewCurrentRad.setDelegate(this, R.id.reviewCurrentRad);
         reviewCurrentKan.setDelegate(this, R.id.reviewCurrentKan);
         reviewCurrentVoc.setDelegate(this, R.id.reviewCurrentVoc);
-        reviewCurrentVoc.setDelegate(this, R.id.reviewCurrentKanaVoc);
         reviewPast.setDelegate(this, R.id.reviewPast);
         reviewPastRad.setDelegate(this, R.id.reviewPastRad);
         reviewPastKan.setDelegate(this, R.id.reviewPastKan);
         reviewPastVoc.setDelegate(this, R.id.reviewPastVoc);
-        reviewPastVoc.setDelegate(this, R.id.reviewPastKanaVoc);
 
         headerRad.setTextColor(ActiveTheme.getSubjectTypeTextColors()[0]);
         headerRad.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[0]);
@@ -129,8 +119,6 @@ public final class LessonReviewBreakdownView extends TableLayout {
         headerKan.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[1]);
         headerVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[2]);
         headerVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[2]);
-        headerKanaVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[3]);
-        headerKanaVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[3]);
 
         lessonCurrentRad.setTextColor(ActiveTheme.getSubjectTypeTextColors()[0]);
         lessonCurrentRad.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[0]);
@@ -138,8 +126,6 @@ public final class LessonReviewBreakdownView extends TableLayout {
         lessonCurrentKan.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[1]);
         lessonCurrentVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[2]);
         lessonCurrentVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[2]);
-        lessonCurrentKanaVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[3]);
-        lessonCurrentKanaVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[3]);
 
         lessonPastRad.setTextColor(ActiveTheme.getSubjectTypeTextColors()[0]);
         lessonPastRad.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[0]);
@@ -147,8 +133,6 @@ public final class LessonReviewBreakdownView extends TableLayout {
         lessonPastKan.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[1]);
         lessonPastVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[2]);
         lessonPastVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[2]);
-        lessonPastKanaVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[23]);
-        lessonPastKanaVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[3]);
 
         reviewCurrentRad.setTextColor(ActiveTheme.getSubjectTypeTextColors()[0]);
         reviewCurrentRad.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[0]);
@@ -156,8 +140,6 @@ public final class LessonReviewBreakdownView extends TableLayout {
         reviewCurrentKan.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[1]);
         reviewCurrentVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[2]);
         reviewCurrentVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[2]);
-        reviewCurrentKanaVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[3]);
-        reviewCurrentKanaVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[3]);
 
         reviewPastRad.setTextColor(ActiveTheme.getSubjectTypeTextColors()[0]);
         reviewPastRad.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[0]);
@@ -165,8 +147,6 @@ public final class LessonReviewBreakdownView extends TableLayout {
         reviewPastKan.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[1]);
         reviewPastVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[2]);
         reviewPastVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[2]);
-        reviewPastKanaVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[3]);
-        reviewPastKanaVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[3]);
     }
 
     /**
@@ -206,11 +186,9 @@ public final class LessonReviewBreakdownView extends TableLayout {
         int lessonCurrentRadCount = 0;
         int lessonCurrentKanCount = 0;
         int lessonCurrentVocCount = 0;
-        int lessonCurrentKanaVocCount = 0;
         int lessonPastRadCount = 0;
         int lessonPastKanCount = 0;
         int lessonPastVocCount = 0;
-        int lessonPastKanaVocCount = 0;
 
         for (final Subject subject: timeLine.getAvailableLessons()) {
             if (subject.getLevel() == userLevel && subject.getType().isRadical()) {
@@ -223,7 +201,7 @@ public final class LessonReviewBreakdownView extends TableLayout {
                 lessonCurrentVocCount++;
             }
             if (subject.getLevel() == userLevel && subject.getType().isKanaVocabulary()) {
-                lessonCurrentKanaVocCount++;
+                lessonCurrentVocCount++;
             }
             if (subject.getLevel() < userLevel && subject.getType().isRadical()) {
                 lessonPastRadCount++;
@@ -235,30 +213,26 @@ public final class LessonReviewBreakdownView extends TableLayout {
                 lessonPastVocCount++;
             }
             if (subject.getLevel() < userLevel && subject.getType().isKanaVocabulary()) {
-                lessonPastKanaVocCount++;
+                lessonPastVocCount++;
             }
         }
 
-        lessonCurrent.setVisibility(lessonCurrentRadCount != 0 || lessonCurrentKanCount != 0 || lessonCurrentVocCount != 0 || lessonCurrentKanaVocCount != 0);
+        lessonCurrent.setVisibility(lessonCurrentRadCount != 0 || lessonCurrentKanCount != 0 || lessonCurrentVocCount != 0);
         lessonCurrentRad.setTextOrBlankIfZero(lessonCurrentRadCount);
         lessonCurrentKan.setTextOrBlankIfZero(lessonCurrentKanCount);
         lessonCurrentVoc.setTextOrBlankIfZero(lessonCurrentVocCount);
-        lessonCurrentVoc.setTextOrBlankIfZero(lessonCurrentKanaVocCount);
 
-        lessonPast.setVisibility(lessonPastRadCount != 0 || lessonPastKanCount != 0 || lessonPastVocCount != 0 || lessonPastKanaVocCount != 0);
+        lessonPast.setVisibility(lessonPastRadCount != 0 || lessonPastKanCount != 0 || lessonPastVocCount != 0);
         lessonPastRad.setTextOrBlankIfZero(lessonPastRadCount);
         lessonPastKan.setTextOrBlankIfZero(lessonPastKanCount);
         lessonPastVoc.setTextOrBlankIfZero(lessonPastVocCount);
-        lessonPastVoc.setTextOrBlankIfZero(lessonPastKanaVocCount);
 
         int reviewCurrentRadCount = 0;
         int reviewCurrentKanCount = 0;
         int reviewCurrentVocCount = 0;
-        int reviewCurrentKanaVocCount = 0;
         int reviewPastRadCount = 0;
         int reviewPastKanCount = 0;
         int reviewPastVocCount = 0;
-        int reviewPastKanaVocCount = 0;
 
         for (final Subject subject: timeLine.getAvailableReviews()) {
             if (subject.getLevel() == userLevel && subject.getType().isRadical()) {
@@ -270,8 +244,8 @@ public final class LessonReviewBreakdownView extends TableLayout {
             if (subject.getLevel() == userLevel && subject.getType().isVocabulary()) {
                 reviewCurrentVocCount++;
             }
-            if (subject.getLevel() == userLevel && subject.getType().isVocabulary()) {
-                reviewCurrentKanaVocCount++;
+            if (subject.getLevel() == userLevel && subject.getType().isKanaVocabulary()) {
+                reviewCurrentVocCount++;
             }
             if (subject.getLevel() < userLevel && subject.getType().isRadical()) {
                 reviewPastRadCount++;
@@ -282,21 +256,19 @@ public final class LessonReviewBreakdownView extends TableLayout {
             if (subject.getLevel() < userLevel && subject.getType().isVocabulary()) {
                 reviewPastVocCount++;
             }
-            if (subject.getLevel() < userLevel && subject.getType().isVocabulary()) {
-                reviewPastKanaVocCount++;
+            if (subject.getLevel() < userLevel && subject.getType().isKanaVocabulary()) {
+                reviewPastVocCount++;
             }
         }
 
-        reviewCurrent.setVisibility(reviewCurrentRadCount != 0 || reviewCurrentKanCount != 0 || reviewCurrentVocCount != 0 || reviewCurrentKanaVocCount != 0);
+        reviewCurrent.setVisibility(reviewCurrentRadCount != 0 || reviewCurrentKanCount != 0 || reviewCurrentVocCount != 0);
         reviewCurrentRad.setTextOrBlankIfZero(reviewCurrentRadCount);
         reviewCurrentKan.setTextOrBlankIfZero(reviewCurrentKanCount);
         reviewCurrentVoc.setTextOrBlankIfZero(reviewCurrentVocCount);
-        reviewCurrentVoc.setTextOrBlankIfZero(reviewCurrentKanaVocCount);
 
-        reviewPast.setVisibility(reviewPastRadCount != 0 || reviewPastKanCount != 0 || reviewPastVocCount != 0 || reviewCurrentKanaVocCount != 0);
+        reviewPast.setVisibility(reviewPastRadCount != 0 || reviewPastKanCount != 0 || reviewPastVocCount != 0);
         reviewPastRad.setTextOrBlankIfZero(reviewPastRadCount);
         reviewPastKan.setTextOrBlankIfZero(reviewPastKanCount);
         reviewPastVoc.setTextOrBlankIfZero(reviewPastVocCount);
-        reviewPastVoc.setTextOrBlankIfZero(reviewPastKanaVocCount);
     }
 }

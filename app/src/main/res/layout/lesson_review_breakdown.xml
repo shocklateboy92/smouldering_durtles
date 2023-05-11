@@ -77,21 +77,6 @@
             android:shadowDy="1"
             android:shadowRadius="3"
             style="@style/WK.TextView.Normal.Bold"/>
-        <TextView
-            android:id="@+id/headerKanaVoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingStart="4dp"
-            android:paddingRight="4dp"
-            android:paddingEnd="4dp"
-            android:gravity="center_horizontal"
-            android:text="Kana"
-            android:shadowColor="@color/black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            style="@style/WK.TextView.Normal.Bold"/>
 
     </TableRow>
 
@@ -317,21 +302,6 @@
             android:shadowDy="1"
             android:shadowRadius="3"
             style="@style/WK.TextView.Normal"/>
-        <TextView
-            android:id="@+id/reviewCurrentKanaVoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingStart="4dp"
-            android:paddingRight="4dp"
-            android:paddingEnd="4dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:shadowColor="@color/black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            style="@style/WK.TextView.Normal"/>
 
     </TableRow>
 
@@ -384,21 +354,6 @@
 
         <TextView
             android:id="@+id/reviewPastVoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingStart="4dp"
-            android:paddingRight="4dp"
-            android:paddingEnd="4dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:shadowColor="@color/black"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            style="@style/WK.TextView.Normal"/>
-        <TextView
-            android:id="@+id/reviewPastKanaVoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
