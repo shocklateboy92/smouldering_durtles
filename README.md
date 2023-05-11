@@ -14,7 +14,7 @@ information for the app. This is because the open source license covering this a
 does not cover the name I gave the app, and it also doesn't cover my name. See the file
 LICENSE.md for details.
 
-- Copy the file app/Identification.java.sample.txt to app/src/main/java/com/the_tinkering/wk
+- Copy the file app/Identification.java.sample.txt to app/src/main/java/com.smouldering_durtles.wk
 - Name the copy Identification.java
 - Edit the file to supply your own identification for the app
 - Copy the file app/strings.xml.sample.txt to app/src/main/res/values
