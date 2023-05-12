@@ -74,10 +74,24 @@ import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
 /**
  * Fragment for preferences.
  */
-public final class PreferencesFragment extends PreferenceFragmentCompat {
+public class PreferencesFragment extends PreferenceFragmentCompat {
+    // ...
+
     @Override
     public void onCreatePreferences(final Bundle savedInstanceState, @Nullable final String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(Preference preference) {
+        if (preference instanceof TaggedUrlPreference) {
+            TaggedUrlPreferenceDialogFragment fragment = TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey());
+            fragment.setTargetFragment(this, 0);
+            fragment.show(getParentFragmentManager(), null);
+            return true;
+        }
+
+        return super.onPreferenceTreeClick(preference);
     }
 
     private void onViewCreatedBase(final View view, final @Nullable Bundle savedInstanceState) {
@@ -259,7 +273,6 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
         if (getParentFragmentManager().findFragmentByTag(tag) != null) {
             return;
         }
-        dialogFragment.setTargetFragment(getParentFragment(), 0);
         dialogFragment.show(getParentFragmentManager(), tag);
     }
 

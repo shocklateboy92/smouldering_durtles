@@ -28,6 +28,8 @@ import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 import static java.util.Objects.requireNonNull;
 
+import javax.annotation.Nullable;
+
 /**
  * A custom preference that combines two non-negative number fields, each of which may be empty.
  * -1 is used as the special value for an empty field.
@@ -61,7 +63,7 @@ public final class NumberRangePreferenceDialogFragment extends PreferenceDialogF
     }
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         safe(() -> {
             super.onCreate(savedInstanceState);
             if (savedInstanceState == null) {
@@ -105,21 +107,32 @@ public final class NumberRangePreferenceDialogFragment extends PreferenceDialogF
         if (positiveResult) {
             safe(() -> {
                 final String minText = minInput.getText();
+                int min;
                 if (isEmpty(minText)) {
+                    min = -1;
                     getNumberRangePreference().setMin(-1);
                 }
                 else {
-                    getNumberRangePreference().setMin(Integer.parseInt(minText, 10));
+                    min = Integer.parseInt(minText, 10);
+                    getNumberRangePreference().setMin(min);
                 }
-            });
-            safe(() -> {
+
                 final String maxText = maxInput.getText();
+                int max;
                 if (isEmpty(maxText)) {
+                    max = -1;
                     getNumberRangePreference().setMax(-1);
                 }
                 else {
-                    getNumberRangePreference().setMax(Integer.parseInt(maxText, 10));
+                    max = Integer.parseInt(maxText, 10);
+                    getNumberRangePreference().setMax(max);
                 }
+
+                // new code to send the results to the PreferenceFragment
+                Bundle result = new Bundle();
+                result.putInt("min", min);
+                result.putInt("max", max);
+                getParentFragmentManager().setFragmentResult(getArguments().getString(ARG_KEY), result);
             });
         }
     }

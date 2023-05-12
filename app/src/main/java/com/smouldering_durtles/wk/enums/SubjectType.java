@@ -85,7 +85,7 @@ public enum SubjectType {
      * A WaniKani kanji.
      */
     WANIKANI_KANJI("kanji",
-            false, true, false, 20, false, true, false, true, false,
+            false, true, false, 20, false, true, false, false, false,
             "Kanji", "Kanji", "Kanji", "Used radicals:", "kanji", "kanji", 1) {
         @Override
         public int getTextColor() {

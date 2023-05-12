@@ -8,7 +8,7 @@ android {
         //noinspection OldTargetApi
         targetSdkVersion 33
         versionCode 58
-        versionName "0.9 Beta"
+        versionName "1.0.1"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
 
@@ -26,6 +26,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.debug
         }
     }
     packagingOptions {
@@ -51,6 +52,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     namespace 'com.smouldering_durtles.wk'
+    flavorDimensions 'arm32', 'arm64', 'amd64'
 }
 
 dependencies {
@@ -80,8 +82,9 @@ dependencies {
     implementation "androidx.work:work-runtime:2.8.1"
     implementation 'androidx.activity:activity:1.7.1'
     implementation 'androidx.fragment:fragment:1.5.7'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20'
     implementation 'androidx.fragment:fragment-ktx:1.6.0-beta01'
+    implementation 'androidx.annotation:annotation:1.6.0'
 
     testImplementation 'junit:junit:4.13.2'
 
