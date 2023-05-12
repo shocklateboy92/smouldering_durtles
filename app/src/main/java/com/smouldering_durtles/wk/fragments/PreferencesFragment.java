@@ -16,6 +16,18 @@
 
 package com.smouldering_durtles.wk.fragments;
 
+import static com.smouldering_durtles.wk.Constants.API_KEY_PERMISSION_NOTICE;
+import static com.smouldering_durtles.wk.Constants.ENABLE_ADVANCED_WARNING;
+import static com.smouldering_durtles.wk.Constants.EXPERIMENTAL_PREFERENCE_STATUS_NOTICE;
+import static com.smouldering_durtles.wk.Constants.RESET_DATABASE_WARNING;
+import static com.smouldering_durtles.wk.Constants.RESET_TUTORIALS_WARNING;
+import static com.smouldering_durtles.wk.Constants.SUBJECT_SELECTION_NOTICE;
+import static com.smouldering_durtles.wk.Constants.UPLOAD_DEBUG_LOG_WARNING;
+import static com.smouldering_durtles.wk.util.ObjectSupport.isTrue;
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
+
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,9 +60,9 @@ import com.smouldering_durtles.wk.components.NumberRangePreference;
 import com.smouldering_durtles.wk.components.NumberRangePreferenceDialogFragment;
 import com.smouldering_durtles.wk.components.TaggedUrlPreference;
 import com.smouldering_durtles.wk.components.TaggedUrlPreferenceDialogFragment;
+import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
 import com.smouldering_durtles.wk.jobs.ResetDatabaseJob;
 import com.smouldering_durtles.wk.livedata.LiveApiState;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.AudioUtil;
 import com.smouldering_durtles.wk.util.DbLogger;
 import com.smouldering_durtles.wk.util.ThemeUtil;
@@ -58,18 +70,6 @@ import com.smouldering_durtles.wk.util.ThemeUtil;
 import java.util.List;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.API_KEY_PERMISSION_NOTICE;
-import static com.smouldering_durtles.wk.Constants.ENABLE_ADVANCED_WARNING;
-import static com.smouldering_durtles.wk.Constants.EXPERIMENTAL_PREFERENCE_STATUS_NOTICE;
-import static com.smouldering_durtles.wk.Constants.RESET_DATABASE_WARNING;
-import static com.smouldering_durtles.wk.Constants.RESET_TUTORIALS_WARNING;
-import static com.smouldering_durtles.wk.Constants.SUBJECT_SELECTION_NOTICE;
-import static com.smouldering_durtles.wk.Constants.UPLOAD_DEBUG_LOG_WARNING;
-import static com.smouldering_durtles.wk.util.ObjectSupport.isTrue;
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
 
 /**
  * Fragment for preferences.
@@ -86,6 +86,11 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
     public boolean onPreferenceTreeClick(Preference preference) {
         if (preference instanceof TaggedUrlPreference) {
             TaggedUrlPreferenceDialogFragment fragment = TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey());
+            fragment.setTargetFragment(this, 0);
+            fragment.show(getParentFragmentManager(), null);
+            return true;
+        } else if (preference instanceof NumberRangePreference) {
+            NumberRangePreferenceDialogFragment fragment = NumberRangePreferenceDialogFragment.newInstance(preference.getKey());
             fragment.setTargetFragment(this, 0);
             fragment.show(getParentFragmentManager(), null);
             return true;
