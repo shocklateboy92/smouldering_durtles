@@ -28,6 +28,8 @@ import com.smouldering_durtles.wk.proxy.ViewProxy;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 import static java.util.Objects.requireNonNull;
 
+import javax.annotation.Nullable;
+
 /**
  * A custom preference that combines two related edittext preferences: a URL and a name/tag describing it.
  */
@@ -60,7 +62,7 @@ public final class TaggedUrlPreferenceDialogFragment extends PreferenceDialogFra
     }
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         safe(() -> {
             super.onCreate(savedInstanceState);
             if (savedInstanceState == null) {
@@ -111,6 +113,12 @@ public final class TaggedUrlPreferenceDialogFragment extends PreferenceDialogFra
             if (positiveResult) {
                 getTaggedUrlPreference().setTag(tagInput.getText());
                 getTaggedUrlPreference().setUrl(urlInput.getText());
+
+                // new code to send the results to the PreferenceFragment
+                Bundle result = new Bundle();
+                result.putString("tag", tagInput.getText());
+                result.putString("url", urlInput.getText());
+                getParentFragmentManager().setFragmentResult(getArguments().getString(ARG_KEY), result);
             }
         });
     }
