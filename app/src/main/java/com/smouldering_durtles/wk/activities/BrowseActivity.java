@@ -51,11 +51,14 @@ public final class BrowseActivity extends AbstractActivity {
     }
 
     @Override
-    protected void onCreateLocal(final @Nullable Bundle savedInstanceState) {
+    protected void onCreateLocal(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState == null) {
+
             if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
                 final @Nullable String query = getIntent().getStringExtra(SearchManager.QUERY);
                 if (query != null) {
+                    // Log the search query
+
                     loadSearchResultFragment(null, 1, query);
                     return;
                 }
@@ -63,22 +66,15 @@ public final class BrowseActivity extends AbstractActivity {
 
             final long id = getIntent().getLongExtra("id", -1);
             if (id > 0) {
-                @Nullable long[] ids = getIntent().getLongArrayExtra("ids");
+                long[] ids = getIntent().getLongArrayExtra("ids");
                 if (ids == null) {
                     ids = new long[0];
                 }
+
                 loadSubjectInfoFragment(id, ids, FragmentTransitionAnimation.NONE);
                 return;
             }
 
-            final int searchType = getIntent().getIntExtra("searchType", -1);
-            if (searchType >= 0) {
-                final @Nullable String searchParameters = getIntent().getStringExtra("searchParameters");
-                final @Nullable String presetName = getIntent().getStringExtra("presetName");
-                if (searchParameters != null) {
-                    loadSearchResultFragment(presetName, searchType, searchParameters);
-                    return;
-                }
             }
 
             final boolean sessionLog = getIntent().getBooleanExtra("sessionLog", false);
@@ -104,14 +100,12 @@ public final class BrowseActivity extends AbstractActivity {
 
             loadOverviewFragment();
         }
-    }
 
     @Override
     protected void onResumeLocal() {
         //
     }
 
-    @Override
     protected void onPauseLocal() {
         //
     }
@@ -166,6 +160,7 @@ public final class BrowseActivity extends AbstractActivity {
      * @param animation the transition animation to use for the transition
      */
     public void loadSubjectInfoFragment(final long id, final long[] ids, final FragmentTransitionAnimation animation) {
+
         final Fragment fragment = SubjectInfoFragment.newInstance(id, ids);
         final FragmentManager manager = getSupportFragmentManager();
         final FragmentTransaction transaction = manager.beginTransaction();

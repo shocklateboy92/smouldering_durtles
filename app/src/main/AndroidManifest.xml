@@ -40,6 +40,7 @@
         tools:ignore="AllowBackup"
         tools:targetApi="n">
 
+
         <activity android:name="com.smouldering_durtles.wk.activities.MainActivity"
             android:exported="true">
 
