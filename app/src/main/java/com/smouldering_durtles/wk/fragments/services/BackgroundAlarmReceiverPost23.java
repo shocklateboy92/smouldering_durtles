@@ -21,8 +21,12 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.PowerManager;
+import android.provider.Settings;
+import android.Manifest;
+import androidx.core.content.ContextCompat;
 
 import com.smouldering_durtles.wk.Constants;
 import com.smouldering_durtles.wk.StableIds;
@@ -71,9 +75,23 @@ public final class BackgroundAlarmReceiverPost23 extends BroadcastReceiver {
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Check for SCHEDULE_EXACT_ALARM permission
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    if (ContextCompat.checkSelfPermission(WkApplication.getInstance(), Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+                        Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        WkApplication.getInstance().startActivity(intent);
+                        return;
+                    }
+                }
+
                 final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiverPost23.class);
+                int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    flags |= PendingIntent.FLAG_IMMUTABLE;
+                }
                 final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
-                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, flags);
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextTrigger, pendingIntent);
             }
         }
@@ -86,12 +104,17 @@ public final class BackgroundAlarmReceiverPost23 extends BroadcastReceiver {
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiverPost23.class);
-            final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
-                    StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            final PendingIntent pendingIntent;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
+                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            } else {
+                pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
+                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            }
             alarmManager.cancel(pendingIntent);
         }
     }
-
     /**
      * Schedule or cancel depending on user settings.
      */

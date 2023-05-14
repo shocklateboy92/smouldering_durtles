@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
@@ -57,6 +58,8 @@ public final class SessionWidgetProvider extends AppWidgetProvider {
 
     private static boolean widgetUpdatedThisProcess = false;
 
+    private static AlertContext currentAlertContext;
+
     @SuppressLint("NewApi")
     private static @Nullable String getUpcomingMessage(final long upcoming) {
         if (upcoming == 0) {
@@ -81,13 +84,13 @@ public final class SessionWidgetProvider extends AppWidgetProvider {
         if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_APP_WIDGETS)) {
             return;
         }
+        currentAlertContext = ctx;
         final AppWidgetManager manager = AppWidgetManager.getInstance(context);
         final ComponentName name = new ComponentName(context, SessionWidgetProvider.class);
         final Intent intent = new Intent(context, MainActivity.class);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         final long upcoming = ctx.getUpcomingAvailableAt();
-
         final int lessonCount = ctx.getNumLessons();
         final int reviewCount = ctx.getNumReviews();
         final @Nullable String upcomingMessage = getUpcomingMessage(upcoming);
@@ -149,7 +152,7 @@ public final class SessionWidgetProvider extends AppWidgetProvider {
             }
             else if (minWidth < 200) {
                 if (lessonCount > 0) {
-                    views.setTextViewText(R.id.header, "Lessons/reviews:");
+                    views.setTextViewText(R.id.header, "Lessons/Reviews:");
                     views.setTextViewText(R.id.body, String.format(Locale.ROOT, "%d/%d", lessonCount, reviewCount));
                 }
                 else {
@@ -198,6 +201,11 @@ public final class SessionWidgetProvider extends AppWidgetProvider {
             wl.acquire(Constants.MINUTE);
         }
 
+        // Call updateWidgets() here to ensure it is invoked
+        if (currentAlertContext != null) {
+            updateWidgets(currentAlertContext);
+        }
+
         BackgroundAlarmReceiver.processAlarm(wl);
     }
 
@@ -238,6 +246,7 @@ public final class SessionWidgetProvider extends AppWidgetProvider {
                                 TextUtil.formatTimestampForApi(ctx.getUpcomingAvailableAt()));
                         widgetUpdatedThisProcess = true;
                         WkApplication.getDatabase().propertiesDao().setLastWidgetAlertContext(ctx);
+                        currentAlertContext = ctx;  // Update currentAlertContext
                         updateWidgets(ctx);
                         LOGGER.info("Widget update ends");
                     }
