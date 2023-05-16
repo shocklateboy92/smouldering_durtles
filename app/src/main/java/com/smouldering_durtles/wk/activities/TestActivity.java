@@ -16,6 +16,10 @@
 
 package com.smouldering_durtles.wk.activities;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static java.util.Objects.requireNonNull;
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -39,16 +43,11 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static java.util.Objects.requireNonNull;
-
 /**
  * A simple activity with a few test views, for generic testing purposes.
  * Unless the test option in the menu is activated, there is no path to
  * get here.
  */
-@SuppressWarnings("JavaDoc")
 public final class TestActivity extends AbstractActivity {
     private static final Logger LOGGER = Logger.get(TestActivity.class);
 
@@ -114,9 +113,6 @@ public final class TestActivity extends AbstractActivity {
                     if (!subject.getType().canHavePitchInfo()) {
                         continue;
                     }
-//                    if (subject.getId() == 4549 || subject.getId() == 4551 || subject.getId() == 5294 || subject.getId() == 6091) {
-//                        continue;
-//                    }
                     final String characters = requireNonNull(subject.getCharacters());
 
                     if (!PitchInfoUtil.existsWeblioFile(characters)) {
