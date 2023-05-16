@@ -16,6 +16,18 @@
 
 package com.smouldering_durtles.wk.tasks;
 
+import static com.smouldering_durtles.wk.Constants.API_RETRY_DELAY;
+import static com.smouldering_durtles.wk.Constants.HTTP_TOO_MANY_REQUESTS;
+import static com.smouldering_durtles.wk.Constants.HTTP_UNPROCESSABLE_ENTITY;
+import static com.smouldering_durtles.wk.Constants.MINUTE;
+import static com.smouldering_durtles.wk.Constants.NUM_API_TRIES;
+import static com.smouldering_durtles.wk.Constants.SECOND;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safeNullable;
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+
+import android.os.Build;
+
 import androidx.core.util.Consumer;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -39,24 +51,15 @@ import com.smouldering_durtles.wk.util.Logger;
 import com.smouldering_durtles.wk.util.StreamUtil;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import javax.annotation.Nullable;
 import javax.net.ssl.HttpsURLConnection;
-
-import static com.smouldering_durtles.wk.Constants.API_RETRY_DELAY;
-import static com.smouldering_durtles.wk.Constants.HTTP_TOO_MANY_REQUESTS;
-import static com.smouldering_durtles.wk.Constants.HTTP_UNPROCESSABLE_ENTITY;
-import static com.smouldering_durtles.wk.Constants.MINUTE;
-import static com.smouldering_durtles.wk.Constants.NUM_API_TRIES;
-import static com.smouldering_durtles.wk.Constants.SECOND;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safeNullable;
-import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 /**
  * Abstract base class for background tasks. This class handles logging and exception
@@ -86,7 +89,7 @@ public abstract class ApiTask {
      * any reason. Respects the API rate limits and will back off if the API signals we're going
      * too fast anyway.
      *
-     * @param uri the request URI, which is either absolute (https://...) or site-relative (starts with '/')
+     * @param uri the request URI, which is either absolute or site-relative (starts with '/')
      * @return the response body, parsed as a JSON document
      */
      private  static @Nullable JsonNode getApiCall(final String uri) {
@@ -128,7 +131,9 @@ public abstract class ApiTask {
                     if (code >= 100) {
                         LOGGER.info("Response code: %d %s", code, connection.getResponseMessage());
                         final byte[] body = StreamUtil.slurp(connection.getErrorStream());
-                        LOGGER.info("Response body: %s", new String(body, "ISO-8859-1"));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            LOGGER.info("Response body: %s", new String(body, StandardCharsets.ISO_8859_1));
+                        }
                     }
                 } catch (final Exception e1) {
                     //
@@ -159,7 +164,7 @@ public abstract class ApiTask {
      * hiccups. The API error status will only be set if the last attempt fails, as long as the error
      * condition is not that the user's API token is rejected.
      *
-     * @param uri the request URI, which is either absolute (https://...) or site-relative (starts with '/')
+     * @param uri the request URI, which is either absolute or site-relative (starts with '/')
      * @param numTries the maximum number of attempts to make, counting the first attempt as well
      * @param delay the delay between retries
      * @return the response body, parsed as a JSON document
@@ -188,7 +193,6 @@ public abstract class ApiTask {
             }
             // Wait a bit, and then try again.
             final @Nullable JsonNode result = safeNullable(() -> {
-                //noinspection BusyWait
                 Thread.sleep(delay);
                 return getApiCall(uri);
             });
@@ -204,7 +208,7 @@ public abstract class ApiTask {
      * identical to getApiCall(), but the HTTP method is a parameter, as is the request body. The body
      * is sent as a JSON document, created from the requestBody object using the JSON object mapper.
      *
-     * @param uri the request URI, which is either absolute (https://...) or site-relative (starts with '/')
+     * @param uri the request URI, which is either absolute or site-relative (starts with '/')
      * @param method the HTTP method, could be any valid method but should be either POST or PUT
      * @param requestBody the request body to sent to the server
      * @return the response body, parsed as a JSON document
@@ -253,7 +257,9 @@ public abstract class ApiTask {
                     if (code >= 100) {
                         LOGGER.info("Response code: %d %s", code, connection.getResponseMessage());
                         final byte[] body = StreamUtil.slurp(connection.getErrorStream());
-                        LOGGER.info("Response body: %s", new String(body, "ISO-8859-1"));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            LOGGER.info("Response body: %s", new String(body, StandardCharsets.ISO_8859_1));
+                        }
                     }
                 } catch (final Exception e1) {
                     //
@@ -289,7 +295,7 @@ public abstract class ApiTask {
      * hiccups. The API error status will only be set if the last attempt fails, as long as the error
      * condition is not that the user's API token is rejected.
      *
-     * @param uri the request URI, which is either absolute (https://...) or site-relative (starts with '/')
+     * @param uri the request URI, which is either absolute or site-relative (starts with '/')
      * @param method the HTTP method, could be any valid method but should be either POST or PUT
      * @param requestBody the request body to sent to the server
      * @param numTries the maximum number of attempts to make, counting the first attempt as well
@@ -321,7 +327,6 @@ public abstract class ApiTask {
             }
             // Wait a bit, and then try again.
             final @Nullable JsonNode result = safeNullable(() -> {
-                //noinspection BusyWait
                 Thread.sleep(delay);
                 return postApiCall(uri, method, requestBody);
             });
@@ -337,7 +342,7 @@ public abstract class ApiTask {
      * response (rather than a collection or a report). The "data" attribute of the
      * response body is deserialized to an object of the requested type.
      *
-     * @param uri the request URI, which is either absolute (https://...) or site-relative (starts with '/')
+     * @param uri the request URI, which is either absolute or site-relative (starts with '/')
      * @param cls the class to map the response entity to
      * @param <T> the type of the response entity
      * @return the parsed response or null in case of any error
@@ -413,7 +418,7 @@ public abstract class ApiTask {
      * Retrieve a collection from the API, including any subsequent pages in a multi-page response.
      * Rather than returning a List result, invoke a consumer callback to handle each response entity.
      *
-     * @param uri the request URI, which is either absolute (https://...) or site-relative (starts with '/')
+     * @param uri the request URI, which is either absolute or site-relative (starts with '/')
      * @param cls the class to map the response entity to
      * @param consumer the consumer to handle each returned entity
      * @param <T> the type of the response entity
@@ -472,10 +477,12 @@ public abstract class ApiTask {
             connection.setReadTimeout((int) MINUTE);
             connection.getHeaderFields();
             LOGGER.info("Response code: %d %s", connection.getResponseCode(), connection.getResponseMessage());
-            try (final InputStream is = connection.getInputStream(); final OutputStream os = new FileOutputStream(tempFile)) {
-                StreamUtil.pump(is, os);
-                //noinspection ResultOfMethodCallIgnored
-                tempFile.renameTo(outputFile);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                try (final InputStream is = connection.getInputStream(); final OutputStream os = Files.newOutputStream(tempFile.toPath())) {
+                    StreamUtil.pump(is, os);
+                    //noinspection ResultOfMethodCallIgnored
+                    tempFile.renameTo(outputFile);
+                }
             }
         }
         catch (final Exception e) {

@@ -16,12 +16,16 @@
 
 package com.smouldering_durtles.wk.db;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.AbstractCursor;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.BaseColumns;
 
 import com.smouldering_durtles.wk.db.model.Subject;
@@ -33,9 +37,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * Content provider for search results, used for incremental search.
@@ -144,7 +145,10 @@ public final class SubjectContentProvider extends ContentProvider {
             if (value == null) {
                 return new byte[0];
             }
-            return value.getBytes(StandardCharsets.UTF_8);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                return value.getBytes(StandardCharsets.UTF_8);
+            }
+        return value.getBytes();
         }
 
         @Override

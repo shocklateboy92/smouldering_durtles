@@ -16,6 +16,14 @@
 
 package com.smouldering_durtles.wk.util;
 
+import static com.smouldering_durtles.wk.Constants.FONT_SIZE_NORMAL;
+import static com.smouldering_durtles.wk.Constants.HOUR;
+import static com.smouldering_durtles.wk.Constants.MINUTE;
+import static com.smouldering_durtles.wk.Constants.SECOND;
+import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
+import static com.smouldering_durtles.wk.util.ObjectSupport.isTrue;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -47,14 +55,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.FONT_SIZE_NORMAL;
-import static com.smouldering_durtles.wk.Constants.HOUR;
-import static com.smouldering_durtles.wk.Constants.MINUTE;
-import static com.smouldering_durtles.wk.Constants.SECOND;
-import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
-import static com.smouldering_durtles.wk.util.ObjectSupport.isTrue;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * Utility class for dealing with text rendering.
@@ -379,7 +379,7 @@ public final class TextUtil {
             sb.append("X");
             n -= 10;
         }
-        if (n >= 9) {
+        if (n == 9) {
             sb.append("IX");
             n -= 9;
         }

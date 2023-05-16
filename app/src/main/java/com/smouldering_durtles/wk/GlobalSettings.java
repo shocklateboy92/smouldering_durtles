@@ -16,6 +16,15 @@
 
 package com.smouldering_durtles.wk;
 
+import static com.smouldering_durtles.wk.Constants.DEFAULT_OVERDUE_THRESHOLD;
+import static com.smouldering_durtles.wk.Constants.NUM_THEME_CUSTOMIZATION_OPTIONS;
+import static com.smouldering_durtles.wk.db.Converters.getObjectMapper;
+import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
+import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
+import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static java.util.Objects.requireNonNull;
+
 import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
@@ -49,15 +58,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.DEFAULT_OVERDUE_THRESHOLD;
-import static com.smouldering_durtles.wk.Constants.NUM_THEME_CUSTOMIZATION_OPTIONS;
-import static com.smouldering_durtles.wk.db.Converters.getObjectMapper;
-import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
-import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
-import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static java.util.Objects.requireNonNull;
 
 /**
  * A class with a bunch of static accessors for app settings.
@@ -1967,15 +1967,6 @@ public final class GlobalSettings {
          */
         @SuppressWarnings("SameReturnValue")
         public static SubjectCardLayout getSubjectCardLayoutSearch() {
-//            final @Nullable String value = prefs().getString("exp_subject_card_layout_search", null);
-//            if (value != null) {
-//                try {
-//                    return SubjectCardLayout.valueOf(value);
-//                }
-//                catch (final Exception e) {
-//                    //
-//                }
-//            }
             return SubjectCardLayout.NORMAL;
         }
 
@@ -1986,15 +1977,6 @@ public final class GlobalSettings {
          */
         @SuppressWarnings("SameReturnValue")
         public static SubjectCardLayout getSubjectCardLayoutOther() {
-//            final @Nullable String value = prefs().getString("exp_subject_card_layout_grid", null);
-//            if (value != null) {
-//                try {
-//                    return SubjectCardLayout.valueOf(value);
-//                }
-//                catch (final Exception e) {
-//                    //
-//                }
-//            }
             return SubjectCardLayout.NORMAL;
         }
     }

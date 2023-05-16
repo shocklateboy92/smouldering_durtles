@@ -24,7 +24,6 @@ import java.util.EnumSet;
 import java.util.HashSet;
 
 import javax.annotation.Nullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Presets for the advanced search form.
@@ -48,15 +47,4 @@ public final class AdvancedSearchParameters {
     public final Collection<Integer> jlptLevels = new HashSet<>();
     public final Collection<Integer> joyoGrades = new HashSet<>();
 
-
-    @JsonIgnore
-    private String displayLabel;
-
-    public String getDisplayLabel() {
-        return displayLabel;
     }
-
-    public void setDisplayLabel(String displayLabel) {
-        this.displayLabel = displayLabel;
-    }
-}

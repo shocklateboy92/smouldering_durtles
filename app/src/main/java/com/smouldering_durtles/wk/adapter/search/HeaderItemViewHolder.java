@@ -16,6 +16,9 @@
 
 package com.smouldering_durtles.wk.adapter.search;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.join;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
@@ -32,18 +35,13 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.join;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 /**
  * Abstract base class for view holders for advanced search result items.
  */
 public abstract class HeaderItemViewHolder extends ResultItemViewHolder implements View.OnClickListener {
     private final ViewProxy arrowHead = new ViewProxy();
-    @SuppressWarnings("JavaDoc")
     protected final ViewProxy title = new ViewProxy();
     private final ViewProxy details = new ViewProxy();
-    @SuppressWarnings("JavaDoc")
     protected int total = 0;
     private int locked = 0;
     private int initial = 0;

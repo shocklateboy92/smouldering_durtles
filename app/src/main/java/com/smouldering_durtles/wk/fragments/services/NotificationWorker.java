@@ -16,6 +16,10 @@
 
 package com.smouldering_durtles.wk.fragments.services;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -43,10 +47,6 @@ import java.util.concurrent.Semaphore;
 
 import javax.annotation.Nullable;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 /**
  * The worker that sets or cancels notifications as needed.
  */
@@ -57,7 +57,7 @@ public final class NotificationWorker {
         //
     }
 
-    private static void postNotification(final boolean needsSound, final AlertContext ctx) {
+    public static void postNotification(final boolean needsSound, final AlertContext ctx) {
         final String title;
         final String text;
         if (ctx.getNumLessons() > 0) {
@@ -83,7 +83,7 @@ public final class NotificationWorker {
 
         final Intent intent2 = new Intent(WkApplication.getInstance(), MainActivity.class);
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(WkApplication.getInstance(), 0, intent2, 0);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(WkApplication.getInstance(), 0, intent2, PendingIntent.FLAG_IMMUTABLE);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(WkApplication.getInstance(), "NewReviewsChannel");
         builder.setSmallIcon(R.drawable.ic_notification);
@@ -170,12 +170,23 @@ public final class NotificationWorker {
      * widgets and/or notifications. Always runs on a background thread.
      *
      * @param ctx the details for the notifications
-     * @param semaphore the method will call release() on this semaphone when the work is done
+     * @param semaphore the method will call release() on this semaphore when the work is done
      */
+
     public static void processAlarm(final AlertContext ctx, final Semaphore semaphore) {
         safe(() -> new Handler(Looper.getMainLooper()).post(() -> {
             safe(() -> processAlarmHelper(ctx));
             semaphore.release();
         }));
+    }
+
+    public static void triggerTestNotification() {
+        // Create a dummy AlertContext for testing
+        AlertContext testContext = new AlertContext();
+        testContext.setNumLessons(5);  // Set some test values
+        testContext.setNumReviews(10); // Set some test values
+
+        // Call the method you want to test
+        postNotification(true, testContext);
     }
 }

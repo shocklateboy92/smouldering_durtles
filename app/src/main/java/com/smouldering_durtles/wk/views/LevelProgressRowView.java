@@ -101,7 +101,6 @@ public final class LevelProgressRowView extends TableRow {
                     parameters.itemTypes.add(SubjectType.WANIKANI_KANA_VOCAB);
                 }
                 parameters.sortOrder = SearchSortOrder.STAGE_TYPE;
-                parameters.setDisplayLabel(subjectTypeLabel);
                 final String searchParameters = Converters.getObjectMapper().writeValueAsString(parameters);
                 actmentRef.get().goToSearchResult(2, searchParameters, null);
             }));

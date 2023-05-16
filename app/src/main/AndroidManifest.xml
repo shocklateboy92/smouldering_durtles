@@ -26,6 +26,8 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
 
     <uses-sdk tools:overrideLibrary="androidx.security"/>
 
@@ -38,7 +40,8 @@
         android:supportsRtl="false"
         android:name="com.smouldering_durtles.wk.WkApplication"
         tools:ignore="AllowBackup"
-        tools:targetApi="n">
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="tiramisu">
 
 
         <activity android:name="com.smouldering_durtles.wk.activities.MainActivity"

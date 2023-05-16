@@ -16,6 +16,12 @@
 
 package com.smouldering_durtles.wk.fragments.services;
 
+import static com.smouldering_durtles.wk.Constants.HOUR;
+import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.isAlarmRequired;
+import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.processAlarm;
+import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -30,12 +36,6 @@ import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.util.Logger;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.HOUR;
-import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.isAlarmRequired;
-import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.processAlarm;
-import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * The alarm receiver that gets triggered once per hour, and is responsible for
@@ -73,7 +73,7 @@ public final class BackgroundAlarmReceiverPost23 extends BroadcastReceiver {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiverPost23.class);
                 final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
-                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextTrigger, pendingIntent);
             }
         }
@@ -87,7 +87,7 @@ public final class BackgroundAlarmReceiverPost23 extends BroadcastReceiver {
         if (alarmManager != null) {
             final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiverPost23.class);
             final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
-                    StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    StableIds.BACKGROUND_ALARM_REQUEST_CODE_3, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             alarmManager.cancel(pendingIntent);
         }
     }
