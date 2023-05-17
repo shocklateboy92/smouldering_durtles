@@ -16,12 +16,17 @@
 
 package com.smouldering_durtles.wk.fragments.services;
 
+import static com.smouldering_durtles.wk.Constants.HOUR;
+import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.isAlarmRequired;
+import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.processAlarm;
+import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.PowerManager;
 
 import com.smouldering_durtles.wk.Constants;
@@ -30,12 +35,6 @@ import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.util.Logger;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.HOUR;
-import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.isAlarmRequired;
-import static com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver.processAlarm;
-import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * The alarm receiver that gets triggered once per hour, and is responsible for
@@ -70,12 +69,13 @@ public final class BackgroundAlarmReceiverPost19 extends BroadcastReceiver {
         final long nextTrigger = getTopOfHour(System.currentTimeMillis()) + HOUR;
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiverPost19.class);
-                final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
-                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextTrigger, pendingIntent);
-            }
+            final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiver.class);
+            final PendingIntent pendingIntent;
+
+            pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
+                    StableIds.BACKGROUND_ALARM_REQUEST_CODE_1, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP, nextTrigger, pendingIntent);
         }
     }
 

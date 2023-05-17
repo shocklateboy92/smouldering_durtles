@@ -61,13 +61,38 @@ public final class SelfishColorPicker extends HSLColorPicker {
 
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
-        final boolean b = super.onTouchEvent(event);
+        boolean b = super.onTouchEvent(event);
+
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_UP:
+                performClick();
+                break;
+        }
+
         if (b) {
             final @Nullable ViewParent parent = getParent();
             if (parent != null) {
                 parent.requestDisallowInterceptTouchEvent(true);
             }
         }
-        return super.onTouchEvent(event);
+        return b;
     }
+
+    @Override
+    public boolean performClick() {
+        boolean b = super.performClick();
+        if (!b) {
+            b = super.performClick();
+        }
+        if (b) {
+            final @Nullable ViewParent parent = getParent();
+            if (parent != null) {
+                parent.requestDisallowInterceptTouchEvent(true);
+            }
+        }
+        return b;
+    }
+
 }

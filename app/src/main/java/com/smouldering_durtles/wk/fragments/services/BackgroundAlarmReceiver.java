@@ -86,8 +86,16 @@ public final class BackgroundAlarmReceiver extends BroadcastReceiver {
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiver.class);
-            final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
-                    StableIds.BACKGROUND_ALARM_REQUEST_CODE_1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            final PendingIntent pendingIntent;
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
+                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_1, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            } else {
+                pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
+                        StableIds.BACKGROUND_ALARM_REQUEST_CODE_1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            }
+
             alarmManager.set(AlarmManager.RTC_WAKEUP, nextTrigger, pendingIntent);
         }
     }

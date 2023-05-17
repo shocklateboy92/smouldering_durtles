@@ -34,7 +34,6 @@ import javax.annotation.Nullable;
 /**
  * Sort order for advanced search.
  */
-@SuppressWarnings("JavaDoc")
 @SuppressLint("NewApi")
 public enum SearchSortOrder {
     TYPE("Type", true) {

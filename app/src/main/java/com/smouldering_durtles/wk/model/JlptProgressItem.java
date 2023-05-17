@@ -19,7 +19,6 @@ package com.smouldering_durtles.wk.model;
 /**
  * A model for one item in the JLPT progress.
  */
-@SuppressWarnings("JavaDoc")
 public final class JlptProgressItem {
     public long srsSystemId = 0;
     public long srsStage = 0;

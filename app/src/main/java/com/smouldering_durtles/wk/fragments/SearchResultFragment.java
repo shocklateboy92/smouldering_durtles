@@ -16,6 +16,10 @@
 
 package com.smouldering_durtles.wk.fragments;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -56,10 +60,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * Fragment to show a simple search result.
@@ -345,10 +345,7 @@ public final class SearchResultFragment extends AbstractFragment {
                             hideSoftInput();
                         })).create();
                 editText.setOnEditorActionListener((v, actionId, event) -> safe(false, () -> {
-                    boolean ok = false;
-                    if (event == null && actionId != 0) {
-                        ok = true;
-                    }
+                    boolean ok = event == null && actionId != 0;
                     if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                         ok = true;
                     }

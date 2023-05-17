@@ -406,7 +406,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
         final float boxY = originY + density * 18;
         final float textY = originY + density * 26;
 
-        for (int i=0; i<segmentColors.length; i++) {
+        for (int i = 0; i < segmentColors.length && i < legendLabels.length; i++) {
             paint.setColor(segmentColors[i]);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
             paint.setStrokeWidth(0);
@@ -506,7 +506,19 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
             }
             return false;
         });
+
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            performClick();    // Call performClick() on click detected
+        }
+
         return result || super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean performClick() {
+        super.performClick();
+        // Perform your desired action here
+        return true;
     }
 
     @Override

@@ -21,7 +21,7 @@ import androidx.core.app.NotificationCompat;
 /**
  * Priority setting for notifications.
  */
-@SuppressWarnings({"JavaDoc", "unused"})
+@SuppressWarnings({"unused"})
 public enum NotificationCategory {
     CALL(NotificationCompat.CATEGORY_CALL),
     NAVIGATION(NotificationCompat.CATEGORY_NAVIGATION),

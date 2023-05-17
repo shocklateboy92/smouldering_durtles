@@ -119,6 +119,12 @@ public final class SwipingScrollView extends ScrollView {
         handleTouchEvent(ev);
         return super.onTouchEvent(ev);
     }
+    @Override
+    public boolean performClick() {
+        super.performClick();
+        // Perform your desired action here
+        return true;
+    }
 
     /**
      * Listener interface for receive swipe events.
