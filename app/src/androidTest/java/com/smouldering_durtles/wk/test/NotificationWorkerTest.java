@@ -1,0 +1,17 @@
+package com.smouldering_durtles.wk.test;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import com.smouldering_durtles.wk.fragments.services.NotificationWorker;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(AndroidJUnit4.class)
+public class NotificationWorkerTest {
+
+    @Test
+    public void testNotification() {
+        NotificationWorker.triggerTestNotification();
+    }
+}
