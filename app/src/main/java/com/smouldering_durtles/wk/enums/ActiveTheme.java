@@ -55,25 +55,25 @@ public enum ActiveTheme {
                 }
             }
             for (int i=0; i<7; i++) {
-                final int color = custom.get(i+3);
+                final int color = custom.get(i+4);
                 stageBucketColors7[i] = (color == 0) ? baseStageBucketColors[i] : color;
             }
             final int[] prePassed = new int[4];
             final int[] passed = new int[2];
             for (int i=0; i<4; i++) {
-                final int color = custom.get(i+10);
+                final int color = custom.get(i+11);
                 prePassed[i] = (color == 0) ? baseStagePrePassedBucketColors[i] : color;
             }
             for (int i=0; i<2; i++) {
-                final int color = custom.get(i+14);
+                final int color = custom.get(i+15);
                 passed[i] = (color == 0) ? baseStagePassedBucketColors[i] : color;
             }
             for (int i=0; i<10; i++) {
-                final int color = custom.get(i+16);
+                final int color = custom.get(i+17);
                 levelProgressionBucketColors[i] = (color == 0) ? baseLevelProgressionBucketColors[i] : color;
             }
             for (int i=0; i<6; i++) {
-                final int color = custom.get(i+26);
+                final int color = custom.get(i+27);
                 ankiColors[i] = (color == 0) ? baseAnkiColors[i] : color;
             }
             stageBucketColors4[0] = stageBucketColors7[2];
@@ -130,13 +130,13 @@ public enum ActiveTheme {
                 }
             }
             for (int i=0; i<7; i++) {
-                final int color = custom.get(i+3);
+                final int color = custom.get(i+4);
                 stageBucketColors7[i] = (color == 0) ? baseStageBucketColors[i] : color;
             }
             final int[] prePassed = new int[4];
             final int[] passed = new int[2];
             for (int i=0; i<4; i++) {
-                final int color = custom.get(i+10);
+                final int color = custom.get(i+11);
                 prePassed[i] = (color == 0) ? baseStagePrePassedBucketColors[i] : color;
             }
             for (int i=0; i<2; i++) {
@@ -144,11 +144,11 @@ public enum ActiveTheme {
                 passed[i] = (color == 0) ? baseStagePassedBucketColors[i] : color;
             }
             for (int i=0; i<10; i++) {
-                final int color = custom.get(i+16);
+                final int color = custom.get(i+17);
                 levelProgressionBucketColors[i] = (color == 0) ? baseLevelProgressionBucketColors[i] : color;
             }
             for (int i=0; i<6; i++) {
-                final int color = custom.get(i+26);
+                final int color = custom.get(i+27);
                 ankiColors[i] = (color == 0) ? baseAnkiColors[i] : color;
             }
             stageBucketColors4[0] = stageBucketColors7[2];
@@ -205,25 +205,25 @@ public enum ActiveTheme {
                 }
             }
             for (int i=0; i<7; i++) {
-                final int color = custom.get(i+3);
+                final int color = custom.get(i+4);
                 stageBucketColors7[i] = (color == 0) ? baseStageBucketColors[i] : color;
             }
             final int[] prePassed = new int[4];
             final int[] passed = new int[2];
             for (int i=0; i<4; i++) {
-                final int color = custom.get(i+10);
+                final int color = custom.get(i+11);
                 prePassed[i] = (color == 0) ? baseStagePrePassedBucketColors[i] : color;
             }
             for (int i=0; i<2; i++) {
-                final int color = custom.get(i+14);
+                final int color = custom.get(i+15);
                 passed[i] = (color == 0) ? baseStagePassedBucketColors[i] : color;
             }
             for (int i=0; i<10; i++) {
-                final int color = custom.get(i+16);
+                final int color = custom.get(i+17);
                 levelProgressionBucketColors[i] = (color == 0) ? baseLevelProgressionBucketColors[i] : color;
             }
             for (int i=0; i<6; i++) {
-                final int color = custom.get(i+26);
+                final int color = custom.get(i+27);
                 ankiColors[i] = (color == 0) ? baseAnkiColors[i] : color;
             }
             stageBucketColors4[0] = stageBucketColors7[2];
@@ -309,7 +309,7 @@ public enum ActiveTheme {
      * The style ID for this theme.
      * @return the value
      */
-    public int getStyleId() {
+    public final int getStyleId() {
         return styleId;
     }
 
@@ -317,7 +317,7 @@ public enum ActiveTheme {
      * Resource ID for the little up arrow in the timeline bar chart that indicates level-up items.
      * @return the value
      */
-    public int getLevelUpArrowDrawableId() {
+    public final int getLevelUpArrowDrawableId() {
         return levelUpArrowDrawableId;
     }
 
@@ -326,7 +326,7 @@ public enum ActiveTheme {
      *
      * @return true if it does
      */
-    public boolean hasIdentBackground() {
+    public final boolean hasIdentBackground() {
         return identBackground;
     }
 
@@ -334,7 +334,7 @@ public enum ActiveTheme {
      * Indicate that the theme customizations have changed and the colors for the theme should be reloaded.
      * @param dirty the value
      */
-    public void setDirty(final boolean dirty) {
+    public final void setDirty(final boolean dirty) {
         this.dirty = dirty;
     }
 

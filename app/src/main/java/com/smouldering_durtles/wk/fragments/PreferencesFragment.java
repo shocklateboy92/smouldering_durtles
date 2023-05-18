@@ -74,29 +74,10 @@ import javax.annotation.Nullable;
 /**
  * Fragment for preferences.
  */
-public class PreferencesFragment extends PreferenceFragmentCompat {
-    // ...
-
+public final class PreferencesFragment extends PreferenceFragmentCompat {
     @Override
-    public void onCreatePreferences(final Bundle savedInstanceState, @Nullable final String rootKey) {
+    public void onCreatePreferences(final @Nullable Bundle savedInstanceState, final @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference instanceof TaggedUrlPreference) {
-            TaggedUrlPreferenceDialogFragment fragment = TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey());
-            fragment.setTargetFragment(this, 0);
-            fragment.show(getParentFragmentManager(), null);
-            return true;
-        } else if (preference instanceof NumberRangePreference) {
-            NumberRangePreferenceDialogFragment fragment = NumberRangePreferenceDialogFragment.newInstance(preference.getKey());
-            fragment.setTargetFragment(this, 0);
-            fragment.show(getParentFragmentManager(), null);
-            return true;
-        }
-
-        return super.onPreferenceTreeClick(preference);
     }
 
     private void onViewCreatedBase(final View view, final @Nullable Bundle savedInstanceState) {
@@ -258,27 +239,31 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         });
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onDisplayPreferenceDialog(final Preference preference) {
         safe(() -> {
             if (preference instanceof TaggedUrlPreference) {
-                displayCustomPreferenceDialog("TaggedUrlPreference", TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey()));
+                if (getParentFragmentManager().findFragmentByTag("TaggedUrlPreference") != null) {
+                    return;
+                }
+                final DialogFragment f = TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey());
+                f.setTargetFragment(this, 0);
+                f.show(getParentFragmentManager(), "TaggedUrlPreference");
                 return;
             }
             if (preference instanceof NumberRangePreference) {
-                displayCustomPreferenceDialog("NumberRangePreference", NumberRangePreferenceDialogFragment.newInstance(preference.getKey()));
+                if (getParentFragmentManager().findFragmentByTag("NumberRangePreference") != null) {
+                    return;
+                }
+                final DialogFragment f = NumberRangePreferenceDialogFragment.newInstance(preference.getKey());
+                f.setTargetFragment(this, 0);
+                f.show(getParentFragmentManager(), "NumberRangePreference");
                 return;
             }
 
             super.onDisplayPreferenceDialog(preference);
         });
-    }
-
-    private void displayCustomPreferenceDialog(String tag, DialogFragment dialogFragment) {
-        if (getParentFragmentManager().findFragmentByTag(tag) != null) {
-            return;
-        }
-        dialogFragment.show(getParentFragmentManager(), tag);
     }
 
     private void goToActivity(final Class<? extends AbstractActivity> clas) {

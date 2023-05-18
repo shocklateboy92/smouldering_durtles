@@ -232,9 +232,9 @@ public final class Constants {
      * Confirmation warning for resetting the database.
      */
     public static final String RESET_DATABASE_WARNING = "<b>Warning:</b> Resetting the database will <b>clear all content</b> from"
-            + " the app's database except for your settings. Any work in progress will be immediately lost and all subjects"
-            + " and associated data will be retrieved anew from WankKani. This process may take up to a minute or more, depending on your"
-            + " level and the speed of your device. Are you sure you want to reset the database?";
+            + " the app's database except for your settings. Any work in progress will be immediately lost and all data"
+            + " will be re-downloaded from WaniKani. This process may take a little while, depending on your level/device"
+            + " Are you sure you want to reset the database?";
 
     /**
      * Confirmation warning for flushing tasks.

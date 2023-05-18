@@ -172,6 +172,8 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
         colorPicker.setDelegate(this, R.id.colorPicker);
         colorPickerPreview.setDelegate(this, R.id.colorPickerPreview);
 
+        resetColorButton.setOnClickListener(v -> resetColor());
+
         final List<Integer> prefColors = GlobalSettings.Display.getThemeCustomizations(ActiveTheme.getCurrentTheme());
         for (int i=0; i<chosenColors.length && i<prefColors.size(); i++) {
             chosenColors[i] = prefColors.get(i);
@@ -348,9 +350,8 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     /**
      * Handler for the reset color button.
      *
-     * @param v the button
      */
-    public void resetColor(@SuppressWarnings("unused") final View v) {
+    private void resetColor() {
         safe(() -> {
             setColor(selection, 0, false);
             saveColors();
