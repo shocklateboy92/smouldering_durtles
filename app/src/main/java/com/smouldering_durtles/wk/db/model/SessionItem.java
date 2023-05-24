@@ -31,7 +31,7 @@ import com.smouldering_durtles.wk.enums.SessionItemState;
 import com.smouldering_durtles.wk.model.SrsSystem;
 import com.smouldering_durtles.wk.model.SrsSystemRepository;
 import com.smouldering_durtles.wk.model.TypefaceConfiguration;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.FontStorageUtil;
 import com.smouldering_durtles.wk.util.Logger;
 
@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static com.smouldering_durtles.wk.enums.SessionItemState.ABANDONED;
@@ -595,7 +596,7 @@ public final class SessionItem {
     }
 
     @Override
-    public String toString() {
+    public @Nonnull String toString() {
         return Long.toString(id);
     }
 

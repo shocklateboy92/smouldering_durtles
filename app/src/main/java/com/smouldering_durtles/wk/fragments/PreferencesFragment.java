@@ -16,18 +16,6 @@
 
 package com.smouldering_durtles.wk.fragments;
 
-import static com.smouldering_durtles.wk.Constants.API_KEY_PERMISSION_NOTICE;
-import static com.smouldering_durtles.wk.Constants.ENABLE_ADVANCED_WARNING;
-import static com.smouldering_durtles.wk.Constants.EXPERIMENTAL_PREFERENCE_STATUS_NOTICE;
-import static com.smouldering_durtles.wk.Constants.RESET_DATABASE_WARNING;
-import static com.smouldering_durtles.wk.Constants.RESET_TUTORIALS_WARNING;
-import static com.smouldering_durtles.wk.Constants.SUBJECT_SELECTION_NOTICE;
-import static com.smouldering_durtles.wk.Constants.UPLOAD_DEBUG_LOG_WARNING;
-import static com.smouldering_durtles.wk.util.ObjectSupport.isTrue;
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
-
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,9 +48,9 @@ import com.smouldering_durtles.wk.components.NumberRangePreference;
 import com.smouldering_durtles.wk.components.NumberRangePreferenceDialogFragment;
 import com.smouldering_durtles.wk.components.TaggedUrlPreference;
 import com.smouldering_durtles.wk.components.TaggedUrlPreferenceDialogFragment;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
 import com.smouldering_durtles.wk.jobs.ResetDatabaseJob;
 import com.smouldering_durtles.wk.livedata.LiveApiState;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.AudioUtil;
 import com.smouldering_durtles.wk.util.DbLogger;
 import com.smouldering_durtles.wk.util.ThemeUtil;
@@ -71,32 +59,25 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import static com.smouldering_durtles.wk.Constants.API_KEY_PERMISSION_NOTICE;
+import static com.smouldering_durtles.wk.Constants.ENABLE_ADVANCED_WARNING;
+import static com.smouldering_durtles.wk.Constants.EXPERIMENTAL_PREFERENCE_STATUS_NOTICE;
+import static com.smouldering_durtles.wk.Constants.RESET_DATABASE_WARNING;
+import static com.smouldering_durtles.wk.Constants.RESET_TUTORIALS_WARNING;
+import static com.smouldering_durtles.wk.Constants.SUBJECT_SELECTION_NOTICE;
+import static com.smouldering_durtles.wk.Constants.UPLOAD_DEBUG_LOG_WARNING;
+import static com.smouldering_durtles.wk.util.ObjectSupport.isTrue;
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
+
 /**
  * Fragment for preferences.
  */
-public class PreferencesFragment extends PreferenceFragmentCompat {
-    // ...
-
+public final class PreferencesFragment extends PreferenceFragmentCompat {
     @Override
-    public void onCreatePreferences(final Bundle savedInstanceState, @Nullable final String rootKey) {
+    public void onCreatePreferences(final @Nullable Bundle savedInstanceState, final @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference instanceof TaggedUrlPreference) {
-            TaggedUrlPreferenceDialogFragment fragment = TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey());
-            fragment.setTargetFragment(this, 0);
-            fragment.show(getParentFragmentManager(), null);
-            return true;
-        } else if (preference instanceof NumberRangePreference) {
-            NumberRangePreferenceDialogFragment fragment = NumberRangePreferenceDialogFragment.newInstance(preference.getKey());
-            fragment.setTargetFragment(this, 0);
-            fragment.show(getParentFragmentManager(), null);
-            return true;
-        }
-
-        return super.onPreferenceTreeClick(preference);
     }
 
     private void onViewCreatedBase(final View view, final @Nullable Bundle savedInstanceState) {
@@ -258,27 +239,31 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         });
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onDisplayPreferenceDialog(final Preference preference) {
         safe(() -> {
             if (preference instanceof TaggedUrlPreference) {
-                displayCustomPreferenceDialog("TaggedUrlPreference", TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey()));
+                if (getParentFragmentManager().findFragmentByTag("TaggedUrlPreference") != null) {
+                    return;
+                }
+                final DialogFragment f = TaggedUrlPreferenceDialogFragment.newInstance(preference.getKey());
+                f.setTargetFragment(this, 0);
+                f.show(getParentFragmentManager(), "TaggedUrlPreference");
                 return;
             }
             if (preference instanceof NumberRangePreference) {
-                displayCustomPreferenceDialog("NumberRangePreference", NumberRangePreferenceDialogFragment.newInstance(preference.getKey()));
+                if (getParentFragmentManager().findFragmentByTag("NumberRangePreference") != null) {
+                    return;
+                }
+                final DialogFragment f = NumberRangePreferenceDialogFragment.newInstance(preference.getKey());
+                f.setTargetFragment(this, 0);
+                f.show(getParentFragmentManager(), "NumberRangePreference");
                 return;
             }
 
             super.onDisplayPreferenceDialog(preference);
         });
-    }
-
-    private void displayCustomPreferenceDialog(String tag, DialogFragment dialogFragment) {
-        if (getParentFragmentManager().findFragmentByTag(tag) != null) {
-            return;
-        }
-        dialogFragment.show(getParentFragmentManager(), tag);
     }
 
     private void goToActivity(final Class<? extends AbstractActivity> clas) {

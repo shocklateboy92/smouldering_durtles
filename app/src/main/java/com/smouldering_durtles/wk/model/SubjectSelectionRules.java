@@ -33,7 +33,6 @@ public final class SubjectSelectionRules {
     private final int kanjiMax;
     private final int vocabularyMin;
     private final int vocabularyMax;
-
     private final int kanaVocabularyMin;
     private final int kanaVocabularyMax;
     private final int userLevel;
@@ -46,16 +45,16 @@ public final class SubjectSelectionRules {
     /**
      * The constructor.
      *
-     * @param currentMin                value from settings
-     * @param currentMax                value from settings
-     * @param earlierMin                value from settings
-     * @param earlierMax                value from settings
-     * @param radicalMin                value from settings
-     * @param radicalMax                value from settings
-     * @param kanjiMin                  value from settings
-     * @param kanjiMax                  value from settings
-     * @param vocabularyMin             value from settings
-     * @param vocabularyMax             value from settings
+     * @param currentMin value from settings
+     * @param currentMax value from settings
+     * @param earlierMin value from settings
+     * @param earlierMax value from settings
+     * @param radicalMin value from settings
+     * @param radicalMax value from settings
+     * @param kanjiMin value from settings
+     * @param kanjiMax value from settings
+     * @param vocabularyMin value from settings
+     * @param vocabularyMax  value from settings
      * @param kanaVocabularyMin value from settings
      * @param kanaVocabularyMax value from settings
      */

@@ -16,26 +16,26 @@
 
 package com.smouldering_durtles.wk.jobs;
 
+import static com.smouldering_durtles.wk.Constants.SECOND;
+import static com.smouldering_durtles.wk.enums.SessionItemState.REPORTED;
+import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
+import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
+import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
+
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.db.model.SessionItem;
 import com.smouldering_durtles.wk.db.model.Subject;
 import com.smouldering_durtles.wk.enums.SessionType;
+import com.smouldering_durtles.wk.livedata.LiveAlertContext;
 import com.smouldering_durtles.wk.livedata.LiveBurnedItems;
 import com.smouldering_durtles.wk.livedata.LiveCriticalCondition;
 import com.smouldering_durtles.wk.livedata.LiveLevelProgress;
 import com.smouldering_durtles.wk.livedata.LiveSrsBreakDown;
 import com.smouldering_durtles.wk.livedata.LiveTimeLine;
 import com.smouldering_durtles.wk.model.SrsSystem;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.SECOND;
-import static com.smouldering_durtles.wk.enums.SessionItemState.REPORTED;
-import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
-import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
-import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
 
 /**
  * Job to report a session item as finished normally (not abandoned).
@@ -222,7 +222,7 @@ public final class ReportSessionItemJob extends Job {
                 LiveTimeLine.getInstance().update();
                 LiveSrsBreakDown.getInstance().update();
                 LiveLevelProgress.getInstance().update();
-                BackgroundAlarmReceiver.processAlarm(null);
+                LiveAlertContext.getInstance().update();
             }
         }
 
@@ -235,7 +235,7 @@ public final class ReportSessionItemJob extends Job {
                 LiveLevelProgress.getInstance().update();
                 LiveCriticalCondition.getInstance().update();
                 LiveBurnedItems.getInstance().update();
-                BackgroundAlarmReceiver.processAlarm(null);
+                LiveAlertContext.getInstance().update();
             }
         }
 

@@ -16,9 +16,11 @@
 
 package com.smouldering_durtles.wk.activities;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsyncWithProgress;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.lifecycle.Lifecycle;
 
@@ -35,9 +37,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsyncWithProgress;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * An activity for resurrecting one or more subjects.
@@ -74,7 +73,7 @@ public final class ResurrectActivity extends AbstractActivity {
         stopButton.setDelegate(this, R.id.stopButton);
         subjects.setDelegate(this, R.id.subjects);
 
-        final @Nullable long[] ids = getIntent().getLongArrayExtra("ids");
+        final long[] ids = getIntent().getLongArrayExtra("ids");
         if (ids == null || ids.length == 0) {
             finish();
             return;
@@ -88,7 +87,9 @@ public final class ResurrectActivity extends AbstractActivity {
         successCount.setText("Resurrected: 0");
         failCount.setText("Failed to resurrect: 0");
 
+        startButton.setOnClickListener(v -> start());
         startButton.enableInteraction();
+        stopButton.setOnClickListener(v -> stop());
         stopButton.disableInteraction();
     }
 
@@ -110,6 +111,11 @@ public final class ResurrectActivity extends AbstractActivity {
     @Override
     protected void disableInteractionLocal() {
         //
+    }
+
+    @Override
+    protected boolean showWithoutApiKey() {
+        return false;
     }
 
     @SuppressLint("NewApi")
@@ -194,10 +200,8 @@ public final class ResurrectActivity extends AbstractActivity {
 
     /**
      * Handler for the start button.
-     *
-     * @param view the button
      */
-    public void start(@SuppressWarnings("unused") final View view) {
+    private void start() {
         safe(() -> {
             startButton.disableInteraction();
             stopButton.enableInteraction();
@@ -215,10 +219,8 @@ public final class ResurrectActivity extends AbstractActivity {
 
     /**
      * Handler for the start button.
-     *
-     * @param view the button
      */
-    public void stop(@SuppressWarnings("unused") final View view) {
+    private void stop() {
         safe(() -> {
             stopButton.disableInteraction();
             stopped = true;

@@ -142,7 +142,7 @@ public final class AnsweredSessionFragment extends AbstractSessionFragment {
         questionEdit.setSingleLine();
         questionEdit.setText(FloatingUiState.getCurrentAnswer());
         questionEdit.setTextSize(GlobalSettings.Font.getFontSizeQuestionEdit());
-        questionEdit.setTextColor(ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary));
+        questionEdit.setTextColor(ThemeUtil.getColor(R.attr.colorPrimary));
         if (question.getType().isAscii()) {
             questionEdit.setRootLocale();
         }

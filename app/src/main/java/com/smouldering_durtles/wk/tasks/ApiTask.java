@@ -16,18 +16,6 @@
 
 package com.smouldering_durtles.wk.tasks;
 
-import static com.smouldering_durtles.wk.Constants.API_RETRY_DELAY;
-import static com.smouldering_durtles.wk.Constants.HTTP_TOO_MANY_REQUESTS;
-import static com.smouldering_durtles.wk.Constants.HTTP_UNPROCESSABLE_ENTITY;
-import static com.smouldering_durtles.wk.Constants.MINUTE;
-import static com.smouldering_durtles.wk.Constants.NUM_API_TRIES;
-import static com.smouldering_durtles.wk.Constants.SECOND;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safeNullable;
-import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
-
-import android.os.Build;
-
 import androidx.core.util.Consumer;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -51,15 +39,24 @@ import com.smouldering_durtles.wk.util.Logger;
 import com.smouldering_durtles.wk.util.StreamUtil;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 import javax.annotation.Nullable;
 import javax.net.ssl.HttpsURLConnection;
+
+import static com.smouldering_durtles.wk.Constants.API_RETRY_DELAY;
+import static com.smouldering_durtles.wk.Constants.HTTP_TOO_MANY_REQUESTS;
+import static com.smouldering_durtles.wk.Constants.HTTP_UNPROCESSABLE_ENTITY;
+import static com.smouldering_durtles.wk.Constants.MINUTE;
+import static com.smouldering_durtles.wk.Constants.NUM_API_TRIES;
+import static com.smouldering_durtles.wk.Constants.SECOND;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safeNullable;
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 /**
  * Abstract base class for background tasks. This class handles logging and exception
@@ -92,7 +89,7 @@ public abstract class ApiTask {
      * @param uri the request URI, which is either absolute or site-relative (starts with '/')
      * @return the response body, parsed as a JSON document
      */
-     private  static @Nullable JsonNode getApiCall(final String uri) {
+    private static @Nullable JsonNode getApiCall(final String uri) {
         RateLimiter.getInstance().prepare();
         final ObjectMapper mapper = Converters.getObjectMapper();
         final AppDatabase db = WkApplication.getDatabase();
@@ -131,9 +128,7 @@ public abstract class ApiTask {
                     if (code >= 100) {
                         LOGGER.info("Response code: %d %s", code, connection.getResponseMessage());
                         final byte[] body = StreamUtil.slurp(connection.getErrorStream());
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            LOGGER.info("Response body: %s", new String(body, StandardCharsets.ISO_8859_1));
-                        }
+                        LOGGER.info("Response body: %s", new String(body, "ISO-8859-1"));
                     }
                 } catch (final Exception e1) {
                     //
@@ -257,9 +252,7 @@ public abstract class ApiTask {
                     if (code >= 100) {
                         LOGGER.info("Response code: %d %s", code, connection.getResponseMessage());
                         final byte[] body = StreamUtil.slurp(connection.getErrorStream());
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            LOGGER.info("Response body: %s", new String(body, StandardCharsets.ISO_8859_1));
-                        }
+                        LOGGER.info("Response body: %s", new String(body, "ISO-8859-1"));
                     }
                 } catch (final Exception e1) {
                     //
@@ -477,12 +470,10 @@ public abstract class ApiTask {
             connection.setReadTimeout((int) MINUTE);
             connection.getHeaderFields();
             LOGGER.info("Response code: %d %s", connection.getResponseCode(), connection.getResponseMessage());
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                try (final InputStream is = connection.getInputStream(); final OutputStream os = Files.newOutputStream(tempFile.toPath())) {
-                    StreamUtil.pump(is, os);
-                    //noinspection ResultOfMethodCallIgnored
-                    tempFile.renameTo(outputFile);
-                }
+            try (final InputStream is = connection.getInputStream(); final OutputStream os = new FileOutputStream(tempFile)) {
+                StreamUtil.pump(is, os);
+                //noinspection ResultOfMethodCallIgnored
+                tempFile.renameTo(outputFile);
             }
         }
         catch (final Exception e) {

@@ -21,7 +21,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.smouldering_durtles.wk.WkApplication;
-import com.smouldering_durtles.wk.fragments.services.BackgroundSyncWorker;
+import com.smouldering_durtles.wk.services.BackgroundSyncWorker;
 
 import java.util.Collections;
 import java.util.List;

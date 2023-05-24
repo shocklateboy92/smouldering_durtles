@@ -48,12 +48,10 @@ public final class LessonReviewBreakdownView extends TableLayout {
     private final ViewProxy lessonCurrentRad = new ViewProxy();
     private final ViewProxy lessonCurrentKan = new ViewProxy();
     private final ViewProxy lessonCurrentVoc = new ViewProxy();
-
     private final ViewProxy lessonPast = new ViewProxy();
     private final ViewProxy lessonPastRad = new ViewProxy();
     private final ViewProxy lessonPastKan = new ViewProxy();
     private final ViewProxy lessonPastVoc = new ViewProxy();
-
     private final ViewProxy reviewCurrent = new ViewProxy();
     private final ViewProxy reviewCurrentRad = new ViewProxy();
     private final ViewProxy reviewCurrentKan = new ViewProxy();
@@ -139,7 +137,6 @@ public final class LessonReviewBreakdownView extends TableLayout {
         reviewCurrentKan.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[1]);
         reviewCurrentVoc.setTextColor(ActiveTheme.getSubjectTypeTextColors()[2]);
         reviewCurrentVoc.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[2]);
-
 
         reviewPastRad.setTextColor(ActiveTheme.getSubjectTypeTextColors()[0]);
         reviewPastRad.setBackgroundColor(ActiveTheme.getSubjectTypeBackgroundColors()[0]);

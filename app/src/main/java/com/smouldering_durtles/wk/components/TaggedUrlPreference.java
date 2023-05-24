@@ -97,8 +97,7 @@ public final class TaggedUrlPreference extends DialogPreference {
             final TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.TaggedUrlPreference, 0, 0);
             try {
                 defaultTag = orElse(a.getString(R.styleable.TaggedUrlPreference_defaultTag), "");
-            }
-            finally {
+            } finally {
                 a.recycle();
             }
         });

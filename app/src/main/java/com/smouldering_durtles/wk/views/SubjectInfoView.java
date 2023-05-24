@@ -49,7 +49,7 @@ import com.smouldering_durtles.wk.model.FloatingUiState;
 import com.smouldering_durtles.wk.model.Question;
 import com.smouldering_durtles.wk.model.Session;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.ThemeUtil;
 import com.smouldering_durtles.wk.util.WeakLcoRef;
 
@@ -440,10 +440,7 @@ public final class SubjectInfoView extends LinearLayout implements SubjectChange
         if (done) {
             return true;
         }
-        boolean ok = false;
-        if (event == null && actionId == EditorInfo.IME_ACTION_DONE) {
-            ok = true;
-        }
+        boolean ok = event == null && actionId == EditorInfo.IME_ACTION_DONE;
         if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
             ok = true;
         }
@@ -522,6 +519,8 @@ public final class SubjectInfoView extends LinearLayout implements SubjectChange
         final boolean showReadingAnswers = getSubjectInfoDump().getShowReadingAnswers(Session.getInstance().getCurrentQuestion());
         final boolean showMeaningRelated = getSubjectInfoDump().getShowMeaningRelated(Session.getInstance().getCurrentQuestion());
         final boolean showReadingRelated = getSubjectInfoDump().getShowReadingRelated(Session.getInstance().getCurrentQuestion());
+        final boolean showMeaningMnemonic = !GlobalSettings.SubjectInfo.getHideMeaningMnemonic() || !subject.hasMeaningNote();
+        final boolean showReadingMnemonic = !GlobalSettings.SubjectInfo.getHideReadingMnemonic() || !subject.hasReadingNote();
 
         headline.setSubject(subject);
 
@@ -545,15 +544,15 @@ public final class SubjectInfoView extends LinearLayout implements SubjectChange
         meaningMnemonic.setText(subject.getMeaningMnemonicRichText());
         meaningMnemonic.setJapaneseLocale();
         meaningMnemonic.setLinkMovementMethod();
-        meaningMnemonic.setVisibility(showMeaningRelated && subject.hasMeaningMnemonic());
+        meaningMnemonic.setVisibility(showMeaningRelated && subject.hasMeaningMnemonic() && showMeaningMnemonic);
         meaningHint.setText(subject.getMeaningHintRichText());
         meaningHint.setJapaneseLocale();
         meaningHint.setLinkMovementMethod();
-        meaningHint.setVisibility(showMeaningRelated && subject.hasMeaningHint());
+        meaningHint.setVisibility(showMeaningRelated && subject.hasMeaningHint() && showMeaningMnemonic);
         legacyName.setText(subject.getLegacyNameRichText());
-        legacyName.setVisibility(showMeaningRelated && GlobalSettings.SubjectInfo.getShowLegacy() && subject.hasLegacy());
+        legacyName.setVisibility(showMeaningRelated && GlobalSettings.SubjectInfo.getShowLegacy() && subject.hasLegacy() && showMeaningMnemonic);
         legacyMnemonic.setText(subject.getLegacyMnemonicRichText());
-        legacyMnemonic.setVisibility(showMeaningRelated && GlobalSettings.SubjectInfo.getShowLegacy() && subject.hasLegacy());
+        legacyMnemonic.setVisibility(showMeaningRelated && GlobalSettings.SubjectInfo.getShowLegacy() && subject.hasLegacy() && showMeaningMnemonic);
         meaningNote.setText(subject.getMeaningNoteRichText());
         meaningNote.setJapaneseLocale();
         meaningNote.setLinkMovementMethod();
@@ -569,11 +568,11 @@ public final class SubjectInfoView extends LinearLayout implements SubjectChange
         readingMnemonic.setText(subject.getReadingMnemonicRichText());
         readingMnemonic.setJapaneseLocale();
         readingMnemonic.setLinkMovementMethod();
-        readingMnemonic.setVisibility(showReadingRelated && subject.hasReadingMnemonic());
+        readingMnemonic.setVisibility(showReadingRelated && subject.hasReadingMnemonic() && showReadingMnemonic);
         readingHint.setText(subject.getReadingHintRichText());
         readingHint.setJapaneseLocale();
         readingHint.setLinkMovementMethod();
-        readingHint.setVisibility(showReadingRelated && subject.hasReadingHint());
+        readingHint.setVisibility(showReadingRelated && subject.hasReadingHint() && showReadingMnemonic);
         readingNote.setText(subject.getReadingNoteRichText());
         readingNote.setJapaneseLocale();
         readingNote.setLinkMovementMethod();

@@ -16,9 +16,11 @@
 
 package com.smouldering_durtles.wk.activities;
 
+import static com.smouldering_durtles.wk.Constants.NO_API_KEY_HELP_DOCUMENT;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 import com.smouldering_durtles.wk.GlobalSettings;
@@ -58,13 +60,15 @@ public final class NoApiKeyHelpActivity extends AbstractActivity {
         document.setTextHtml(NO_API_KEY_HELP_DOCUMENT);
         document.setLinkMovementMethod();
 
+        saveButton.setOnClickListener(v -> saveApiKey());
+
         apiKey.setOnEditorActionListener((v, actionId, event) -> safe(false, () -> {
             if (event == null && actionId == EditorInfo.IME_ACTION_DONE) {
-                saveApiKey(v);
+                saveApiKey();
                 return true;
             }
             if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                saveApiKey(v);
+                saveApiKey();
                 return true;
             }
             return false;
@@ -91,12 +95,15 @@ public final class NoApiKeyHelpActivity extends AbstractActivity {
         saveButton.disableInteraction();
     }
 
+    @Override
+    protected boolean showWithoutApiKey() {
+        return true;
+    }
+
     /**
      * Handler for the save button. Save the API key that was entered.
-     *
-     * @param view the button
      */
-    public void saveApiKey(@SuppressWarnings("unused") final View view) {
+    private void saveApiKey() {
         safe(() -> {
             if (!interactionEnabled) {
                 return;

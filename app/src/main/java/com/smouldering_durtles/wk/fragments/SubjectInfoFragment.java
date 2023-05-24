@@ -144,7 +144,7 @@ public final class SubjectInfoFragment extends AbstractFragment implements Swipi
         if (currentSubject == null || activity == null || args == null) {
             return;
         }
-        final @Nullable long[] ids = args.getLongArray("ids");
+        final long[] ids = args.getLongArray("ids");
         if (ids == null) {
             return;
         }
@@ -163,7 +163,7 @@ public final class SubjectInfoFragment extends AbstractFragment implements Swipi
         if (currentSubject == null || activity == null || args == null) {
             return;
         }
-        final @Nullable long[] ids = args.getLongArray("ids");
+        final long[] ids = args.getLongArray("ids");
         if (ids == null) {
             return;
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
+ * Copyright 2019-2022 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,53 +16,49 @@
 
 package com.smouldering_durtles.wk.livedata;
 
-import android.annotation.SuppressLint;
-
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.db.AppDatabase;
-import com.smouldering_durtles.wk.model.SrsBreakDown;
-import com.smouldering_durtles.wk.model.SrsSystem;
-import com.smouldering_durtles.wk.model.SrsSystemRepository;
+import com.smouldering_durtles.wk.model.AlertContext;
 
 /**
- * LiveData that tracks the SRS breakdown data for the dashboard.
+ * LiveData that records the current context data needed for notifications and widget updates.
  */
-public final class LiveSrsBreakDown extends ConservativeLiveData<SrsBreakDown> {
+public final class LiveAlertContext extends ConservativeLiveData<AlertContext> {
     /**
      * The singleton instance.
      */
-    private static final LiveSrsBreakDown instance = new LiveSrsBreakDown();
+    private static final LiveAlertContext instance = new LiveAlertContext();
 
     /**
      * Get the singleton instance.
      *
      * @return the instance
      */
-    public static LiveSrsBreakDown getInstance() {
+    public static LiveAlertContext getInstance() {
         return instance;
     }
 
     /**
      * Private constructor.
      */
-    private LiveSrsBreakDown() {
+    private LiveAlertContext() {
         //
     }
 
-    @SuppressLint("NewApi")
     @Override
     protected void updateLocal() {
         final AppDatabase db = WkApplication.getDatabase();
-        final SrsBreakDown breakDown = new SrsBreakDown();
-        db.subjectViewsDao().getSrsBreakDownItems().forEach(item -> {
-            final SrsSystem.Stage stage = SrsSystemRepository.getSrsSystem(item.getSystemId()).getStage(item.getStageId());
-            breakDown.addCount(stage, item.getCount());
-        });
-        instance.postValue(breakDown);
+        final int maxLevel = db.propertiesDao().getUserMaxLevelGranted();
+        final long now = System.currentTimeMillis();
+        final AlertContext ctx = db.subjectAggregatesDao().getAlertContext(maxLevel, now);
+        instance.postValue(ctx);
     }
 
     @Override
-    public SrsBreakDown getDefaultValue() {
-        return new SrsBreakDown();
+    public AlertContext getDefaultValue() {
+        final AlertContext ctx = new AlertContext();
+        ctx.setNumLessons(-1);
+        ctx.setNumReviews(-1);
+        return ctx;
     }
 }

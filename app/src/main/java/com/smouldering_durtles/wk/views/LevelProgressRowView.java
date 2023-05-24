@@ -16,8 +16,6 @@
 
 package com.smouldering_durtles.wk.views;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TableRow;
@@ -34,6 +32,8 @@ import com.smouldering_durtles.wk.proxy.ViewProxy;
 import com.smouldering_durtles.wk.util.WeakLcoRef;
 
 import javax.annotation.Nullable;
+
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * A custom view that shows a single bar in the level progress chart on the dashboard.
@@ -56,7 +56,7 @@ public final class LevelProgressRowView extends TableRow {
      * The constructor.
      *
      * @param context Android context
-     * @param attrs   attribute set
+     * @param attrs attribute set
      */
     public LevelProgressRowView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
@@ -74,19 +74,21 @@ public final class LevelProgressRowView extends TableRow {
         });
     }
 
-
     private String getModifiedTypeLabel(String subjectTypeLabel) {
         if (subjectTypeLabel.equals("kana_vocabulary")) {
             subjectTypeLabel = "vocabulary";
         }
         return subjectTypeLabel;
     }
-
+    /**
+     * Set the bar details for this instance.
+     *
+     * @param actmentRef the lifecycle owner
+     * @param entry the details for the bar view
+     */
     public void setEntry(final @Nullable WeakLcoRef<? extends Actment> actmentRef, final LevelProgress.BarEntry entry) {
         safe(() -> {
-            String subjectTypeLabel = getModifiedTypeLabel(entry.getType().getLevelProgressLabel());
-
-            label.setTextFormat("Lvl %d %s", entry.getLevel(), subjectTypeLabel);
+            label.setTextFormat("Lvl %d %s", entry.getLevel(), entry.getType().getLevelProgressLabel());
             barView.setValues(entry.getBuckets());
             barView.setShowTarget(LiveLevelDuration.getInstance().get().getLevel() == entry.getLevel() && entry.getType().hasLevelUpTarget());
             setOnClickListener(v -> safe(() -> {

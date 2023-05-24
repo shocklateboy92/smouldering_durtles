@@ -18,6 +18,7 @@ package com.smouldering_durtles.wk.livedata;
 
 import android.annotation.SuppressLint;
 
+import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.enums.SubjectType;
@@ -73,9 +74,15 @@ public final class LiveLevelProgress extends ConservativeLiveData<LevelProgress>
     protected void updateLocal() {
         final AppDatabase db = WkApplication.getDatabase();
         final int userLevel = db.propertiesDao().getUserLevel();
-        final LevelProgress levelProgress = new LevelProgress(userLevel);
+        final int maxLevel;
+        if (GlobalSettings.Dashboard.getShowOverLevelProgression()) {
+            maxLevel = db.propertiesDao().getUserMaxLevelGranted();
+        } else {
+            maxLevel = userLevel;
+        }
+        final LevelProgress levelProgress = new LevelProgress(maxLevel);
 
-        for (final LevelProgressItem item : db.subjectViewsDao().getLevelProgressTotalItems(userLevel)) {
+        for (final LevelProgressItem item : db.subjectViewsDao().getLevelProgressTotalItems()) {
             if (item.getType() == SubjectType.WANIKANI_KANA_VOCAB) {
                 LevelProgressItem combinedItem = new LevelProgressItem();
                 combinedItem.setType(SubjectType.WANIKANI_VOCAB);
@@ -87,7 +94,7 @@ public final class LiveLevelProgress extends ConservativeLiveData<LevelProgress>
             }
         }
 
-        for (final LevelProgressItem item : db.subjectViewsDao().getLevelProgressPassedItems(userLevel)) {
+        for (final LevelProgressItem item : db.subjectViewsDao().getLevelProgressPassedItems()) {
             if (item.getType() == SubjectType.WANIKANI_KANA_VOCAB) {
                 LevelProgressItem combinedItem = new LevelProgressItem();
                 combinedItem.setType(SubjectType.WANIKANI_VOCAB);
@@ -99,7 +106,7 @@ public final class LiveLevelProgress extends ConservativeLiveData<LevelProgress>
             }
         }
 
-        levelProgress.removePassedBars();
+        levelProgress.removePassedAndLockedBars(userLevel);
 
         levelProgress.getEntries().forEach(
                 entry -> db.subjectCollectionsDao().getLevelProgressSubjects(entry.getLevel(), entry.getType())

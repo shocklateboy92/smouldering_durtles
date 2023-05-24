@@ -309,7 +309,7 @@ public enum ActiveTheme {
      * The style ID for this theme.
      * @return the value
      */
-    public int getStyleId() {
+    public final int getStyleId() {
         return styleId;
     }
 
@@ -317,7 +317,7 @@ public enum ActiveTheme {
      * Resource ID for the little up arrow in the timeline bar chart that indicates level-up items.
      * @return the value
      */
-    public int getLevelUpArrowDrawableId() {
+    public final int getLevelUpArrowDrawableId() {
         return levelUpArrowDrawableId;
     }
 
@@ -326,7 +326,7 @@ public enum ActiveTheme {
      *
      * @return true if it does
      */
-    public boolean hasIdentBackground() {
+    public final boolean hasIdentBackground() {
         return identBackground;
     }
 
@@ -334,7 +334,7 @@ public enum ActiveTheme {
      * Indicate that the theme customizations have changed and the colors for the theme should be reloaded.
      * @param dirty the value
      */
-    public void setDirty(final boolean dirty) {
+    public final void setDirty(final boolean dirty) {
         this.dirty = dirty;
     }
 

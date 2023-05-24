@@ -16,9 +16,6 @@
 
 package com.smouldering_durtles.wk.adapter.search;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.join;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
@@ -34,6 +31,9 @@ import java.util.Collection;
 import java.util.Locale;
 
 import javax.annotation.Nullable;
+
+import static com.smouldering_durtles.wk.util.ObjectSupport.join;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * Abstract base class for view holders for advanced search result items.
@@ -101,7 +101,7 @@ public abstract class HeaderItemViewHolder extends ResultItemViewHolder implemen
         final int icon = item.isCollapsed() ? R.drawable.ic_expand_less : R.drawable.ic_expand_more;
         final @Nullable Drawable drawable = ContextCompat.getDrawable(itemView.getContext(), icon);
         if (drawable != null) {
-            drawable.setColorFilter(new SimpleColorFilter(ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary)));
+            drawable.setColorFilter(new SimpleColorFilter(ThemeUtil.getColor(R.attr.colorPrimary)));
             arrowHead.setImageDrawable(drawable);
         }
 
@@ -130,18 +130,19 @@ public abstract class HeaderItemViewHolder extends ResultItemViewHolder implemen
             if (item == null) {
                 return;
             }
+            final int position = getBindingAdapterPosition();
             if (item.isCollapsed()) {
                 item.setCollapsed(false);
                 final int count = item.getCount() - 1;
-                adapter.notifyItemChanged(getBindingAdapterPosition());
-                adapter.notifyItemRangeInserted(getBindingAdapterPosition() + 1, count);
+                adapter.notifyItemChanged(position);
+                adapter.notifyItemRangeInserted(position + 1, count);
                 adapter.getCollapsedTags().remove(item.getTag());
             }
             else {
                 final int count = item.getCount() - 1;
                 item.setCollapsed(true);
-                adapter.notifyItemChanged(getBindingAdapterPosition());
-                adapter.notifyItemRangeRemoved(getBindingAdapterPosition() + 1, count);
+                adapter.notifyItemChanged(position);
+                adapter.notifyItemRangeRemoved(position + 1, count);
                 adapter.getCollapsedTags().add(item.getTag());
             }
         });

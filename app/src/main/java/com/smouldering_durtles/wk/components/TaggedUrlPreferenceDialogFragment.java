@@ -62,7 +62,7 @@ public final class TaggedUrlPreferenceDialogFragment extends PreferenceDialogFra
     }
 
     @Override
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
+    public void onCreate(final @Nullable Bundle savedInstanceState) {
         safe(() -> {
             super.onCreate(savedInstanceState);
             if (savedInstanceState == null) {
@@ -113,12 +113,6 @@ public final class TaggedUrlPreferenceDialogFragment extends PreferenceDialogFra
             if (positiveResult) {
                 getTaggedUrlPreference().setTag(tagInput.getText());
                 getTaggedUrlPreference().setUrl(urlInput.getText());
-
-                // new code to send the results to the PreferenceFragment
-                Bundle result = new Bundle();
-                result.putString("tag", tagInput.getText());
-                result.putString("url", urlInput.getText());
-                getParentFragmentManager().setFragmentResult(getArguments().getString(ARG_KEY), result);
             }
         });
     }

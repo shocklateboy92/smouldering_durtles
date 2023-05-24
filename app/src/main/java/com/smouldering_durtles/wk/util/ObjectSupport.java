@@ -17,6 +17,7 @@
 package com.smouldering_durtles.wk.util;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -24,8 +25,10 @@ import androidx.lifecycle.LifecycleOwner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -474,6 +477,25 @@ public final class ObjectSupport {
         result.add(e2);
         result.addAll(Arrays.asList(rest));
         return Collections.unmodifiableList(result);
+    }
+
+    /**
+     * Extract a Map from bundle with the same key-value pairs for easier inspection,
+     * for example to get a more useful .toString().
+     *
+     * @param bundle The bundle to extract
+     * @return The extracted Map, null if the bundle was null
+     */
+    @SuppressWarnings("unused")
+    public static @Nullable Map<String, Object> extractBundle(final @Nullable Bundle bundle) {
+        if (bundle == null) {
+            return null;
+        }
+        final Map<String, Object> result = new HashMap<>();
+        for (final String key: bundle.keySet()) {
+            result.put(key, bundle.get(key));
+        }
+        return result;
     }
 
     /**

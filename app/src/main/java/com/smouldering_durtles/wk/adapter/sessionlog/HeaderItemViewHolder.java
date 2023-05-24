@@ -64,7 +64,7 @@ public final class HeaderItemViewHolder extends LogItemViewHolder implements Vie
         final int icon = item.isCollapsed() ? R.drawable.ic_expand_less : R.drawable.ic_expand_more;
         final @Nullable Drawable drawable = ContextCompat.getDrawable(itemView.getContext(), icon);
         if (drawable != null) {
-            drawable.setColorFilter(new SimpleColorFilter(ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary)));
+            drawable.setColorFilter(new SimpleColorFilter(ThemeUtil.getColor(R.attr.colorPrimary)));
             arrowHead.setImageDrawable(drawable);
         }
 
@@ -78,18 +78,19 @@ public final class HeaderItemViewHolder extends LogItemViewHolder implements Vie
             if (item == null) {
                 return;
             }
+            final int position = getBindingAdapterPosition();
             if (item.isCollapsed()) {
                 item.setCollapsed(false);
                 final int count = item.getCount() - 1;
-                adapter.notifyItemChanged(getBindingAdapterPosition());
-                adapter.notifyItemRangeInserted(getBindingAdapterPosition() + 1, count);
+                adapter.notifyItemChanged(position);
+                adapter.notifyItemRangeInserted(position + 1, count);
                 adapter.getCollapsedTags().remove(item.getTag());
             }
             else {
                 final int count = item.getCount() - 1;
                 item.setCollapsed(true);
-                adapter.notifyItemChanged(getBindingAdapterPosition());
-                adapter.notifyItemRangeRemoved(getBindingAdapterPosition() + 1, count);
+                adapter.notifyItemChanged(position);
+                adapter.notifyItemRangeRemoved(position + 1, count);
                 adapter.getCollapsedTags().add(item.getTag());
             }
         });

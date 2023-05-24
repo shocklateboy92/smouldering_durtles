@@ -295,14 +295,11 @@ public enum SubjectType {
      * @return the SubjectType instance that corresponds to this.
      */
     public static SubjectType from(final String dbTypeName) {
-        System.out.println("Looking for SubjectType: " + dbTypeName); // Add this line for debugging
         for (final SubjectType type: values()) {
             if (type.dbTypeName.equals(dbTypeName)) {
-                System.out.println("Found matching SubjectType: " + type); // Add this line for debugging
                 return type;
             }
         }
-        System.out.println("Falling back to WANIKANI_KANA_VOCAB"); // Add this line for debugging
         return WANIKANI_RADICAL;
     }
 
@@ -325,7 +322,7 @@ public enum SubjectType {
      * @param timeLineBarChartBucket instance field
      */
     SubjectType(final String dbTypeName, final boolean canHavePitchInfo, final boolean canHaveStrokeData, final boolean canHaveTitleImage,
-                final int order, final boolean radical, final boolean kanji, final boolean vocabulary, final boolean kanaVocabulary,final boolean hasLevelUpTarget,
+                final int order, final boolean radical, final boolean kanji, final boolean vocabulary, final boolean kanaVocabulary, final boolean hasLevelUpTarget,
                 final String description, final String descriptionPlural, final String shortDescription,
                 final String componentsHeaderText, final String levelProgressLabel, final String infoTitleLabel,
                 final int timeLineBarChartBucket) {
@@ -353,7 +350,7 @@ public enum SubjectType {
      * The type code for this type, for database mapping.
      * @return the value
      */
-    public String getDbTypeName() {
+    public final String getDbTypeName() {
         return dbTypeName;
     }
 
@@ -370,7 +367,7 @@ public enum SubjectType {
      * Can a subject of this type have pitch info?.
      * @return the value
      */
-    public boolean canHavePitchInfo() {
+    public final boolean canHavePitchInfo() {
         return canHavePitchInfo;
     }
 
@@ -378,7 +375,7 @@ public enum SubjectType {
      * Can a subject of this type have stroke order data?.
      * @return the value
      */
-    public boolean canHaveStrokeData() {
+    public final boolean canHaveStrokeData() {
         return canHaveStrokeData;
     }
 
@@ -386,7 +383,7 @@ public enum SubjectType {
      * Can a subject of this type have an image instead of text for a title?.
      * @return the value
      */
-    public boolean canHaveTitleImage() {
+    public final boolean canHaveTitleImage() {
         return canHaveTitleImage;
     }
 
@@ -394,7 +391,7 @@ public enum SubjectType {
      * A numeric code for this subject type to determine an ordering.
      * @return the value
      */
-    public int getOrder() {
+    public final int getOrder() {
         return order;
     }
 
@@ -402,7 +399,7 @@ public enum SubjectType {
      * Is this a radical type?.
      * @return the value
      */
-    public boolean isRadical() {
+    public final boolean isRadical() {
         return radical;
     }
 
@@ -410,7 +407,7 @@ public enum SubjectType {
      * Is this a kanji type?.
      * @return the value
      */
-    public boolean isKanji() {
+    public final boolean isKanji() {
         return kanji;
     }
 
@@ -418,7 +415,7 @@ public enum SubjectType {
      * Is this a vocabulary type?.
      * @return the value
      */
-    public boolean isVocabulary() {
+    public final boolean isVocabulary() {
         return vocabulary;
     }
 
@@ -434,7 +431,7 @@ public enum SubjectType {
      * Does this type offer a level-up target?.
      * @return the value
      */
-    public boolean hasLevelUpTarget() {
+    public final boolean hasLevelUpTarget() {
         return hasLevelUpTarget;
     }
 
@@ -442,7 +439,7 @@ public enum SubjectType {
      * A textual description of this type.
      * @return the value
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
 
@@ -450,7 +447,7 @@ public enum SubjectType {
      * A textual description of this type, plural form.
      * @return the value
      */
-    public String getDescriptionPlural() {
+    public final String getDescriptionPlural() {
         return descriptionPlural;
     }
 
@@ -458,7 +455,7 @@ public enum SubjectType {
      * A short textual description of this type.
      * @return the value
      */
-    public String getShortDescription() {
+    public final String getShortDescription() {
         return shortDescription;
     }
 
@@ -466,7 +463,7 @@ public enum SubjectType {
      * A textual description of the component subjects of this subject type, used as a header for a table of those subjects.
      * @return the value
      */
-    public String getComponentsHeaderText() {
+    public final String getComponentsHeaderText() {
         return componentsHeaderText;
     }
 
@@ -474,7 +471,7 @@ public enum SubjectType {
      * Label for this type in the level progress chart.
      * @return the value
      */
-    public String getLevelProgressLabel() {
+    public final String getLevelProgressLabel() {
         return levelProgressLabel;
     }
 
@@ -490,7 +487,7 @@ public enum SubjectType {
      * For a timeline bar chart set to style 'Item type', which bucket does this type belong in?.
      * @return the value
      */
-    public int getTimeLineBarChartBucket() {
+    public final int getTimeLineBarChartBucket() {
         return timeLineBarChartBucket;
     }
 
@@ -500,7 +497,7 @@ public enum SubjectType {
      * @return true if they can
      */
     @SuppressWarnings({"MethodMayBeStatic", "SameReturnValue"})
-    public boolean canHaveStudyMaterials() {
+    public final boolean canHaveStudyMaterials() {
         return true;
     }
 

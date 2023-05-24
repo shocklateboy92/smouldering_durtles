@@ -27,10 +27,8 @@ import com.smouldering_durtles.wk.livedata.LiveJoyoProgress;
 import com.smouldering_durtles.wk.livedata.LiveLevelProgress;
 import com.smouldering_durtles.wk.livedata.LiveRecentUnlocks;
 import com.smouldering_durtles.wk.livedata.LiveTimeLine;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost19;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost23;
-import com.smouldering_durtles.wk.fragments.services.BackgroundSyncWorker;
+import com.smouldering_durtles.wk.services.BackgroundAlarmReceiver;
+import com.smouldering_durtles.wk.services.BackgroundSyncWorker;
 
 /**
  * Job that is triggered every time a setting changes value. This used to
@@ -85,8 +83,6 @@ public final class SettingChangedJob extends Job {
                 break;
             case "enable_notifications":
                 BackgroundAlarmReceiver.scheduleOrCancelAlarm();
-                BackgroundAlarmReceiverPost19.scheduleOrCancelAlarm();
-                BackgroundAlarmReceiverPost23.scheduleOrCancelAlarm();
                 break;
             case "enable_background_sync":
                 BackgroundSyncWorker.scheduleOrCancelWork();

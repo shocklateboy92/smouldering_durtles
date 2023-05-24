@@ -17,18 +17,16 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    package="com.smouldering_durtles.wk"
     android:installLocation="auto">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
 
     <uses-sdk tools:overrideLibrary="androidx.security"/>
 
@@ -36,84 +34,76 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:label="@string/label"
+        android:label="@string/applabel"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:supportsRtl="false"
-        android:name="com.smouldering_durtles.wk.WkApplication"
-        tools:ignore="AllowBackup"
-        android:enableOnBackInvokedCallback="true"
-        tools:targetApi="tiramisu">
+        android:name=".WkApplication"
+        tools:ignore="AllowBackup">
 
-
-        <activity android:name="com.smouldering_durtles.wk.activities.MainActivity"
-            android:exported="true">
-
+        <activity android:name=".activities.MainActivity"
+            android:label="@string/applabel"
+            android:exported="true"
+            tools:ignore="RedundantLabel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            <intent-filter>
-                <data android:host="main" android:scheme="@string/uri_scheme"/>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-            </intent-filter>
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.PreferencesActivity"
+            android:name=".activities.PreferencesActivity"
             android:label="Settings"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.NoApiKeyHelpActivity"
+            android:name=".activities.NoApiKeyHelpActivity"
             android:label="Enter V2 API token"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.TestActivity"
+            android:name=".activities.TestActivity"
             android:label="Test"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.AboutActivity"
+            android:name=".activities.AboutActivity"
             android:label="@string/about_label"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.ThemeCustomizationActivity"
+            android:name=".activities.ThemeCustomizationActivity"
             android:label="Theme customization"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.SupportActivity"
+            android:name=".activities.SupportActivity"
             android:label="Support / feedback"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.DigraphHelpActivity"
+            android:name=".activities.DigraphHelpActivity"
             android:label="Dighraph help"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
         <activity
-            android:name="com.smouldering_durtles.wk.activities.KeyboardHelpActivity"
+            android:name=".activities.KeyboardHelpActivity"
             android:label="Keyboard help"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.DownloadAudioActivity"
+        <activity android:name=".activities.DownloadAudioActivity"
             android:label="Download audio"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.BrowseActivity"
+        <activity android:name=".activities.BrowseActivity"
             android:label="Browse / search"
             android:windowSoftInputMode="adjustResize"
-            android:exported="true"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <data android:host="subject-info" android:scheme="@string/uri_scheme"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -126,91 +116,84 @@
             <meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.SessionActivity"
+        <activity android:name=".activities.SessionActivity"
             android:label="Session"
             android:windowSoftInputMode="adjustResize"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity"
-            android:exported="true">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.StudyMaterialsActivity"
+        <activity android:name=".activities.StudyMaterialsActivity"
             android:label="My notes"
-            android:exported="true"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
-            <intent-filter>
-                <data android:host="study-materials" android:scheme="@string/uri_scheme"/>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-            </intent-filter>
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.SelfStudyStartActivity"
+        <activity android:name=".activities.SelfStudyStartActivity"
             android:label="Self-study quiz"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.FontSelectionActivity"
+        <activity android:name=".activities.FontSelectionActivity"
             android:label="Font selection"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.FontImportActivity"
+        <activity android:name=".activities.FontImportActivity"
             android:label="Font import"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.DataImportExportActivity"
+        <activity android:name=".activities.DataImportExportActivity"
             android:label="Data import/export"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.ResurrectActivity"
+        <activity android:name=".activities.ResurrectActivity"
             android:label="Resurrect subjects"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
-        <activity android:name="com.smouldering_durtles.wk.activities.BurnActivity"
+        <activity android:name=".activities.BurnActivity"
             android:label="Burn subjects"
-            android:parentActivityName="com.smouldering_durtles.wk.activities.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data android:name="android.app.default_searchable" android:value=".activities.BrowseActivity"/>
         </activity>
 
-        <service android:name="com.smouldering_durtles.wk.fragments.services.JobRunnerService"
+        <service android:name=".services.JobRunnerService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
-        <service android:name="com.smouldering_durtles.wk.fragments.services.ApiTaskService"
+        <service android:name=".services.ApiTaskService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <provider
-            android:name="com.smouldering_durtles.wk.db.SubjectContentProvider"
-            android:authorities="com.smouldering_durtles.wk.db.SubjectContentProvider"
+            android:name=".db.SubjectContentProvider"
+            android:authorities="@string/searchprovider_authority"
             android:enabled="true"
             android:exported="false"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.smouldering_durtles.wk.fileprovider"
+            android:authorities="@string/fileprovider_authority"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths"/>
         </provider>
 
-        <receiver android:name="com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver"/>
-        <receiver android:name="com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost19"/>
-        <receiver android:name="com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiverPost23"/>
+        <receiver android:name=".services.BackgroundAlarmReceiver"/>
+        <receiver android:name=".services.BackgroundAlarmReceiverPost19"/>
+        <receiver android:name=".services.BackgroundAlarmReceiverPost23"/>
 
-        <receiver android:name="com.smouldering_durtles.wk.fragments.services.SessionWidgetProvider"
-            android:exported="true">
+        <receiver android:name=".services.SessionWidgetProvider" android:exported="true">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
-                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
-                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.appwidget.action.APPWIDGET_OPTIONS_CHANGED" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/session_appwidget_info" />
         </receiver>
     </application>
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
 </manifest>
-

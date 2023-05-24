@@ -37,6 +37,7 @@ import com.smouldering_durtles.wk.enums.OnlineStatus;
 import com.smouldering_durtles.wk.enums.SessionType;
 import com.smouldering_durtles.wk.enums.SubjectInfoDump;
 import com.smouldering_durtles.wk.jobs.NetworkStateChangedJob;
+import com.smouldering_durtles.wk.livedata.LiveAlertContext;
 import com.smouldering_durtles.wk.livedata.LiveAudioDownloadStatus;
 import com.smouldering_durtles.wk.livedata.LiveBurnedItems;
 import com.smouldering_durtles.wk.livedata.LiveCriticalCondition;
@@ -56,7 +57,8 @@ import com.smouldering_durtles.wk.livedata.LiveTimeLine;
 import com.smouldering_durtles.wk.livedata.LiveVacationMode;
 import com.smouldering_durtles.wk.livedata.LiveWorkInfos;
 import com.smouldering_durtles.wk.model.Session;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
+import com.smouldering_durtles.wk.services.BackgroundAlarmReceiver;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.AsyncTask;
 import com.smouldering_durtles.wk.util.DbLogger;
 
@@ -122,6 +124,7 @@ public final class WkApplication extends MultiDexApplication {
 
         LiveFirstTimeSetup.getInstance().observeForever(t -> safe(() -> {
             LiveTimeLine.getInstance().ping();
+            LiveAlertContext.getInstance().ping();
             LiveSrsBreakDown.getInstance().ping();
             LiveRecentUnlocks.getInstance().ping();
             LiveCriticalCondition.getInstance().ping();
@@ -342,6 +345,9 @@ public final class WkApplication extends MultiDexApplication {
                 if (LiveSessionProgress.getInstance().hasNullValue()) {
                     LiveSessionProgress.getInstance().update();
                 }
+                if (LiveAlertContext.getInstance().hasNullValue()) {
+                    LiveAlertContext.getInstance().update();
+                }
 
                 Session.getInstance().load();
             });
@@ -351,7 +357,7 @@ public final class WkApplication extends MultiDexApplication {
 
         @Override
         public void onPostExecute(final @Nullable Void result) {
-            //
+            LiveAlertContext.getInstance().observeForever(BackgroundAlarmReceiver::processAlarm);
         }
 
         @Override

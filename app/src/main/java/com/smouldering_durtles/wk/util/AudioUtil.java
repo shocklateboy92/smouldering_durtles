@@ -32,6 +32,7 @@ import androidx.arch.core.util.Function;
 import androidx.core.content.ContextCompat;
 import androidx.core.os.EnvironmentCompat;
 
+import com.smouldering_durtles.wk.BuildConfig;
 import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.api.model.PronunciationAudio;
@@ -142,7 +143,7 @@ public final class AudioUtil {
 
         for (int i=0; i<result.size(); i++) {
             String location = result.get(i);
-            final int p = location.indexOf("/com.smouldering_durtles.wk");
+            final int p = location.indexOf("/" + BuildConfig.APPLICATION_ID);
             if (p > 0) {
                 location = location.substring(0, p);
             }

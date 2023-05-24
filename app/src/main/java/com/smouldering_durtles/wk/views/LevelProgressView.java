@@ -16,10 +16,6 @@
 
 package com.smouldering_durtles.wk.views;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.widget.TableLayout.LayoutParams.WRAP_CONTENT;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TableLayout;
@@ -38,6 +34,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.widget.TableLayout.LayoutParams.WRAP_CONTENT;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * A custom view that shows the level progress bar chart.
@@ -100,9 +100,7 @@ public final class LevelProgressView extends TableLayout {
      *
      * @param actment the lifecycle owner
      */
-    public void
-
-    setLifecycleOwner(final Actment actment) {
+    public void setLifecycleOwner(final Actment actment) {
         safe(() -> {
             actmentRef = new WeakLcoRef<>(actment);
             LiveLevelProgress.getInstance().observe(actment, t -> safe(() -> {

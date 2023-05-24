@@ -16,11 +16,14 @@
 
 package com.smouldering_durtles.wk.tasks;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
+
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.api.ApiState;
 import com.smouldering_durtles.wk.api.model.ApiAssignment;
 import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.db.model.TaskDefinition;
+import com.smouldering_durtles.wk.livedata.LiveAlertContext;
 import com.smouldering_durtles.wk.livedata.LiveApiProgress;
 import com.smouldering_durtles.wk.livedata.LiveApiState;
 import com.smouldering_durtles.wk.livedata.LiveBurnedItems;
@@ -32,12 +35,9 @@ import com.smouldering_durtles.wk.livedata.LiveLevelProgress;
 import com.smouldering_durtles.wk.livedata.LiveRecentUnlocks;
 import com.smouldering_durtles.wk.livedata.LiveSrsBreakDown;
 import com.smouldering_durtles.wk.livedata.LiveTimeLine;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
 
 /**
  * Task to fetch assignments for a specific set of subjects that have had theirs
@@ -97,7 +97,7 @@ public final class GetPatchedAssignmentsTask extends ApiTask {
             LiveCriticalCondition.getInstance().update();
             LiveBurnedItems.getInstance().update();
             LiveLevelDuration.getInstance().forceUpdate();
-            BackgroundAlarmReceiver.processAlarm(null);
+            LiveAlertContext.getInstance().update();
         }
     }
 }

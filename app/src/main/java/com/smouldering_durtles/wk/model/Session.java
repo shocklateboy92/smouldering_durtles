@@ -43,7 +43,7 @@ import com.smouldering_durtles.wk.livedata.LiveSessionProgress;
 import com.smouldering_durtles.wk.livedata.LiveSessionState;
 import com.smouldering_durtles.wk.livedata.SubjectChangeListener;
 import com.smouldering_durtles.wk.livedata.SubjectChangeWatcher;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 import com.smouldering_durtles.wk.util.AudioUtil;
 import com.smouldering_durtles.wk.util.Logger;
 import com.smouldering_durtles.wk.util.PitchInfoUtil;
