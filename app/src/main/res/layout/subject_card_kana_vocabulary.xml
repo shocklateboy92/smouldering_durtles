@@ -15,7 +15,6 @@
   ~ limitations under the License.
   -->
 
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -83,17 +82,17 @@
 
         <TextView
             android:id="@+id/progress"
-            style="@style/WK.TextView.Small"
-            android:layout_width="79dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="end"
+            android:text=""
+            android:textColor="?attr/colorPrimaryLight"
             android:shadowColor="@color/black"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="3"
-            android:text=""
-            android:textColor="?attr/colorPrimaryLight" />
+            style="@style/WK.TextView.Small"/>
 
     </LinearLayout>
 

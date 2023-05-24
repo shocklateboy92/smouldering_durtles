@@ -417,6 +417,27 @@
                     android:text="0"
                     style="@style/WK.TextView.Normal"
                     tools:ignore="RtlHardcoded"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="right"
+                    android:text="Kana Vocabulary incorrect:"
+                    style="@style/WK.TextView.Normal"
+                    tools:ignore="RtlHardcoded"/>
+
                 <TextView
                     android:id="@+id/incorrectKanaVocabulary"
                     android:layout_width="match_parent"

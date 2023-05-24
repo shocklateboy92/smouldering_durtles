@@ -89,7 +89,7 @@ public final class NotificationWorker {
         final PendingIntent pendingIntent = PendingIntent.getActivity(WkApplication.getInstance(), 0, intent2, flags);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(WkApplication.getInstance(), "NewReviewsChannel");
-        builder.setSmallIcon(R.drawable.ic_notification);
+        builder.setSmallIcon(R.drawable.ic_stat_name);
         builder.setContentTitle(title);
         builder.setContentText(text);
         builder.setPriority(GlobalSettings.Other.getNotificationPriority().getCompatPriority());

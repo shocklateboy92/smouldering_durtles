@@ -16,8 +16,6 @@
 
 package com.smouldering_durtles.wk.views;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TableLayout;
@@ -36,6 +34,8 @@ import com.smouldering_durtles.wk.proxy.ViewProxy;
 import com.smouldering_durtles.wk.util.ThemeUtil;
 
 import javax.annotation.Nullable;
+
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * A custom view that shows a breakdown of available lessons and reviews.

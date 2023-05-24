@@ -37,7 +37,10 @@ public final class FloatingUiState {
      * Is there an SRS stage change toast to be shown?.
      */
     public static boolean showSrsStageChangedToast = false;
-
+    /**
+     * Is there an alternatives toast to be shown?.
+     */
+    public static boolean showAlternativesToast = false;
     /**
      * For the toast, the old stage.
      */
@@ -52,7 +55,10 @@ public final class FloatingUiState {
      * The verdict for the last given answer.
      */
     public static @Nullable AnswerVerdict lastVerdict = null;
-
+    /**
+     * The alternatives for the last correct answer
+     */
+    public static @Nullable String alternativesForLastCorrectAnswer = null;
     /**
      * The subject info dump reveal stage the subject info is in.
      */

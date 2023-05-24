@@ -337,6 +337,7 @@
             android:shadowDy="1"
             android:shadowRadius="3"
             style="@style/WK.TextView.Normal"/>
+
     </TableRow>
 
 </merge>

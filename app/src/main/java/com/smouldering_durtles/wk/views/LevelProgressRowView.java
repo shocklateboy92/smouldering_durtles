@@ -74,12 +74,6 @@ public final class LevelProgressRowView extends TableRow {
         });
     }
 
-    private String getModifiedTypeLabel(String subjectTypeLabel) {
-        if (subjectTypeLabel.equals("kana_vocabulary")) {
-            subjectTypeLabel = "vocabulary";
-        }
-        return subjectTypeLabel;
-    }
     /**
      * Set the bar details for this instance.
      *
@@ -99,9 +93,6 @@ public final class LevelProgressRowView extends TableRow {
                 parameters.minLevel = entry.getLevel();
                 parameters.maxLevel = entry.getLevel();
                 parameters.itemTypes.add(entry.getType());
-                if (entry.getType() == SubjectType.WANIKANI_VOCAB) {
-                    parameters.itemTypes.add(SubjectType.WANIKANI_KANA_VOCAB);
-                }
                 parameters.sortOrder = SearchSortOrder.STAGE_TYPE;
                 final String searchParameters = Converters.getObjectMapper().writeValueAsString(parameters);
                 actmentRef.get().goToSearchResult(2, searchParameters, null);

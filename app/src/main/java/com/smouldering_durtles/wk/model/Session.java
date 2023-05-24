@@ -17,10 +17,13 @@
 package com.smouldering_durtles.wk.model;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 
 import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.adapter.sessionlog.SessionLogAdapter;
+import com.smouldering_durtles.wk.api.model.Meaning;
+import com.smouldering_durtles.wk.api.model.Reading;
 import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.db.model.SessionItem;
 import com.smouldering_durtles.wk.db.model.Subject;
@@ -57,6 +60,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -723,6 +727,18 @@ s     *
             answered = true;
             correct = true;
             FloatingUiState.lastVerdict = verdict;
+            List<String> alternatives = null;
+            if (currentQuestion.getType().isMeaning() && subject.getMeanings().size() > 1) {
+                alternatives = subject.getMeanings().stream().map(Meaning::getMeaning).collect(Collectors.toList());
+            } else if (currentQuestion.getType().isReading() && subject.getAcceptedReadings().size() > 1) {
+                alternatives = subject.getAcceptedReadings().stream().map(Reading::getReading).collect(Collectors.toList());
+            }
+            if (alternatives != null) {
+                FloatingUiState.alternativesForLastCorrectAnswer = TextUtils.join(", ", alternatives);
+                FloatingUiState.showAlternativesToast = true;
+            } else {
+                FloatingUiState.alternativesForLastCorrectAnswer = null;
+            }
             FloatingUiState.showCloseToast = verdict.isNearMatch();
             FloatingUiState.toastPlayed = false;
             LiveSessionProgress.getInstance().ping();
