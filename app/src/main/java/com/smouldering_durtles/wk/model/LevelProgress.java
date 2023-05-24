@@ -53,7 +53,7 @@ public final class LevelProgress {
      */
     public LevelProgress(final int maxLevel) {
         for (int i=1; i<=maxLevel; i++) {
-            for (final SubjectType type : SubjectType.values()) {
+            for (final SubjectType type: SubjectType.values()) {
                 // Skip creating a separate bar for kana_vocabulary
                 if (type == SubjectType.WANIKANI_KANA_VOCAB) {
                     continue;
