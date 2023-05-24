@@ -723,7 +723,7 @@ public final class GlobalSettings {
                     //
                 }
             }
-            return ActiveTheme.LIGHT;
+            return ActiveTheme.DARK;
         }
 
         /**

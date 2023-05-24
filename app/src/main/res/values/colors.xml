@@ -77,5 +77,34 @@
     <color name="wkDarkButtonHighlightColor">#9808F3</color>
     <color name="wkDarkStrokeDiagramGhostColor">#404040</color>
 
+    <color name="wkNordColorPrimary">#E5E9F0</color>
+    <color name="wkNordColorPrimaryDark">#2E3440</color>
+    <color name="wkNordColorPrimaryInverse">#D8DEE9</color>
+    <color name="wkNordColorPrimaryLight">#E5E9F0</color>
+    <color name="wkNordColorPrimaryTonedDown">#E5E9F0</color>
+    <color name="wkNordColorAccent">#88C0D0</color>
+    <color name="wkNordColorBackground">#2E3440</color>
+    <color name="wkNordColorControlActivated">#5E81AC</color>
+    <color name="wkNordColorDivider">#81A1C1</color>
+    <color name="wkNordToolbarColorBackground">#2E3440</color>
+    <color name="wkNordBrowseLevelButtonColorBackground">#2E3440</color>
+    <color name="wkNordTileColorBackground">#2E3440</color>
+    <color name="wkNordColorWaterfallLine">#88C0D0</color>
+    <color name="wkNordColorLevelProgressTarget">#D8DEE9</color>
+    <color name="wkNordCustomToastColorPrimary">#2E3440</color>
+    <color name="wkNordCorrectColorBackground">#434C5E</color>
+    <color name="wkNordIncorrectColorBackground">#434C5E</color>
+    <color name="wkNordMeaningHintColor">#E5E9F0</color>
+    <color name="wkNordReadingHintColor">#D8DEE9</color>
+    <color name="wkNordEditTextHintColor">#434C5E</color>
+    <color name="wkNordEditTextHintColorInverse">#ECEFF4</color>
+    <color name="wkNordWindowBackground">#2E3440</color>
+    <color name="wkNordPitchInfoHeibanColor">#5E81AC</color>
+    <color name="wkNordPitchInfoOdakaColor">#81A1C1</color>
+    <color name="wkNordPitchInfoNakadakaColor">#88C0D0</color>
+    <color name="wkNordPitchInfoAtamadakaColor">#E5E9F0</color>
+    <color name="wkNordButtonHighlightColor">#88C0D0</color>
+    <color name="wkNordStrokeDiagramGhostColor">#2E3440</color>
+
     <color name="wkBlackColorBackground">#000000</color>
 </resources>

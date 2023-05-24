@@ -37,7 +37,7 @@ public enum ActiveTheme {
             new int[] {0xFFEEEEEE, 0xFFC1C0C1, 0xFFD80088, 0xFF7D2893, 0xFF2344D6, 0xFF0094EB, 0xFF444444}, // Base Stage Bucket Colours
             new int[] {0xFFD6AFCA, 0xFFCB8FB3, 0xFFD660AB, 0xFFD80088}, // Base Stage Pre-Passed Bucket Colours
             new int[] {0xFF9D30A3, 0xFF7D2893}, // Bass Stage Passed Bucket Colours
-            new int[] {0xFF621899, 0xFFD80088, 0xFFD73099, 0xFFD660AB, 0xFFD077AF, 0xFFCB8FB3, 0xFFD09FBE, 0xFFD6AFCA, 0xFFC1C0C1, 0xFFEEEEEE}, //Bass Level Progression Bucket Colours
+            new int[] {0xFF621899, 0xFFD660AB, 0xFFD73099, 0xFFD660AB, 0xFFD077AF, 0xFFCB8FB3, 0xFFD09FBE, 0xFFD6AFCA, 0xFFC1C0C1, 0xFFEEEEEE}, //Bass Level Progression Bucket Colours
             new int[] {0xFF909000, 0xFF909000, 0xFF00A000, 0xFFA00000, 0xFFFFFFFF, 0xFF909000}) { // Bass Anki Colors
         @Override
         protected void loadCustomizations() {
@@ -174,6 +174,80 @@ public enum ActiveTheme {
             dirty = false;
         }
     },
+    @SuppressWarnings("unused")
+    NORD_POLAR_NIGHT(
+            false,
+            R.style.WKNordPolarNightAuroraTheme,
+            R.drawable.ic_arrow_up_small_dark,
+            new int[] {0xFF5E81AC, 0xFFB48EAD, 0xFFA3BE8C, 0xFFA3BE8C}, // The colour of text on top of the colours on the dash and browse
+            new int[] {0xFF2E3440, 0xFF2E3440, 0xFF2E3440, 0xFF2E3440}, // Sets the background colour for their highlights
+            new int[] {0xFF2E3440, 0xFF2E3440, 0xFF2E3440, 0xFF2E3440}, //Sets the background colour for their buttons
+            new int[] {0xFF5E81AC, 0xFFB48EAD, 0xFFA3BE8C, 0xFFA3BE8C}, // Sets the background colour for their segments on the bars
+            new int[] {0xFFD8DEE9, 0xFF81A1C1, 0xFF5E81AC, 0xFFA3BE8C, 0xFFB48EAD, 0xFFD08770, 0xFFBF616A}, // SRS segment colours
+            new int[] {0xFF5E81AC, 0xFF597AA3, 0xFF55749C, 0xFF516E94}, // post 60 progress bar
+            new int[] {0xFFA3BE8C, 0xFFBBDAA0}, // post 60 progress bar
+            new int[] {0xFF34475F, 0xFF5E81AC, 0xFF5B7CA6, 0xFF5878A1, 0xFF55749C, 0xFF527096, 0xFF4F6D91, 0xFF4C698C, 0xFF81A1C1, 0xFF2E3440}, //level progression chart SRS stages
+            new int[] {0xFF2E3440, 0xFF8FBCBB, 0xFFA3BE8C, 0xFFBF616A, 0xFFD8DEE9, 0x2E3440}) { //Anki mode colours
+        @Override
+        protected void loadCustomizations() {
+            final List<Integer> custom = GlobalSettings.Display.getThemeCustomizations(this);
+            for (int i=0; i<4; i++) {
+                final int color = custom.get(i);
+                subjectTypeTextColors[i] = (color == 0) ? baseSubjectTypeTextColors[i] : color;
+                subjectTypeBackgroundColors[i] = baseSubjectTypeBackgroundColors[i];
+                subjectTypeButtonBackgroundColors[i] = baseSubjectTypeButtonBackgroundColors[i];
+            }
+            for (int i=0; i<4; i++) {
+                if (i < 3) {
+                    final int color = custom.get(i);
+                    subjectTypeBucketColors[i] = (color == 0) ? baseSubjectTypeBucketColors[i] : color;
+                }
+            }
+            for (int i=0; i<7; i++) {
+                final int color = custom.get(i+4);
+                stageBucketColors7[i] = (color == 0) ? baseStageBucketColors[i] : color;
+            }
+            final int[] prePassed = new int[4];
+            final int[] passed = new int[2];
+            for (int i=0; i<4; i++) {
+                final int color = custom.get(i+11);
+                prePassed[i] = (color == 0) ? baseStagePrePassedBucketColors[i] : color;
+            }
+            for (int i=0; i<2; i++) {
+                final int color = custom.get(i+14);
+                passed[i] = (color == 0) ? baseStagePassedBucketColors[i] : color;
+            }
+            for (int i=0; i<10; i++) {
+                final int color = custom.get(i+17);
+                levelProgressionBucketColors[i] = (color == 0) ? baseLevelProgressionBucketColors[i] : color;
+            }
+            for (int i=0; i<6; i++) {
+                final int color = custom.get(i+27);
+                ankiColors[i] = (color == 0) ? baseAnkiColors[i] : color;
+            }
+            stageBucketColors4[0] = stageBucketColors7[2];
+            stageBucketColors4[1] = stageBucketColors7[3];
+            stageBucketColors4[2] = stageBucketColors7[4];
+            stageBucketColors4[3] = stageBucketColors7[5];
+            stageBucketColors5[0] = stageBucketColors7[2];
+            stageBucketColors5[1] = stageBucketColors7[3];
+            stageBucketColors5[2] = stageBucketColors7[4];
+            stageBucketColors5[3] = stageBucketColors7[5];
+            stageBucketColors5[4] = stageBucketColors7[6];
+            stageDeepBucketColors[0] = stageBucketColors7[0];
+            stageDeepBucketColors[1] = stageBucketColors7[1];
+            stageDeepBucketColors[2] = prePassed[0];
+            stageDeepBucketColors[3] = prePassed[1];
+            stageDeepBucketColors[4] = prePassed[2];
+            stageDeepBucketColors[5] = prePassed[3];
+            stageDeepBucketColors[6] = passed[0];
+            stageDeepBucketColors[7] = passed[1];
+            stageDeepBucketColors[8] = stageBucketColors7[4];
+            stageDeepBucketColors[9] = stageBucketColors7[5];
+            stageDeepBucketColors[10] = stageBucketColors7[6];
+            dirty = false;
+        }
+    },
 
     @SuppressWarnings("unused")
     BLACK_BREEZE(
@@ -249,6 +323,8 @@ public enum ActiveTheme {
             dirty = false;
         }
     };
+
+
 
     private final boolean identBackground;
     private final int styleId;
