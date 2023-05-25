@@ -16,10 +16,6 @@
 
 package com.smouldering_durtles.wk.proxy;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
-
 import android.animation.Animator;
 import android.app.Activity;
 import android.graphics.Typeface;
@@ -50,8 +46,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.madrapps.pikolo.ColorPicker;
 import com.madrapps.pikolo.listeners.OnColorSelectionListener;
 import com.smouldering_durtles.wk.Actment;
-import com.smouldering_durtles.wk.components.CustomMovementMethod;
 import com.smouldering_durtles.wk.db.model.Subject;
+import com.smouldering_durtles.wk.components.CustomMovementMethod;
 import com.smouldering_durtles.wk.model.AdvancedSearchParameters;
 import com.smouldering_durtles.wk.model.SrsBreakDown;
 import com.smouldering_durtles.wk.model.TypefaceConfiguration;
@@ -74,11 +70,16 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.smouldering_durtles.wk.util.TextUtil.renderHtml;
+
 /**
  * A proxy class that delegates some method calls to a delegate object, but only if the delegate is not null and
  * of the appropriate type.
  * Basically, this eliminates a lot of annoying boilerplate null checks and instanceof checks.
  */
+@SuppressWarnings("JavaDoc")
 public final class ViewProxy {
     private @Nullable WeakReference<View> delegateReference;
 

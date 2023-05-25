@@ -16,6 +16,7 @@
 
 package com.smouldering_durtles.wk.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -59,40 +60,15 @@ public final class SelfishColorPicker extends HSLColorPicker {
         super(context, attrs, defStyleAttr);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
-        boolean b = super.onTouchEvent(event);
-
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                break;
-            case MotionEvent.ACTION_UP:
-                performClick();
-                break;
-        }
-
-        if (b) {
+        if (super.onTouchEvent(event)) {
             final @Nullable ViewParent parent = getParent();
             if (parent != null) {
                 parent.requestDisallowInterceptTouchEvent(true);
             }
         }
-        return b;
+        return super.onTouchEvent(event);
     }
-
-    @Override
-    public boolean performClick() {
-        boolean b = super.performClick();
-        if (!b) {
-            b = super.performClick();
-        }
-        if (b) {
-            final @Nullable ViewParent parent = getParent();
-            if (parent != null) {
-                parent.requestDisallowInterceptTouchEvent(true);
-            }
-        }
-        return b;
-    }
-
 }

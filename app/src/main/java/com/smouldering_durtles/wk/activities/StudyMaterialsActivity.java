@@ -16,10 +16,10 @@
 
 package com.smouldering_durtles.wk.activities;
 
-import android.content.Intent;
-import android.net.Uri;
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -30,17 +30,13 @@ import com.smouldering_durtles.wk.db.Converters;
 import com.smouldering_durtles.wk.db.model.Subject;
 import com.smouldering_durtles.wk.jobs.SaveStudyMaterialJob;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Activity to show/edit the study materials for the current subject.
@@ -84,26 +80,28 @@ public final class StudyMaterialsActivity extends AbstractActivity {
         meaningNote.setDelegate(this, R.id.meaningNote);
         readingNote.setDelegate(this, R.id.readingNote);
 
+        final ViewProxy saveStudyMaterialsButton1 = new ViewProxy(this, R.id.saveStudyMaterialsButton1);
+        final ViewProxy saveStudyMaterialsButton2 = new ViewProxy(this, R.id.saveStudyMaterialsButton2);
+
+        saveStudyMaterialsButton1.setOnClickListener(v -> saveStudyMaterials());
+        saveStudyMaterialsButton2.setOnClickListener(v -> saveStudyMaterials());
+
         if (savedInstanceState != null && savedInstanceState.getBoolean("stateSaved", false)) {
             stateSaved = true;
         }
 
-        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-            final Uri uri = requireNonNull(getIntent().getData());
-            final String[] path = requireNonNull(uri.getPath()).split("/");
-            final long id = Long.parseLong(path[1]);
-            runAsync(
-                    this,
-                    () -> WkApplication.getDatabase().subjectDao().getById(id),
-                    result -> {
-                        if (result == null || !result.getType().canHaveStudyMaterials()) {
-                            finish();
-                            return;
-                        }
-                        currentSubject = result;
-                        populateForm(result);
-                    });
-        }
+        final long id = getIntent().getLongExtra("id", -1);
+        runAsync(
+                this,
+                () -> WkApplication.getDatabase().subjectDao().getById(id),
+                result -> {
+                    if (result == null || !result.getType().canHaveStudyMaterials()) {
+                        finish();
+                        return;
+                    }
+                    currentSubject = result;
+                    populateForm(result);
+                });
     }
 
     @Override
@@ -124,6 +122,11 @@ public final class StudyMaterialsActivity extends AbstractActivity {
     @Override
     protected void disableInteractionLocal() {
         //
+    }
+
+    @Override
+    protected boolean showWithoutApiKey() {
+        return false;
     }
 
     @Override
@@ -165,10 +168,8 @@ public final class StudyMaterialsActivity extends AbstractActivity {
 
     /**
      * Handler for the Save button. Update the study materials, and push to the API.
-     *
-     * @param view the button
      */
-    public void saveStudyMaterials(@SuppressWarnings("unused") final View view) {
+    private void saveStudyMaterials() {
         safe(() -> {
             if (!interactionEnabled || currentSubject == null) {
                 return;

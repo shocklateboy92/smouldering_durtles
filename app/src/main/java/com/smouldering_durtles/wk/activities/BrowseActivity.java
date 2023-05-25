@@ -63,7 +63,7 @@ public final class BrowseActivity extends AbstractActivity {
 
             final long id = getIntent().getLongExtra("id", -1);
             if (id > 0) {
-                long @Nullable [] ids = getIntent().getLongArrayExtra("ids");
+                long[] ids = getIntent().getLongArrayExtra("ids");
                 if (ids == null) {
                     ids = new long[0];
                 }
@@ -124,6 +124,11 @@ public final class BrowseActivity extends AbstractActivity {
     @Override
     protected void disableInteractionLocal() {
         //
+    }
+
+    @Override
+    protected boolean showWithoutApiKey() {
+        return false;
     }
 
     private void loadOverviewFragment() {

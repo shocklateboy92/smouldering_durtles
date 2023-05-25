@@ -66,51 +66,44 @@ public abstract class SubjectViewsDao {
     /**
      * Room-generated method: get summary records describing the SRS stages and the number of subjects in each stage.
      *
-     * @param userLevel the user's level
      * @return the list of overview items
      */
     @Query("SELECT srsSystemId AS systemId, srsStage AS stageId, COUNT(id) AS count FROM subject WHERE "
-            + "hiddenAt = 0 AND object IS NOT NULL AND level <= :userLevel "
-            + "GROUP BY srsSystemId, srsStage")
-    public abstract List<SrsBreakDownItem> getSrsBreakDownItems(int userLevel);
-
-    /**
-     * Room-generated method: get the number of locked subjects.
-     * Note: unlocked items that have been moved to a level greater than the user's level
-     * are also counted as locked by this method, and they are excluded from the previous
-     * two methods.
-     *
-     * @param userLevel the user's level
-     * @return the number
-     */
-    @Query("SELECT COUNT(id) AS count FROM subject WHERE "
             + "hiddenAt = 0 AND object IS NOT NULL "
-            + "AND level > :userLevel")
-    public abstract int getSrsBreakDownOverLevel(int userLevel);
+            + "GROUP BY srsSystemId, srsStage")
+    public abstract List<SrsBreakDownItem> getSrsBreakDownItems();
 
     /**
      * Room-generated method: get summary records describing the number of subjects per level/type pair.
      *
-     * @param userLevel the user's level
      * @return the list of overview items
      */
     @Query("SELECT level, object AS type, COUNT(id) AS count FROM subject"
             + " WHERE subject.hiddenAt = 0 AND object IS NOT NULL"
-            + " AND level <= :userLevel"
             + " GROUP BY level, object")
-    public abstract List<LevelProgressItem> getLevelProgressTotalItems(int userLevel);
+    public abstract List<LevelProgressItem> getLevelProgressTotalItems();
 
     /**
      * Room-generated method: get summary records describing the number of passed subjects per level/type pair.
      *
-     * @param userLevel the user's level
      * @return the list of overview items
      */
     @Query("SELECT level, object AS type, COUNT(id) AS count FROM subject"
             + " WHERE subject.hiddenAt = 0 AND object IS NOT NULL"
-            + " AND level <= :userLevel AND passedAt != 0"
+            + " AND passedAt != 0"
             + " GROUP BY level, object")
-    public abstract List<LevelProgressItem> getLevelProgressPassedItems(int userLevel);
+    public abstract List<LevelProgressItem> getLevelProgressPassedItems();
+
+    /**
+     * Room-generated method: get summary records describing the number of locked subjects per level/type pair.
+     *
+     * @return the list of overview items
+     */
+    @Query("SELECT level, object AS type, COUNT(id) AS count FROM subject"
+            + " WHERE subject.hiddenAt = 0 AND object IS NOT NULL"
+            + " AND (unlockedAt = 0 OR unlockedAt IS NULL)"
+            + " GROUP BY level, object")
+    public abstract List<LevelProgressItem> getLevelProgressLockedItems();
 
     /**
      * Room-generated method: get a list of all subject IDs in the database.

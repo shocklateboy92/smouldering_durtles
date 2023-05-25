@@ -51,7 +51,7 @@ import com.smouldering_durtles.wk.db.model.TaskDefinition;
 import com.smouldering_durtles.wk.enums.SessionType;
 import com.smouldering_durtles.wk.jobs.TickJob;
 import com.smouldering_durtles.wk.model.Session;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 import com.smouldering_durtles.wk.tasks.DownloadAudioTask;
 import com.smouldering_durtles.wk.tasks.DownloadPitchInfoTask;
 import com.smouldering_durtles.wk.tasks.GetAssignmentsTask;
@@ -75,6 +75,7 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 
 import static com.smouldering_durtles.wk.Constants.DAY;
+import static com.smouldering_durtles.wk.Constants.HOUR;
 import static com.smouldering_durtles.wk.util.ObjectSupport.join;
 
 /**
@@ -635,6 +636,11 @@ public abstract class AppDatabase extends RoomDatabase {
         assertGetReviewStatisticsTask();
         assertGetStudyMaterialsTask();
         assertGetSummaryTask();
+        final long lastSubjectSyncSuccessDate = propertiesDao().getLastSubjectSyncSuccessDate(0);
+        if (lastSubjectSyncSuccessDate == 0
+                || System.currentTimeMillis() - lastSubjectSyncSuccessDate > HOUR) {
+            assertGetSubjectsTask();
+        }
         final long lastGetSrsSystemsSuccess = propertiesDao().getLastSrsSystemSyncSuccessDate();
         if (lastGetSrsSystemsSuccess == 0
                 || System.currentTimeMillis() - lastGetSrsSystemsSuccess > DAY) {

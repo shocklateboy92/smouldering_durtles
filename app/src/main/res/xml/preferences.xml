@@ -89,7 +89,7 @@
             app:singleLineTitle="false"
             app:entries="@array/themes"
             app:entryValues="@array/themeValues"
-            app:defaultValue="LIGHT"
+            app:defaultValue="DARK"
             app:useSimpleSummaryProvider="true"/>
 
         <Preference
@@ -218,6 +218,13 @@
             app:defaultValue="true"/>
 
         <SwitchPreferenceCompat
+            app:key="show_over_level_progression"
+            app:title="Show level progression bars for levels higher than your own"
+            app:singleLineTitle="false"
+            android:summary="This can happen if you unlocked subjects in the past that have since been moved above your level."
+            app:defaultValue="false"/>
+
+        <SwitchPreferenceCompat
             app:key="show_post60_progression"
             app:title="Show post-60 progression bar"
             app:singleLineTitle="false"
@@ -304,6 +311,18 @@
             app:singleLineTitle="false"
             app:defaultValue="true"
             android:summary="This replaces tags such as &lt;kanji&gt; with appropriate colouring instead of just making the text bold"/>
+
+        <SwitchPreferenceCompat
+            app:key="hide_meaning_mnemonic"
+            app:title="Hide WaniKani's meaning mnemonic if a user note is present"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
+        <SwitchPreferenceCompat
+            app:key="hide_reading_mnemonic"
+            app:title="Hide WaniKani's reading mnemonic if a user note is present"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
 
         <SwitchPreferenceCompat
             app:key="show_legacy"
@@ -480,6 +499,13 @@
             app:summary="Show a brief notification when an item goes up or down in SRS stage during reviews"
             app:singleLineTitle="false"
             app:defaultValue="true"/>
+
+        <SwitchPreferenceCompat
+            app:key="enable_alternatives_toast"
+            app:title="Enable alternative readings/meanings toast"
+            app:summary="Show a toast with alternative readings or meanings upon correct answer"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
 
         <ListPreference
             app:key="close_enough_action"

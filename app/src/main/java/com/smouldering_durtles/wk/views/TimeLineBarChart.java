@@ -16,11 +16,6 @@
 
 package com.smouldering_durtles.wk.views;
 
-import static com.smouldering_durtles.wk.Constants.FONT_SIZE_NORMAL;
-import static com.smouldering_durtles.wk.Constants.HOUR;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static com.smouldering_durtles.wk.util.TextUtil.formatShortTimeForDisplay;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -58,6 +53,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nullable;
+
+import static com.smouldering_durtles.wk.Constants.FONT_SIZE_NORMAL;
+import static com.smouldering_durtles.wk.Constants.HOUR;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static com.smouldering_durtles.wk.util.TextUtil.formatShortTimeForDisplay;
 
 /**
  * Custom bar chart for the timeline.
@@ -120,7 +120,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
     public TimeLineBarChart(final Context context, final @Nullable AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         safe(() -> {
-            colorPrimary = ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary);
+            colorPrimary = ThemeUtil.getColor(R.attr.colorPrimary);
             colorPrimaryTonedDown = ThemeUtil.getColor(R.attr.colorPrimaryTonedDown);
             colorWaterfall = ThemeUtil.getColor(R.attr.colorWaterfallLine);
             density = context.getResources().getDisplayMetrics().density;
@@ -406,7 +406,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
         final float boxY = originY + density * 18;
         final float textY = originY + density * 26;
 
-        for (int i = 0; i < segmentColors.length && i < legendLabels.length; i++) {
+        for (int i=0; i<segmentColors.length; i++) {
             paint.setColor(segmentColors[i]);
             paint.setStyle(Paint.Style.FILL_AND_STROKE);
             paint.setStrokeWidth(0);
@@ -494,6 +494,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         final boolean result = safe(false, () -> {
@@ -506,19 +507,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
             }
             return false;
         });
-
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            performClick();    // Call performClick() on click detected
-        }
-
         return result || super.onTouchEvent(event);
-    }
-
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        // Perform your desired action here
-        return true;
     }
 
     @Override
@@ -680,8 +669,6 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
 
         legendLabels = new String[] {"Radical", "Kanji", "Vocabulary"};
     }
-
-
 
     /**
      * Build a dummy data test set for testing of the chart code.

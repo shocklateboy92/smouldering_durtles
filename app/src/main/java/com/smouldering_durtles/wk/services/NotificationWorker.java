@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.smouldering_durtles.wk.fragments.services;
+package com.smouldering_durtles.wk.services;
 
 import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
 import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
@@ -26,8 +26,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -43,7 +41,6 @@ import com.smouldering_durtles.wk.model.AlertContext;
 import com.smouldering_durtles.wk.util.Logger;
 
 import java.util.Locale;
-import java.util.concurrent.Semaphore;
 
 import javax.annotation.Nullable;
 
@@ -57,7 +54,7 @@ public final class NotificationWorker {
         //
     }
 
-    public static void postNotification(final boolean needsSound, final AlertContext ctx) {
+    private static void postNotification(final boolean needsSound, final AlertContext ctx) {
         final String title;
         final String text;
         if (ctx.getNumLessons() > 0) {
@@ -83,10 +80,16 @@ public final class NotificationWorker {
 
         final Intent intent2 = new Intent(WkApplication.getInstance(), MainActivity.class);
         intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(WkApplication.getInstance(), 0, intent2, PendingIntent.FLAG_IMMUTABLE);
+        final int flags;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags = PendingIntent.FLAG_IMMUTABLE;
+        } else {
+            flags = 0;
+        }
+        final PendingIntent pendingIntent = PendingIntent.getActivity(WkApplication.getInstance(), 0, intent2, flags);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(WkApplication.getInstance(), "NewReviewsChannel");
-        builder.setSmallIcon(R.drawable.ic_notification);
+        builder.setSmallIcon(R.drawable.ic_stat_name);
         builder.setContentTitle(title);
         builder.setContentText(text);
         builder.setPriority(GlobalSettings.Other.getNotificationPriority().getCompatPriority());
@@ -125,11 +128,15 @@ public final class NotificationWorker {
 
     private static void processAlarmHelper(final AlertContext ctx) {
         if (GlobalSettings.Other.getEnableNotifications()) {
+            final AppDatabase db = WkApplication.getDatabase();
             final NotificationUpdateFrequency frequency = GlobalSettings.Other.getNotificationUpdateFrequency();
             final long topOfHour1 = getTopOfHour(System.currentTimeMillis());
             boolean needsPost = false;
             boolean needsSound = false;
-            final AlertContext lastCtx = WkApplication.getDatabase().propertiesDao().getLastNotificationAlertContext();
+            if (db.propertiesDao().getNotificationSet() && ctx.getNumLessons() == 0 && ctx.getNumReviews() == 0) {
+                needsPost = true;
+            }
+            final AlertContext lastCtx = db.propertiesDao().getLastNotificationAlertContext();
             if (ctx.getNewestAvailableAt() > lastCtx.getNewestAvailableAt()) {
                 needsPost = true;
                 needsSound = true;
@@ -141,7 +148,7 @@ public final class NotificationWorker {
                 case ONLY_NEW_REVIEWS:
                     break;
                 case ONCE_PER_HOUR: {
-                    final long topOfHour2 = WkApplication.getDatabase().propertiesDao().getLastNotificationUpdate();
+                    final long topOfHour2 = db.propertiesDao().getLastNotificationUpdate();
                     if (topOfHour1 != topOfHour2 && (lastCtx.getNumLessons() != ctx.getNumLessons()
                             || lastCtx.getNumReviews() != ctx.getNumReviews())) {
                         needsPost = true;
@@ -157,8 +164,8 @@ public final class NotificationWorker {
             }
             if (needsPost) {
                 LOGGER.info("Notification update starts: %s %s", ctx.getNumLessons(), ctx.getNumReviews());
-                WkApplication.getDatabase().propertiesDao().setLastNotificationUpdate(topOfHour1);
-                WkApplication.getDatabase().propertiesDao().setLastNotificationAlertContext(ctx);
+                db.propertiesDao().setLastNotificationUpdate(topOfHour1);
+                db.propertiesDao().setLastNotificationAlertContext(ctx);
                 postOrCancelNotification(needsSound, ctx);
                 LOGGER.info("Notification update ends");
             }
@@ -170,23 +177,8 @@ public final class NotificationWorker {
      * widgets and/or notifications. Always runs on a background thread.
      *
      * @param ctx the details for the notifications
-     * @param semaphore the method will call release() on this semaphore when the work is done
      */
-
-    public static void processAlarm(final AlertContext ctx, final Semaphore semaphore) {
-        safe(() -> new Handler(Looper.getMainLooper()).post(() -> {
-            safe(() -> processAlarmHelper(ctx));
-            semaphore.release();
-        }));
-    }
-
-    public static void triggerTestNotification() {
-        // Create a dummy AlertContext for testing
-        AlertContext testContext = new AlertContext();
-        testContext.setNumLessons(5);  // Set some test values
-        testContext.setNumReviews(10); // Set some test values
-
-        // Call the method you want to test
-        postNotification(true, testContext);
+    public static void processAlarm(final AlertContext ctx) {
+        safe(() -> processAlarmHelper(ctx));
     }
 }

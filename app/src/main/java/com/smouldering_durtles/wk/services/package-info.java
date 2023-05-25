@@ -18,7 +18,7 @@
 @LocalVariablesAreNonnullByDefault
 @MethodsAreNonnullByDefault
 @ParametersAreNonnullByDefault
-package com.smouldering_durtles.wk.fragments.services;
+package com.smouldering_durtles.wk.services;
 
 import javax.annotation.FieldsAreNonnullByDefault;
 import javax.annotation.LocalVariablesAreNonnullByDefault;

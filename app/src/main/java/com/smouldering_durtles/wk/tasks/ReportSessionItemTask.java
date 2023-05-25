@@ -16,6 +16,13 @@
 
 package com.smouldering_durtles.wk.tasks;
 
+import static com.smouldering_durtles.wk.Constants.API_RETRY_DELAY;
+import static com.smouldering_durtles.wk.Constants.MINUTE;
+import static com.smouldering_durtles.wk.Constants.NUM_API_TRIES;
+import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
+import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
+import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.api.ApiState;
@@ -27,6 +34,7 @@ import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.db.model.Subject;
 import com.smouldering_durtles.wk.db.model.TaskDefinition;
 import com.smouldering_durtles.wk.enums.SessionType;
+import com.smouldering_durtles.wk.livedata.LiveAlertContext;
 import com.smouldering_durtles.wk.livedata.LiveApiState;
 import com.smouldering_durtles.wk.livedata.LiveBurnedItems;
 import com.smouldering_durtles.wk.livedata.LiveCriticalCondition;
@@ -37,19 +45,11 @@ import com.smouldering_durtles.wk.livedata.LiveLevelProgress;
 import com.smouldering_durtles.wk.livedata.LiveRecentUnlocks;
 import com.smouldering_durtles.wk.livedata.LiveSrsBreakDown;
 import com.smouldering_durtles.wk.livedata.LiveTimeLine;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
 import com.smouldering_durtles.wk.util.Logger;
 
 import java.util.Locale;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.Constants.API_RETRY_DELAY;
-import static com.smouldering_durtles.wk.Constants.MINUTE;
-import static com.smouldering_durtles.wk.Constants.NUM_API_TRIES;
-import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
-import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
-import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
 
 /**
  * Task to report a completed session item to the API. In case of a lesson
@@ -157,7 +157,7 @@ public final class ReportSessionItemTask extends ApiTask {
                             LiveCriticalCondition.getInstance().update();
                             LiveBurnedItems.getInstance().update();
                             LiveLevelDuration.getInstance().forceUpdate();
-                            BackgroundAlarmReceiver.processAlarm(null);
+                            LiveAlertContext.getInstance().update();
                         }
                     } catch (final Exception e) {
                         LOGGER.error(e, "Error parsing start-assignment response");
@@ -213,7 +213,7 @@ public final class ReportSessionItemTask extends ApiTask {
                 LiveCriticalCondition.getInstance().update();
                 LiveBurnedItems.getInstance().update();
                 LiveLevelDuration.getInstance().forceUpdate();
-                BackgroundAlarmReceiver.processAlarm(null);
+                LiveAlertContext.getInstance().update();
             }
         }
 

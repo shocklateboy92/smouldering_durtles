@@ -28,7 +28,6 @@ import javax.annotation.Nullable;
 /**
  * Presets for the advanced search form.
  */
-@SuppressWarnings("JavaDoc")
 public final class AdvancedSearchParameters {
     public @Nullable Integer minLevel = null;
     public @Nullable Integer maxLevel = null;
@@ -46,5 +45,4 @@ public final class AdvancedSearchParameters {
     public final Collection<SubjectType> itemTypes = EnumSet.noneOf(SubjectType.class);
     public final Collection<Integer> jlptLevels = new HashSet<>();
     public final Collection<Integer> joyoGrades = new HashSet<>();
-
-    }
+}

@@ -16,11 +16,15 @@
 
 package com.smouldering_durtles.wk.tasks;
 
+import static com.smouldering_durtles.wk.Constants.HOUR;
+import static com.smouldering_durtles.wk.util.TextUtil.formatTimestampForApi;
+
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.api.ApiState;
 import com.smouldering_durtles.wk.api.model.ApiAssignment;
 import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.db.model.TaskDefinition;
+import com.smouldering_durtles.wk.livedata.LiveAlertContext;
 import com.smouldering_durtles.wk.livedata.LiveApiProgress;
 import com.smouldering_durtles.wk.livedata.LiveApiState;
 import com.smouldering_durtles.wk.livedata.LiveBurnedItems;
@@ -32,10 +36,6 @@ import com.smouldering_durtles.wk.livedata.LiveLevelProgress;
 import com.smouldering_durtles.wk.livedata.LiveRecentUnlocks;
 import com.smouldering_durtles.wk.livedata.LiveSrsBreakDown;
 import com.smouldering_durtles.wk.livedata.LiveTimeLine;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
-
-import static com.smouldering_durtles.wk.Constants.HOUR;
-import static com.smouldering_durtles.wk.util.TextUtil.formatTimestampForApi;
 
 /**
  * Task to fetch any assignments that have been updated since the last time this task was run.
@@ -91,7 +91,7 @@ public final class GetAssignmentsTask extends ApiTask {
             LiveCriticalCondition.getInstance().update();
             LiveBurnedItems.getInstance().update();
             LiveLevelDuration.getInstance().forceUpdate();
-            BackgroundAlarmReceiver.processAlarm(null);
+            LiveAlertContext.getInstance().update();
         }
     }
 }

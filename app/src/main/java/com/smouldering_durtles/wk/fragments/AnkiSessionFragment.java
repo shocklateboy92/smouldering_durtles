@@ -16,6 +16,8 @@
 
 package com.smouldering_durtles.wk.fragments;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +39,6 @@ import com.smouldering_durtles.wk.util.AudioUtil;
 import com.smouldering_durtles.wk.views.SubjectInfoView;
 
 import javax.annotation.Nullable;
-
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * Fragment for an Anki mode question.
@@ -194,7 +194,11 @@ public final class AnkiSessionFragment extends AbstractSessionFragment {
             }
             disableInteraction();
             showingAnswer = false;
-            session.submitAnkiCorrect();
+            if (GlobalSettings.getTestMode() && !question.getItem().hasIncorrectAnswers()) {
+                session.submitAnkiIncorrect();
+            } else {
+                session.submitAnkiCorrect();
+            }
         }));
 
         ankiIncorrectButton.setOnClickListener(v -> safe(() -> {

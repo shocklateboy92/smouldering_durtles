@@ -163,7 +163,7 @@ public enum SearchSortOrder {
      *
      * @return true if it does
      */
-    public boolean isSingleLevel() {
+    public final boolean isSingleLevel() {
         return singleLevel;
     }
 

@@ -91,7 +91,7 @@ public final class SubjectCardBinder {
     }
 
     private static void bindCommon(final View view, final Subject subject, final View.OnClickListener onClickListener,
-                                   final boolean showMeaning, final boolean showReading) {
+                            final boolean showMeaning, final boolean showReading) {
         final ViewProxy button = new ViewProxy(view, R.id.button);
         final ViewProxy meaning = new ViewProxy(view, R.id.meaning);
         final ViewProxy reading = new ViewProxy(view, R.id.reading);
@@ -178,10 +178,10 @@ public final class SubjectCardBinder {
             final int bgColor;
             if (availableNow) {
                 textColor = ThemeUtil.getColor(R.attr.colorBackground);
-                bgColor = ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary);
+                bgColor = ThemeUtil.getColor(R.attr.colorPrimary);
             }
             else {
-                textColor = ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimary);
+                textColor = ThemeUtil.getColor(R.attr.colorPrimary);
                 bgColor = ThemeUtil.getColor(R.attr.colorBackground);
             }
 
@@ -206,7 +206,7 @@ public final class SubjectCardBinder {
 
             if (ThemeUtil.isLightColor(bgColor)) {
                 stageLetter.setShadowLayer(0, 0, 0, 0);
-                textColor = ThemeUtil.getColor(androidx.appcompat.R.attr.colorPrimaryDark);
+                textColor = ThemeUtil.getColor(R.attr.colorPrimaryDark);
             }
             else {
                 stageLetter.setShadowLayer(3, 1, 1, Color.BLACK);

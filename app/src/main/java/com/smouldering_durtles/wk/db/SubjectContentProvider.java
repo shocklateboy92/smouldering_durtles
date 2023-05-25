@@ -16,27 +16,26 @@
 
 package com.smouldering_durtles.wk.db;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.AbstractCursor;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.BaseColumns;
 
 import com.smouldering_durtles.wk.db.model.Subject;
 import com.smouldering_durtles.wk.util.SearchUtil;
 
-import java.nio.charset.StandardCharsets;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
+
+import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
  * Content provider for search results, used for incremental search.
@@ -47,7 +46,7 @@ public final class SubjectContentProvider extends ContentProvider {
         return true;
     }
 
-    @SuppressWarnings("RedundantSuppression")
+    @SuppressWarnings({"RedundantSuppression", "ConstantConditions"})
     @Override
     public Cursor query(final Uri uri,
                         final @Nullable String[] projection,
@@ -56,8 +55,7 @@ public final class SubjectContentProvider extends ContentProvider {
                         final @Nullable String sortOrder) {
         //noinspection IOResourceOpenedButNotSafelyClosed,resource
         return safe(() -> new SubjectCursor(Collections.emptyList()), () -> {
-            if (selectionArgs.length == 0 || selectionArgs[0] == null || getContext() == null) {
-
+            if (selectionArgs == null || selectionArgs.length == 0 || selectionArgs[0] == null || getContext() == null) {
                 return new SubjectCursor(Collections.emptyList());
             }
             final String query = selectionArgs[0];
@@ -102,7 +100,6 @@ public final class SubjectContentProvider extends ContentProvider {
             this.subjects = new ArrayList<>(subjects);
         }
 
-
         @Override
         public int getCount() {
             return subjects.size();
@@ -145,10 +142,12 @@ public final class SubjectContentProvider extends ContentProvider {
             if (value == null) {
                 return new byte[0];
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                return value.getBytes(StandardCharsets.UTF_8);
+            try {
+                return value.getBytes("UTF-8");
+            } catch (final UnsupportedEncodingException e) {
+                // Can't happen
+                return new byte[0];
             }
-        return value.getBytes();
         }
 
         @Override

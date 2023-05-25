@@ -200,12 +200,14 @@
         <item>Light</item>
         <item>Dark Breeze</item>
         <item>Black Breeze</item>
+        <item>Nord Polar Night</item>
     </string-array>
 
     <string-array name="themeValues">
         <item>LIGHT</item>
         <item>DARK</item>
         <item>BLACK_BREEZE</item>
+        <item>NORD_POLAR_NIGHT</item>
     </string-array>
 
     <string-array name="timeLineChartSizes">

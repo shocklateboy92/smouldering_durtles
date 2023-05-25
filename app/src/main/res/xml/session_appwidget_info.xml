@@ -14,9 +14,15 @@
   ~ limitations under the License.
   -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:initialKeyguardLayout="@layout/session_appwidget"
+    android:initialLayout="@layout/session_appwidget"
     android:minWidth="40dp"
     android:minHeight="40dp"
+    android:targetCellWidth="1"
+    android:targetCellHeight="1"
+    android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="3600000"
-    android:initialLayout="@layout/session_appwidget"
-    android:resizeMode="horizontal|vertical">
+    android:widgetCategory="home_screen"
+    tools:ignore="UnusedAttribute">
 </appwidget-provider>

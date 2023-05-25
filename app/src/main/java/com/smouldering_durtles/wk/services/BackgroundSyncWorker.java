@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.smouldering_durtles.wk.fragments.services;
+package com.smouldering_durtles.wk.services;
 
 import android.content.Context;
 
@@ -45,6 +45,8 @@ import static com.smouldering_durtles.wk.Constants.MINUTE;
 import static com.smouldering_durtles.wk.Constants.SECOND;
 import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
+import javax.annotation.Nonnull;
 
 /**
  * The background worker that implements background sync.
@@ -80,7 +82,7 @@ public final class BackgroundSyncWorker extends Worker {
      * @return the result of the work, always Success for this work.
      */
     @Override
-    public Result doWork() {
+    public @Nonnull Result doWork() {
         safe(() -> {
             if (GlobalSettings.Api.getEnableBackgroundSync()) {
                 final long topOfHour1 = getTopOfHour(System.currentTimeMillis());

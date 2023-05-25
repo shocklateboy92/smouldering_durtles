@@ -16,9 +16,6 @@
 
 package com.smouldering_durtles.wk.adapter.sessionlog;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static java.util.Objects.requireNonNull;
-
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +40,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static java.util.Objects.requireNonNull;
 
 /**
  * RecyclerView adapter for advanced search results.
@@ -76,28 +77,24 @@ public final class SessionLogAdapter extends RecyclerView.Adapter<LogItemViewHol
     }
 
     @Override
-    public LogItemViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public @Nonnull LogItemViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         return safe(() -> new DummyViewHolder(this, new AppCompatTextView(parent.getContext())), () -> {
-            switch (viewType) {
-                case R.id.viewTypeLogHeader: {
-                    final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                    final View view = inflater.inflate(R.layout.session_log_header, parent, false);
-                    return new HeaderItemViewHolder(this, view);
-                }
-                case R.id.viewTypeLogItem: {
-                    final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                    final View view = inflater.inflate(R.layout.session_log_item, parent, false);
-                    return new SessionItemItemViewHolder(this, view, requireNonNull(actmentRef).get());
-                }
-                case R.id.viewTypeLogEvent: {
-                    final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                    final View view = inflater.inflate(R.layout.session_log_event, parent, false);
-                    return new EventItemViewHolder(this, view, requireNonNull(actmentRef).get());
-                }
-                default: {
-                    return new DummyViewHolder(this, new AppCompatTextView(parent.getContext()));
-                }
+            if (viewType == R.id.viewTypeLogHeader) {
+                final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                final View view = inflater.inflate(R.layout.session_log_header, parent, false);
+                return new HeaderItemViewHolder(this, view);
             }
+            if (viewType == R.id.viewTypeLogItem) {
+                final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                final View view = inflater.inflate(R.layout.session_log_item, parent, false);
+                return new SessionItemItemViewHolder(this, view, requireNonNull(actmentRef).get());
+            }
+            if (viewType == R.id.viewTypeLogEvent) {
+                final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                final View view = inflater.inflate(R.layout.session_log_event, parent, false);
+                return new EventItemViewHolder(this, view, requireNonNull(actmentRef).get());
+            }
+            return new DummyViewHolder(this, new AppCompatTextView(parent.getContext()));
         });
     }
 
@@ -212,24 +209,29 @@ public final class SessionLogAdapter extends RecyclerView.Adapter<LogItemViewHol
      * Methods to add various types of events to the adapter.
      */
 
+    @SuppressWarnings("JavaDoc")
     public void addEventStartSession(final SessionType type) {
         final String text = String.format(Locale.ROOT, "%s session started", type.getDescription());
         events.add(0, new EventItem(null, text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventLoadSession(final SessionType type) {
         final String text = String.format(Locale.ROOT, "%s session re-loaded on app startup", type.getDescription());
         events.add(0, new EventItem(null, text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventStartQuiz() {
         events.add(0, new EventItem(null, "Started lesson quiz"));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventBackToLessonPresentation() {
         events.add(0, new EventItem(null, "Jumped back to lesson presentation"));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventSubmitTypedAnswer(final @Nullable Question question, final String answer, final AnswerVerdict verdict) {
         if (question == null || verdict.isRetry()) {
             return;
@@ -241,31 +243,37 @@ public final class SessionLogAdapter extends RecyclerView.Adapter<LogItemViewHol
         events.add(0, new EventItem(question.getItem(), text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventSubmitAnkiCorrect(final Question question) {
         final String text = String.format(Locale.ROOT, "Submit: %s\nAnki correct", question.getType().getShortTitle());
         events.add(0, new EventItem(question.getItem(), text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventSubmitAnkiIncorrect(final Question question) {
         final String text = String.format(Locale.ROOT, "Submit: %s\nAnki incorrect", question.getType().getShortTitle());
         events.add(0, new EventItem(question.getItem(), text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventSubmitDontKnow(final Question question) {
         final String text = String.format(Locale.ROOT, "Submit: %s\n'\"Don't know\" incorrect", question.getType().getShortTitle());
         events.add(0, new EventItem(question.getItem(), text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventUndoAndRetry(final Question question) {
         final String text = String.format(Locale.ROOT, "Undo and retry immediately: %s", question.getType().getShortTitle());
         events.add(0, new EventItem(question.getItem(), text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventUndoAndPutBack(final Question question) {
         final String text = String.format(Locale.ROOT, "Undo and put back: %s", question.getType().getShortTitle());
         events.add(0, new EventItem(question.getItem(), text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventSkip(final @Nullable Question question) {
         if (question == null) {
             return;
@@ -274,6 +282,7 @@ public final class SessionLogAdapter extends RecyclerView.Adapter<LogItemViewHol
         events.add(0, new EventItem(question.getItem(), text));
     }
 
+    @SuppressWarnings("JavaDoc")
     public void addEventIgnore(final Question question) {
         final String text = String.format(Locale.ROOT, "Ignore and mark correct: %s", question.getType().getShortTitle());
         events.add(0, new EventItem(question.getItem(), text));

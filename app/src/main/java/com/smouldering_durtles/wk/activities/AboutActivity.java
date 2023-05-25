@@ -17,13 +17,18 @@
 package com.smouldering_durtles.wk.activities;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.smouldering_durtles.wk.R;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
 
 import javax.annotation.Nullable;
 
 import static com.smouldering_durtles.wk.Constants.ABOUT_DOCUMENT;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Simple activity that only shows a big TextView. Shows the app's 'about' information.
@@ -36,11 +41,19 @@ public final class AboutActivity extends AbstractActivity {
         super(R.layout.activity_about, R.menu.generic_options_menu);
     }
 
+
     @Override
     protected void onCreateLocal(final @Nullable Bundle savedInstanceState) {
         final ViewProxy document = new ViewProxy(this, R.id.document);
         document.setTextHtml(ABOUT_DOCUMENT);
         document.setLinkMovementMethod();
+
+        ImageView imageViewGif = findViewById(R.id.imageViewGif);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.welcome) // replace with your actual gif resource
+                .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(30, 0))) // here is where the rounding is applied
+                .into(imageViewGif);
     }
 
     @Override
@@ -61,5 +74,10 @@ public final class AboutActivity extends AbstractActivity {
     @Override
     protected void disableInteractionLocal() {
         //
+    }
+
+    @Override
+    protected boolean showWithoutApiKey() {
+        return true;
     }
 }

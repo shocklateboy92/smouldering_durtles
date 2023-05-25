@@ -25,7 +25,7 @@ import com.smouldering_durtles.wk.db.model.AudioDownloadStatus;
 import com.smouldering_durtles.wk.jobs.StartAudioDownloadJob;
 import com.smouldering_durtles.wk.livedata.LiveTaskCounts;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
-import com.smouldering_durtles.wk.fragments.services.JobRunnerService;
+import com.smouldering_durtles.wk.services.JobRunnerService;
 
 import java.util.Locale;
 

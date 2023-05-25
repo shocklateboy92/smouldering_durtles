@@ -16,7 +16,11 @@
 
 package com.smouldering_durtles.wk.activities;
 
+import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -27,6 +31,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.FileProvider;
 
+import com.smouldering_durtles.wk.BuildConfig;
 import com.smouldering_durtles.wk.R;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.db.AppDatabase;
@@ -44,9 +49,6 @@ import java.io.InputStream;
 
 import javax.annotation.Nullable;
 
-import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-
 /**
  * An activity for importing and exporting some data that is not stored on the WK servers, and would
  * be lost during a database reset.
@@ -56,19 +58,9 @@ public final class DataImportExportActivity extends AbstractActivity {
     private final ViewProxy importSearchPresets = new ViewProxy();
     private final ViewProxy exportStarRatings = new ViewProxy();
     private final ViewProxy importStarRatings = new ViewProxy();
-    private ActivityResultLauncher<Intent> importSearchPresetsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
-                    importSearchPresetsResult(result.getData().getData());
-                }
-            });
 
-    private ActivityResultLauncher<Intent> importStarRatingsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
-                    importStarRatingsResult(result.getData().getData());
-                }
-            });
+    private @Nullable ActivityResultLauncher<Intent> searchPresetsActivityResultLauncher = null;
+    private @Nullable ActivityResultLauncher<Intent> starRatingsActivityResultLauncher = null;
 
     /**
      * The constructor.
@@ -89,14 +81,16 @@ public final class DataImportExportActivity extends AbstractActivity {
         exportStarRatings.setOnClickListener(v -> safe(this::exportStarRatings));
         importStarRatings.setOnClickListener(v -> safe(this::importStarRatings));
 
-        importSearchPresetsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        searchPresetsActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
                         importSearchPresetsResult(result.getData().getData());
                     }
                 });
 
-        importStarRatingsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        starRatingsActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
                         importStarRatingsResult(result.getData().getData());
@@ -124,6 +118,10 @@ public final class DataImportExportActivity extends AbstractActivity {
         //
     }
 
+    @Override
+    protected boolean showWithoutApiKey() {
+        return true;
+    }
 
     private void exportSearchPresets() throws IOException {
         final File baseDir = getFilesDir();
@@ -147,7 +145,7 @@ public final class DataImportExportActivity extends AbstractActivity {
         }
 
         final Intent intent = new Intent(Intent.ACTION_SEND);
-        final Uri uri = FileProvider.getUriForFile(this, "com.smouldering_durtles.wk.fileprovider", exportFile);
+        final Uri uri = FileProvider.getUriForFile(this, BuildConfig.FILEPROVIDER_AUTHORITY, exportFile);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setType("application/json");
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -179,16 +177,34 @@ public final class DataImportExportActivity extends AbstractActivity {
         });
     }
 
-    private void importSearchPresets() {
-        Intent intent;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        } else {
-            intent = new Intent(Intent.ACTION_GET_CONTENT);
-        }
+    @TargetApi(19)
+    private void importSearchPresetsPost19() {
+        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("application/json");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        importSearchPresetsLauncher.launch(Intent.createChooser(intent, "Select a search presets JSON file to import"));
+
+        if (searchPresetsActivityResultLauncher != null) {
+            searchPresetsActivityResultLauncher.launch(intent);
+        }
+    }
+
+    private void importSearchPresetsPre19() {
+        final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/json");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        if (searchPresetsActivityResultLauncher != null) {
+            searchPresetsActivityResultLauncher.launch(Intent.createChooser(intent, "Select a search presets JSON file to import"));
+        }
+    }
+
+    private void importSearchPresets() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            importSearchPresetsPost19();
+        }
+        else {
+            importSearchPresetsPre19();
+        }
     }
 
     private void exportStarRatings() {
@@ -220,7 +236,7 @@ public final class DataImportExportActivity extends AbstractActivity {
                 return;
             }
             final Intent intent = new Intent(Intent.ACTION_SEND);
-            final Uri uri = FileProvider.getUriForFile(this, "com.smouldering_durtles.wk.fileprovider", result);
+            final Uri uri = FileProvider.getUriForFile(this, BuildConfig.FILEPROVIDER_AUTHORITY, result);
             intent.putExtra(Intent.EXTRA_STREAM, uri);
             intent.setType("application/json");
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -254,16 +270,33 @@ public final class DataImportExportActivity extends AbstractActivity {
         });
     }
 
-    private void importStarRatings() {
-        Intent intent;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        } else {
-            intent = new Intent(Intent.ACTION_GET_CONTENT);
-        }
+    @TargetApi(19)
+    private void importStarRatingsPost19() {
+        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("application/json");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        importStarRatingsLauncher.launch(Intent.createChooser(intent, "Select a star ratings JSON file to import"));
+
+        if (starRatingsActivityResultLauncher != null) {
+            starRatingsActivityResultLauncher.launch(intent);
+        }
+    }
+
+    private void importStarRatingsPre19() {
+        final Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/json");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        if (starRatingsActivityResultLauncher != null) {
+            starRatingsActivityResultLauncher.launch(Intent.createChooser(intent, "Select a star ratings JSON file to import"));
+        }
+    }
+
+    private void importStarRatings() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            importStarRatingsPost19();
+        }
+        else {
+            importStarRatingsPre19();
+        }
     }
 }
-

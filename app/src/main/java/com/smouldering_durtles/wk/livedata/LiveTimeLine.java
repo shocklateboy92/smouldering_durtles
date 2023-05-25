@@ -16,6 +16,10 @@
 
 package com.smouldering_durtles.wk.livedata;
 
+import static com.smouldering_durtles.wk.Constants.DAY;
+import static com.smouldering_durtles.wk.Constants.HOUR;
+import static com.smouldering_durtles.wk.util.ObjectSupport.getTopOfHour;
+
 import android.annotation.SuppressLint;
 
 import com.smouldering_durtles.wk.GlobalSettings;
@@ -23,15 +27,11 @@ import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.db.model.Subject;
 import com.smouldering_durtles.wk.model.TimeLine;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
 import com.smouldering_durtles.wk.util.AudioUtil;
 import com.smouldering_durtles.wk.util.PitchInfoUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import static com.smouldering_durtles.wk.Constants.DAY;
-import static com.smouldering_durtles.wk.Constants.HOUR;
 
 /**
  * LiveData that tracks available and uncoming lessons and reviews, for the dashboard.
@@ -73,33 +73,29 @@ public final class LiveTimeLine extends ConservativeLiveData<TimeLine> {
         final Collection<Subject> scanSubjects = new ArrayList<>();
 
         if (!vacationMode) {
-            db.subjectCollectionsDao().getAvailableLessonItems(maxLevel, userLevel).forEach(subject -> {
+            db.subjectCollectionsDao().getAvailableLessonItems(maxLevel).forEach(subject -> {
                 timeLine.addLesson(subject);
                 scanSubjects.add(subject);
             });
 
             final long ahead = size * HOUR;
             final long cutoff = System.currentTimeMillis() + ahead;
-            db.subjectCollectionsDao().getUpcomingReviewItems(maxLevel, userLevel, cutoff).forEach(subject -> {
+            db.subjectCollectionsDao().getUpcomingReviewItems(maxLevel, cutoff).forEach(subject -> {
                 timeLine.addReview(subject, !subject.isPassed() && levelUpIds.contains(subject.getId()));
                 scanSubjects.add(subject);
             });
 
-            final long longDate = db.subjectAggregatesDao().getNextLongTermReviewDate(maxLevel, userLevel, cutoff);
+            final long longDate = db.subjectAggregatesDao().getNextLongTermReviewDate(maxLevel, getTopOfHour(cutoff));
             timeLine.setLongTermUpcomingReviewDate(longDate);
             if (longDate == 0) {
                 timeLine.setNumLongTermUpcomingReviews(0);
             }
             else {
-                timeLine.setNumLongTermUpcomingReviews(db.subjectAggregatesDao().getNextLongTermReviewCount(maxLevel, userLevel, longDate));
+                timeLine.setNumLongTermUpcomingReviews(db.subjectAggregatesDao().getNextLongTermReviewCount(maxLevel, longDate));
             }
         }
 
         instance.postValue(timeLine);
-
-        if (db.propertiesDao().getNotificationSet() && !timeLine.hasAvailableLessons() && !timeLine.hasAvailableReviews()) {
-            BackgroundAlarmReceiver.processAlarm(null);
-        }
 
         if (GlobalSettings.Api.getAutoDownloadAudio()) {
             final long lastAudioScanDate = db.propertiesDao().getLastAudioScanDate();

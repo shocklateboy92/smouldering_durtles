@@ -16,20 +16,6 @@
 
 package com.smouldering_durtles.wk.jobs;
 
-import com.smouldering_durtles.wk.GlobalSettings;
-import com.smouldering_durtles.wk.WkApplication;
-import com.smouldering_durtles.wk.api.ApiState;
-import com.smouldering_durtles.wk.db.AppDatabase;
-import com.smouldering_durtles.wk.enums.OnlineStatus;
-import com.smouldering_durtles.wk.livedata.LiveApiState;
-import com.smouldering_durtles.wk.livedata.LiveFirstTimeSetup;
-import com.smouldering_durtles.wk.livedata.LiveTimeLine;
-import com.smouldering_durtles.wk.model.TimeLine;
-import com.smouldering_durtles.wk.fragments.services.ApiTaskService;
-import com.smouldering_durtles.wk.fragments.services.BackgroundAlarmReceiver;
-import com.smouldering_durtles.wk.util.DbLogger;
-import com.smouldering_durtles.wk.util.Logger;
-
 import static com.smouldering_durtles.wk.Constants.DAY;
 import static com.smouldering_durtles.wk.Constants.HOUR;
 import static com.smouldering_durtles.wk.Constants.MINUTE;
@@ -37,6 +23,20 @@ import static com.smouldering_durtles.wk.Constants.REFERENCE_DATA_VERSION;
 import static com.smouldering_durtles.wk.Constants.WEEK;
 import static com.smouldering_durtles.wk.enums.OnlineStatus.NO_CONNECTION;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+
+import com.smouldering_durtles.wk.GlobalSettings;
+import com.smouldering_durtles.wk.WkApplication;
+import com.smouldering_durtles.wk.api.ApiState;
+import com.smouldering_durtles.wk.db.AppDatabase;
+import com.smouldering_durtles.wk.enums.OnlineStatus;
+import com.smouldering_durtles.wk.livedata.LiveAlertContext;
+import com.smouldering_durtles.wk.livedata.LiveApiState;
+import com.smouldering_durtles.wk.livedata.LiveFirstTimeSetup;
+import com.smouldering_durtles.wk.livedata.LiveTimeLine;
+import com.smouldering_durtles.wk.model.TimeLine;
+import com.smouldering_durtles.wk.services.ApiTaskService;
+import com.smouldering_durtles.wk.util.DbLogger;
+import com.smouldering_durtles.wk.util.Logger;
 
 /**
  * Abstract base class for background jobs. These are actions that need to
@@ -169,7 +169,7 @@ public abstract class Job {
         }
         if (timeLineNeedsUpdate) {
             LiveTimeLine.getInstance().update();
-            BackgroundAlarmReceiver.processAlarm(null);
+            LiveAlertContext.getInstance().update();
             currentHour = nowHour;
             currentMinute = nowMinute;
         }

@@ -25,9 +25,14 @@ public final class StableIds {
     }
 
     /**
-     * Activity result code when importing a font file.
+     * The ID for jobs running in the JobRunnerService.
      */
-    public static final int FONT_IMPORT_RESULT_CODE = 3;
+    public static final int JOB_RUNNER_SERVICE_JOB_ID = 1;
+
+    /**
+     * The ID for jobs running in the ApiTaskService.
+     */
+    public static final int API_TASK_SERVICE_JOB_ID = 2;
 
     /**
      * Request code for background alarm - old pre-19 variant.

@@ -15,13 +15,12 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="?attr/colorBackground"
     tools:context=".activities.AboutActivity">
 
@@ -30,24 +29,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/toolbarColorBackground"
-        android:theme="@style/WKToolbarTheme"
         android:elevation="4dp"
+        android:theme="@style/WKToolbarTheme"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        tools:ignore="UnusedAttribute"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute" />
+
+    <ImageView
+        android:id="@+id/imageViewGif"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        app:layout_constraintTop_toBottomOf="@+id/imageViewGif"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/document"
+            style="@style/WK.TextView.Normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textIsSelectable="true"
-            style="@style/WK.TextView.Normal"/>
+            android:textIsSelectable="true" />
 
     </ScrollView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+

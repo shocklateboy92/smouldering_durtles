@@ -16,15 +16,6 @@
 
 package com.smouldering_durtles.wk;
 
-import static com.smouldering_durtles.wk.Constants.DEFAULT_OVERDUE_THRESHOLD;
-import static com.smouldering_durtles.wk.Constants.NUM_THEME_CUSTOMIZATION_OPTIONS;
-import static com.smouldering_durtles.wk.db.Converters.getObjectMapper;
-import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
-import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
-import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
-import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
-import static java.util.Objects.requireNonNull;
-
 import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
@@ -58,6 +49,15 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
+
+import static com.smouldering_durtles.wk.Constants.DEFAULT_OVERDUE_THRESHOLD;
+import static com.smouldering_durtles.wk.Constants.NUM_THEME_CUSTOMIZATION_OPTIONS;
+import static com.smouldering_durtles.wk.db.Converters.getObjectMapper;
+import static com.smouldering_durtles.wk.enums.SessionType.LESSON;
+import static com.smouldering_durtles.wk.enums.SessionType.REVIEW;
+import static com.smouldering_durtles.wk.util.ObjectSupport.isEmpty;
+import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A class with a bunch of static accessors for app settings.
@@ -573,6 +573,31 @@ public final class GlobalSettings {
     }
 
     /**
+     * Test mode on or off. What this means in practice depends on temporary testing code elsewhere.
+     *
+     * @return true if test mode is on
+     */
+    public static boolean getTestMode() {
+        return prefs().getBoolean("test_mode", false);
+    }
+
+    /**
+     * Test mode on or off. What this means in practice depends on temporary testing code elsewhere.
+     *
+     * @param value true if test mode should be turned on
+     */
+    public static void setTestMode(final boolean value) {
+        try {
+            final SharedPreferences.Editor editor = prefs().edit();
+            editor.putBoolean("test_mode", value);
+            editor.apply();
+        }
+        catch (final Exception e) {
+            //
+        }
+    }
+
+    /**
      * Api settings.
      */
     public static final class Api {
@@ -698,7 +723,7 @@ public final class GlobalSettings {
                     //
                 }
             }
-            return ActiveTheme.LIGHT;
+            return ActiveTheme.DARK;
         }
 
         /**
@@ -925,6 +950,15 @@ public final class GlobalSettings {
         }
 
         /**
+         * Show the level progression bars on the dashboard for levels beyond the user's level.
+         *
+         * @return the value
+         */
+        public static boolean getShowOverLevelProgression() {
+            return prefs().getBoolean("show_over_level_progression", false);
+        }
+
+        /**
          * Show the post-60 progression bar on the dashboard.
          *
          * @return the value
@@ -1054,7 +1088,25 @@ public final class GlobalSettings {
         }
 
         /**
-         * Swap the legacy names and mnemonics for old radicals.
+         * Hide WaniKani's meaning mnemonic if a user note is present
+         *
+         * @return the value
+         */
+        public static boolean getHideMeaningMnemonic() {
+            return prefs().getBoolean("hide_meaning_mnemonic", false);
+        }
+
+        /**
+         * Hide WaniKani's reading mnemonic if a user note is present
+         *
+         * @return the value
+         */
+        public static boolean getHideReadingMnemonic() {
+            return prefs().getBoolean("hide_reading_mnemonic", false);
+        }
+
+        /**
+         * Show the legacy names and mnemonics for old radicals.
          *
          * @return the value
          */
@@ -1418,7 +1470,14 @@ public final class GlobalSettings {
         public static boolean getEnableSrsToast() {
             return prefs().getBoolean("enable_srs_toast", true);
         }
-
+        /**
+         * Show a toast when an item has alternative answers
+         *
+         * @return the value
+         */
+        public static boolean getEnableAlternativesToast() {
+            return prefs().getBoolean("enable_alternatives_toast", false);
+        }
         /**
          * Action to perform when a meaning answer is not quite correct but acceptable within the typo lenience margin.
          *
@@ -1611,11 +1670,11 @@ public final class GlobalSettings {
                 if (isEmpty(value)) {
                     return 0;
                 }
-                final float n = Float.parseFloat(value);
-                if (n < 1) {
+                final float f = Float.parseFloat(value);
+                if (f < 1) {
                     return 0;
                 }
-                return n;
+                return f;
             }
             catch (final Exception e) {
                 return 0;

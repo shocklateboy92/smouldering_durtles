@@ -71,5 +71,5 @@
     <item android:id="@+id/action_test"
         android:title="Test"
         app:showAsAction="never"
-        android:visible="false"/>
+        android:visibility="gone"/>
 </menu>
