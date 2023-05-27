@@ -55,6 +55,7 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     private final ViewProxy colorPicker = new ViewProxy();
     private final ViewProxy colorPickerPreview = new ViewProxy();
 
+
     /**
      * The constructor.
      */
@@ -160,11 +161,11 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
         selectionDescriptions[25] = "The segment colour for Initiate items" + EXTRA3;
         selectionDescriptions[26] = "The segment colour for Locked items" + EXTRA3;
         selectionDescriptions[27] = "The background colour for the Anki mode \"Show Answer\" button";
-        selectionDescriptions[28] = "The background colour for the Anki mode \"Next\" button";
-        selectionDescriptions[29] = "The background colour for the Anki mode \"Correct\" button";
-        selectionDescriptions[30] = "The background colour for the Anki mode \"Incorrect\" button";
-        selectionDescriptions[31] = "The text colour for the Anki mode buttons and answer text";
-        selectionDescriptions[32] = "The background colour for the Anki mode answer text";
+        selectionDescriptions[28] = "The background colour for the Anki mode \"Correct\" button";
+        selectionDescriptions[29] = "The background colour for the Anki mode \"Incorrect\" button";
+        selectionDescriptions[30] = "The colour of the Anki text box";
+        selectionDescriptions[31] = "The text colour used for the Anki answer box";
+        selectionDescriptions[32] = "The background colour of the Anki answer box";
 
         selectionDescription.setDelegate(this, R.id.selectionDescription);
         rgbValues.setDelegate(this, R.id.rgbValues);

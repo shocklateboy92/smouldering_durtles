@@ -37,7 +37,7 @@ public enum ActiveTheme {
             new int[] {0xFFEEEEEE, 0xFFC1C0C1, 0xFFD80088, 0xFF7D2893, 0xFF2344D6, 0xFF0094EB, 0xFF444444}, // Base Stage Bucket Colours
             new int[] {0xFFD6AFCA, 0xFFCB8FB3, 0xFFD660AB, 0xFFD80088}, // Base Stage Pre-Passed Bucket Colours
             new int[] {0xFF9D30A3, 0xFF7D2893}, // Bass Stage Passed Bucket Colours
-            new int[] {0xFF621899, 0xFFD660AB, 0xFFD73099, 0xFFD660AB, 0xFFD077AF, 0xFFCB8FB3, 0xFFD09FBE, 0xFFD6AFCA, 0xFFC1C0C1, 0xFFEEEEEE}, //Bass Level Progression Bucket Colours
+            new int[] {0xFF621899, 0xC35C9D, 0xD5459F, 0xFFD660AB, 0xFFD077AF, 0xFFCB8FB3, 0xFFD09FBE, 0xFFD6AFCA, 0xFFC1C0C1, 0xFFEEEEEE}, //Bass Level Progression Bucket Colours
             new int[] {0xFF909000, 0xFF909000, 0xFF00A000, 0xFFA00000, 0xFFFFFFFF, 0xFF909000}) { // Bass Anki Colors
         @Override
         protected void loadCustomizations() {
@@ -186,7 +186,7 @@ public enum ActiveTheme {
             new int[] {0xFFD8DEE9, 0xFF81A1C1, 0xFF5E81AC, 0xFFA3BE8C, 0xFFB48EAD, 0xFFD08770, 0xFFBF616A}, // SRS segment colours
             new int[] {0xFF5E81AC, 0xFF597AA3, 0xFF55749C, 0xFF516E94}, // post 60 progress bar
             new int[] {0xFFA3BE8C, 0xFFBBDAA0}, // post 60 progress bar
-            new int[] {0xFF34475F, 0xFF5E81AC, 0xFF5B7CA6, 0xFF5878A1, 0xFF55749C, 0xFF527096, 0xFF4F6D91, 0xFF4C698C, 0xFF81A1C1, 0xFF2E3440}, //level progression chart SRS stages
+            new int[] {0xFF34475F, 0x3F5673, 0x455F7F, 0x527095, 0x55749C, 0x527096, 0x6486B1, 0x6789B3, 0xFF81A1C1, 0xFF2E3440}, //level progression chart SRS stages
             new int[] {0xFF2E3440, 0xFF8FBCBB, 0xFFA3BE8C, 0xFFBF616A, 0xFFD8DEE9, 0x2E3440}) { //Anki mode colours
         @Override
         protected void loadCustomizations() {

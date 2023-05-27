@@ -1212,6 +1212,16 @@
             app:summary="Clear all data in the app"/>
 
         <Preference
+            android:key="backup_settings"
+            android:title="Backup your settings"
+            android:summary="Backup your settings to a file" />
+
+        <Preference
+            android:key="restore_settings"
+            android:title="Restore your settings"
+            android:summary="Restore from a backup of your settings file" />
+
+        <Preference
             app:title="Upload debug log"
             app:key="upload_debug_log"
             app:summary="Send debug logging to the developer"/>

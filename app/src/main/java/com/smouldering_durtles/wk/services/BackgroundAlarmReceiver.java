@@ -34,7 +34,6 @@ import com.smouldering_durtles.wk.StableIds;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.livedata.LiveAlertContext;
 import com.smouldering_durtles.wk.model.AlertContext;
-import com.smouldering_durtles.wk.services.SessionWidgetProvider;
 import com.smouldering_durtles.wk.util.Logger;
 
 import javax.annotation.Nullable;
@@ -106,22 +105,16 @@ public final class BackgroundAlarmReceiver extends BroadcastReceiver {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     BackgroundAlarmReceiverPost23.scheduleAlarm();
                 }
-                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    BackgroundAlarmReceiverPost19.scheduleAlarm();
-                }
                 else {
-                    scheduleAlarm();
+                    BackgroundAlarmReceiverPost19.scheduleAlarm();
                 }
             }
             else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     BackgroundAlarmReceiverPost23.cancelAlarm();
                 }
-                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    BackgroundAlarmReceiverPost19.cancelAlarm();
-                }
                 else {
-                    cancelAlarm();
+                    BackgroundAlarmReceiverPost19.cancelAlarm();
                 }
             }
         });

@@ -181,4 +181,14 @@ public final class NotificationWorker {
     public static void processAlarm(final AlertContext ctx) {
         safe(() -> processAlarmHelper(ctx));
     }
+
+    public static void triggerTestNotification() {
+        // Create a dummy AlertContext for testing
+        AlertContext testContext = new AlertContext();
+        testContext.setNumLessons(5);  // Set some test values
+        testContext.setNumReviews(10); // Set some test values
+
+        // Call the method you want to test
+        postNotification(true, testContext);
+    }
 }
