@@ -201,7 +201,7 @@ public abstract class SubjectCollectionsDao {
      * @return the candidates
      */
     @Query("SELECT * FROM subject"
-            + " WHERE hiddenAt = 0 AND object = 'vocabulary'"
+            + " WHERE hiddenAt = 0 AND (object = 'vocabulary' OR object = 'kana_vocabulary')"
             + " AND (pitchInfo IS NULL OR pitchInfo = '' OR pitchInfo LIKE '@%')")
     protected abstract List<SubjectEntity> getPitchInfoDownloadCandidatesHelper();
 
