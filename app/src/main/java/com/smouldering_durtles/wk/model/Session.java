@@ -18,6 +18,7 @@ package com.smouldering_durtles.wk.model;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.WkApplication;
@@ -53,12 +54,15 @@ import com.smouldering_durtles.wk.util.PitchInfoUtil;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -734,11 +738,39 @@ s     *
                 alternatives = subject.getAcceptedReadings().stream().map(Reading::getReading).collect(Collectors.toList());
             }
             if (alternatives != null) {
-                FloatingUiState.alternativesForLastCorrectAnswer = TextUtils.join(", ", alternatives);
-                FloatingUiState.showAlternativesToast = true;
+                List<String> filteredAlternatives = new ArrayList<>();
+                Set<String> uniqueAlternativesWithoutThe = new HashSet<>();
+                String lowerCaseCurrentAnswer = currentAnswer.toLowerCase().replaceFirst("^the ", "");
+                String closeEnoughAnswer = FloatingUiState.lastVerdict != null ? FloatingUiState.lastVerdict.getMatchedAnswer().toLowerCase().replaceFirst("^the ", "") : null;
+
+                for (String alternative : alternatives) {
+                    String lowerCaseAlternative = alternative.toLowerCase();
+                    String alternativeWithoutThe = lowerCaseAlternative.replaceFirst("^the ", "");
+
+                    if (alternativeWithoutThe.equals(lowerCaseCurrentAnswer) || alternativeWithoutThe.equals(closeEnoughAnswer)) {
+                        continue;
+                    }
+
+                    if (uniqueAlternativesWithoutThe.contains(alternativeWithoutThe)) {
+                        continue;
+                    }
+
+                    uniqueAlternativesWithoutThe.add(alternativeWithoutThe);
+                    filteredAlternatives.add(alternative);
+                }
+
+                FloatingUiState.alternativesForLastCorrectAnswer = String.join(", ", filteredAlternatives);
+                FloatingUiState.showAlternativesToast = !filteredAlternatives.isEmpty();
             } else {
                 FloatingUiState.alternativesForLastCorrectAnswer = null;
             }
+
+
+
+
+
+
+
             FloatingUiState.showCloseToast = verdict.isNearMatch();
             FloatingUiState.toastPlayed = false;
             LiveSessionProgress.getInstance().ping();
@@ -773,7 +805,7 @@ s     *
         return verdict;
     }
 
-    /**
+    /*
      * Process a correct answer for Anki mode.
      */
     public void submitAnkiCorrect() {

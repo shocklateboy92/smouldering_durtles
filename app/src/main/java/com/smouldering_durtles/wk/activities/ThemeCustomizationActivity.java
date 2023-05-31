@@ -20,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 
 import com.airbnb.lottie.SimpleColorFilter;
@@ -253,6 +254,7 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     }
 
     private static int getBaseColor(final int index) {
+    Log.d ("base", "index: " + index + "");
         if (index < 4) {
             return ActiveTheme.getBaseSubjectTypeBucketColors()[index];
         }
@@ -303,6 +305,7 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
         }
         else if (index < 32) {
             final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseAnkiColors()[index-26] : chosenColor;
+            Log.d ("background", "index: " + index + " color: " + backgroundColor + "");
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
 
@@ -340,10 +343,12 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
             selectionHighlights[selection].setVisibility(true);
             updateSelection(selection);
             updateColor(selection, chosenColors[selection], false);
+            Log.d ("selection", "setSelection: " + selection);
         }
     }
 
     private void setColor(final int index, final int color, final boolean ignorePicker) {
+        Log.d ("setColor", "index: " + index + " color: " + color + "");
         chosenColors[index] = color;
         updateSelection(index);
         updateColor(index, color, ignorePicker);
@@ -359,6 +364,7 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     private void resetColor() {
         safe(() -> {
             setColor(selection, 0, false);
+            Log.d ("resetSelection", "resetColor: " + selection);
             saveColors();
         });
     }

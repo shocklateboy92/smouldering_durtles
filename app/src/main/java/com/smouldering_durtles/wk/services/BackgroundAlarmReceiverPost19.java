@@ -75,7 +75,7 @@ public final class BackgroundAlarmReceiverPost19 extends BroadcastReceiver {
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiverPost19.class);
-            final int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+            final int flags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
             @SuppressLint("UnspecifiedImmutableFlag")
             final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
                     StableIds.BACKGROUND_ALARM_REQUEST_CODE_2, intent, flags);

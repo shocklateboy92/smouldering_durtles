@@ -151,7 +151,7 @@ public final class SessionWidgetProvider extends AppWidgetProvider {
             }
             else if (minWidth < 200) {
                 if (lessonCount > 0) {
-                    views.setTextViewText(R.id.header, "Lessons/reviews:");
+                    views.setTextViewText(R.id.header, "Lessons/Reviews:");
                     views.setTextViewText(R.id.body, String.format(Locale.ROOT, "%d/%d", lessonCount, reviewCount));
                 }
                 else {

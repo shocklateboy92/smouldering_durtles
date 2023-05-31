@@ -40,6 +40,7 @@
     <attr name="colorWaterfallLine" format="reference"/>
     <attr name="colorLevelProgressTarget" format="reference"/>
     <attr name="customToastColorPrimary" format="reference"/>
+    <attr name="alternativeToastColorPrimary" format="reference"/>
     <attr name="correctColorBackground" format="reference"/>
     <attr name="incorrectColorBackground" format="reference"/>
     <attr name="meaningHintColor" format="reference"/>
