@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
+ * Copyright 2019-2022 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.util.Log;
 import android.view.View;
 
 import com.airbnb.lottie.SimpleColorFilter;
@@ -55,7 +54,6 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     private final ViewProxy resetColorButton = new ViewProxy();
     private final ViewProxy colorPicker = new ViewProxy();
     private final ViewProxy colorPickerPreview = new ViewProxy();
-
 
     /**
      * The constructor.
@@ -162,11 +160,11 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
         selectionDescriptions[25] = "The segment colour for Initiate items" + EXTRA3;
         selectionDescriptions[26] = "The segment colour for Locked items" + EXTRA3;
         selectionDescriptions[27] = "The background colour for the Anki mode \"Show Answer\" button";
-        selectionDescriptions[28] = "The background colour for the Anki mode \"Correct\" button";
-        selectionDescriptions[29] = "The background colour for the Anki mode \"Incorrect\" button";
-        selectionDescriptions[30] = "The colour of the Anki text box";
-        selectionDescriptions[31] = "The text colour used for the Anki answer box";
-        selectionDescriptions[32] = "The background colour of the Anki answer box";
+        selectionDescriptions[28] = "The background colour for the Anki mode \"Next\" button";
+        selectionDescriptions[29] = "The background colour for the Anki mode \"Correct\" button";
+        selectionDescriptions[30] = "The background colour for the Anki mode \"Incorrect\" button";
+        selectionDescriptions[31] = "The text colour for the Anki mode buttons and answer text";
+        selectionDescriptions[32] = "The background colour for the Anki mode answer text";
 
         selectionDescription.setDelegate(this, R.id.selectionDescription);
         rgbValues.setDelegate(this, R.id.rgbValues);
@@ -254,24 +252,23 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     }
 
     private static int getBaseColor(final int index) {
-    Log.d ("base", "index: " + index + "");
         if (index < 4) {
             return ActiveTheme.getBaseSubjectTypeBucketColors()[index];
         }
-        if (index < 10) {
+        if (index < 11) {
             return ActiveTheme.getBaseShallowStageBucketColors()[index-4];
         }
-        if (index < 14) {
-            return ActiveTheme.getBasePrePassedBucketColors()[index-10];
+        if (index < 15) {
+            return ActiveTheme.getBasePrePassedBucketColors()[index-11];
         }
-        if (index < 16) {
-            return ActiveTheme.getBasePassedBucketColors()[index-14];
+        if (index < 17) {
+            return ActiveTheme.getBasePassedBucketColors()[index-15];
         }
-        if (index < 26) {
-            return ActiveTheme.getBaseLevelProgressionBucketColors()[index-16];
+        if (index < 27) {
+            return ActiveTheme.getBaseLevelProgressionBucketColors()[index-17];
         }
-        if (index < 32) {
-            return ActiveTheme.getBaseAnkiColors()[index-26];
+        if (index < 33) {
+            return ActiveTheme.getBaseAnkiColors()[index-27];
         }
         return 0;
     }
@@ -287,25 +284,24 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
             selectionViews[index].setTextColor(textColor);
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 10) {
+        else if (index < 11) {
             final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseShallowStageBucketColors()[index-4] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 14) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePrePassedBucketColors()[index-10] : chosenColor;
+        else if (index < 15) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePrePassedBucketColors()[index-11] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 16) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePassedBucketColors()[index-14] : chosenColor;
+        else if (index < 17) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePassedBucketColors()[index-15] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 26) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseLevelProgressionBucketColors()[index-16] : chosenColor;
+        else if (index < 27) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseLevelProgressionBucketColors()[index-17] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 32) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseAnkiColors()[index-26] : chosenColor;
-            Log.d ("background", "index: " + index + " color: " + backgroundColor + "");
+        else if (index < 33) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseAnkiColors()[index-27] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
 
@@ -343,12 +339,10 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
             selectionHighlights[selection].setVisibility(true);
             updateSelection(selection);
             updateColor(selection, chosenColors[selection], false);
-            Log.d ("selection", "setSelection: " + selection);
         }
     }
 
     private void setColor(final int index, final int color, final boolean ignorePicker) {
-        Log.d ("setColor", "index: " + index + " color: " + color + "");
         chosenColors[index] = color;
         updateSelection(index);
         updateColor(index, color, ignorePicker);
@@ -364,7 +358,6 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
     private void resetColor() {
         safe(() -> {
             setColor(selection, 0, false);
-            Log.d ("resetSelection", "resetColor: " + selection);
             saveColors();
         });
     }
