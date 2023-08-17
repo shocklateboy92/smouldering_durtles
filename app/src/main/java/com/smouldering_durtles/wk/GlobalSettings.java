@@ -959,6 +959,29 @@ public final class GlobalSettings {
         }
 
         /**
+         * Limit the level progression bars on the dashboard for previously complete levels.
+         *
+         * @return the value
+         */
+        public static boolean getLimitPreviousLevelProgression() {
+            return prefs().getBoolean("previous_level_progression_limit", false);
+        }
+
+        /**
+         * Limit the amount of levels previous to show progression bars for on the dashboard.
+         *
+         * @return the value
+         */
+        public static int getPreviousLevelProgressionLimitedAmount() {
+            try {
+                final int value = Integer.parseInt(prefs().getString("previous_level_progression_limit_amount", "1"));
+                return value;
+            } catch (NumberFormatException e) {
+                return 1;
+            }
+        }
+
+        /**
          * Show the post-60 progression bar on the dashboard.
          *
          * @return the value
