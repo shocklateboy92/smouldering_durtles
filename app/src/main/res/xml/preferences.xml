@@ -225,6 +225,23 @@
             app:defaultValue="false"/>
 
         <SwitchPreferenceCompat
+            app:key="previous_level_progression_limit"
+            app:title="Limit progression bars for the completed levels to only the most recent levels"
+            app:singleLineTitle="false"
+            android:summary="This can help if many new items were added to previous levels and you now have all those levels on your dashboard."
+            app:defaultValue="false"/>
+
+        <com.smouldering_durtles.wk.components.EditLimitedIntPreference
+            app:key="previous_level_progression_limit_amount"
+            app:title="Number of previous levels to show progression bars for"
+            app:singleLineTitle="false"
+            android:inputType="number"
+            android:dependency="previous_level_progression_limit"
+            app:minValue="0"
+            app:maxValue="60"
+            app:defaultValue="1"/>
+
+        <SwitchPreferenceCompat
             app:key="show_post60_progression"
             app:title="Show post-60 progression bar"
             app:singleLineTitle="false"
