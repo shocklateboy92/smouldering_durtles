@@ -18,7 +18,7 @@
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "wget -O  /root/.ssh/authorized_keys 'https://github.com/shocklateboy92.keys'",
-	"postStartCommand": "/usr/bin/supervisord"
+	"postStartCommand": "/usr/sbin/sshd -D"
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.

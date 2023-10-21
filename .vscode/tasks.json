@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "gradle",
+			"id": "/workspaces/smouldering_durtlesinstallDebugsmouldering-durtles",
+			"script": "installDebug",
+			"description": "Installs the Debug build.",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"project": "smouldering-durtles",
+			"buildFile": "/workspaces/smouldering_durtles/build.gradle",
+			"rootProject": "smouldering-durtles",
+			"projectFolder": "/workspaces/smouldering_durtles",
+			"workspaceFolder": "/workspaces/smouldering_durtles",
+			"args": "",
+			"javaDebug": false,
+			"problemMatcher": [
+				"$gradle"
+			],
+			"label": "gradle: installDebug"
+		}
+	]
+}
