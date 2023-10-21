@@ -11,20 +11,16 @@
 				"vscjava.vscode-gradle"
 			]
 		}
-	}
-
+	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
-
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
-
+	"postCreateCommand": "wget -O  /root/.ssh/authorized_keys 'https://github.com/shocklateboy92.keys'",
+	"postStartCommand": "/usr/bin/supervisord"
 	// Configure tool-specific properties.
 	// "customizations": {},
-
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
