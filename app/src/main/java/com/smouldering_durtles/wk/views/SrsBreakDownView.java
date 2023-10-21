@@ -92,7 +92,9 @@ public final class SrsBreakDownView extends ConstraintLayout {
         views.add(new ViewProxy(this, R.id.breakdownBucket4View));
 
         for (int i=0; i<5; i++) {
-            views.get(i).setBackgroundColor(ActiveTheme.getShallowStageBucketColors5()[i]);
+            ViewProxy view = views.get(i);
+            view.setBackgroundColor(ActiveTheme.getShallowStageBucketColors5()[i]);
+            view.setPadding(20, 20, 20, 20);
             if (ActiveTheme.getCurrentTheme() == ActiveTheme.LIGHT) {
                 counts.get(i).setShadowLayer(3, 1, 1, Color.BLACK);
             }

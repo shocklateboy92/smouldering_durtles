@@ -758,6 +758,13 @@ public final class ViewProxy {
         return 0;
     }
 
+    public void setPadding(int start, int end, int top, int bottom) {
+        final @Nullable View delegate = getDelegate();
+        if (delegate != null) {
+            delegate.setPadding(start, top, end, bottom);
+        }
+    }
+
     public @Nullable ViewGroup.LayoutParams getLayoutParams() {
         final @Nullable View delegate = getDelegate();
         if (delegate != null) {
