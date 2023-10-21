@@ -96,14 +96,11 @@ public final class SrsBreakDownView extends ConstraintLayout {
 
         for (int i=0; i<5; i++) {
             ViewProxy view = views.get(i);
-            // view.setBackgroundColor(ActiveTheme.getShallowStageBucketColors5()[i]);
             Drawable background = view.getBackground();
             if (background != null) {
                 background.setColorFilter(new PorterDuffColorFilter(
                         ActiveTheme.getShallowStageBucketColors5()[i],
                         PorterDuff.Mode.SRC_ATOP));
-                // make the corners rounded
-                // background.setCornerRadii(new float[] { 8, 8, 8, 8, 8, 8, 8, 8 });
             }
             if (ActiveTheme.getCurrentTheme() == ActiveTheme.LIGHT) {
                 counts.get(i).setShadowLayer(3, 1, 1, Color.BLACK);
