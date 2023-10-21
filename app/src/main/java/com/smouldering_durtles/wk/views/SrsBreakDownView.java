@@ -95,8 +95,7 @@ public final class SrsBreakDownView extends ConstraintLayout {
         views.add(new ViewProxy(this, R.id.breakdownBucket4View));
 
         for (int i=0; i<5; i++) {
-            ViewProxy view = views.get(i);
-            Drawable background = view.getBackground();
+            Drawable background = views.get(i).getBackground();
             if (background != null) {
                 background.setColorFilter(new PorterDuffColorFilter(
                         ActiveTheme.getShallowStageBucketColors5()[i],
