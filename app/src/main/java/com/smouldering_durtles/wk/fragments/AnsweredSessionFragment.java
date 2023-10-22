@@ -34,6 +34,7 @@ import com.smouldering_durtles.wk.model.Question;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
 import com.smouldering_durtles.wk.util.ThemeUtil;
 import com.smouldering_durtles.wk.views.SubjectInfoView;
+import com.smouldering_durtles.wk.views.SwipingScrollView;
 
 import java.util.Locale;
 
@@ -44,7 +45,7 @@ import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 /**
  * Fragment for an answered non-Anki mode question.
  */
-public final class AnsweredSessionFragment extends AbstractSessionFragment {
+public final class AnsweredSessionFragment extends AbstractSessionFragment implements SwipingScrollView.OnSwipeListener {
     private @Nullable Question question;
     private @Nullable Subject subject;
 
@@ -123,6 +124,7 @@ public final class AnsweredSessionFragment extends AbstractSessionFragment {
         questionEdit.setDelegate(view, R.id.questionEdit);
         subjectInfo.setDelegate(view, R.id.subjectInfo);
         digraphMatchText.setDelegate(view, R.id.digraphMatchText);
+        scrollView.setSwipeListener(this);
 
         final @Nullable LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) questionView.getLayoutParams();
         if (params != null) {
@@ -156,16 +158,7 @@ public final class AnsweredSessionFragment extends AbstractSessionFragment {
         subjectInfo.setContainerType(SubjectInfoView.ContainerType.ANSWERED_QUESTION);
         subjectInfo.setSubject(this, subject);
 
-        final View.OnClickListener listener = v -> safe(() -> {
-            if (!interactionEnabled) {
-                return;
-            }
-            if (session.isNextButtonFrozen()) {
-                return;
-            }
-            disableInteraction();
-            session.advance();
-        });
+        final View.OnClickListener listener = this::advanceNext;
         nextButton.setOnClickListener(listener);
         nextButton2.setOnClickListener(listener);
 
@@ -266,5 +259,28 @@ public final class AnsweredSessionFragment extends AbstractSessionFragment {
                 showPreviousAnswerToast(toastAnimation, session.isCorrect() ? R.raw.success : R.raw.fail);
             }
         });
+    }
+
+    private void advanceNext(View v) {
+        safe(() -> {
+            if (!interactionEnabled) {
+                return;
+            }
+            if (session.isNextButtonFrozen()) {
+                return;
+            }
+            disableInteraction();
+            session.advance();
+        });
+    }
+
+    @Override
+    public void onSwipeLeft(SwipingScrollView view) {
+        // do nothing, as there is no previous button on this screen
+    }
+
+    @Override
+    public void onSwipeRight(SwipingScrollView view) {
+        this.advanceNext(view);
     }
 }
