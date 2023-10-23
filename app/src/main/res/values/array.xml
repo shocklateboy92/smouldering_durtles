@@ -197,6 +197,7 @@
     </string-array>
 
     <string-array name="themes">
+        <item>Auto Light/Dark</item>
         <item>Wanikani</item>
         <item>Breeze</item>
         <item>Black</item>
@@ -204,6 +205,7 @@
     </string-array>
 
     <string-array name="themeValues">
+        <item>AUTO</item>
         <item>LIGHT</item>
         <item>DARK</item>
         <item>BLACK_BREEZE</item>

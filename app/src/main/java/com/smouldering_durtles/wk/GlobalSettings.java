@@ -18,6 +18,7 @@ package com.smouldering_durtles.wk;
 
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.util.Log;
 
 
@@ -768,15 +769,28 @@ public final class GlobalSettings {
          */
         public static ActiveTheme getTheme() {
             final @Nullable String value = prefs().getString("theme", null);
+            ActiveTheme theme = ActiveTheme.AUTO;
             if (value != null) {
                 try {
-                    return ActiveTheme.valueOf(value);
+                    theme = ActiveTheme.valueOf(value);
                 }
                 catch (final Exception e) {
                     //
                 }
             }
-            return ActiveTheme.DARK;
+
+            if (theme == ActiveTheme.AUTO) {
+                switch (application.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        theme = ActiveTheme.BLACK_BREEZE;
+                        break;
+                    default:
+                        theme = ActiveTheme.LIGHT;
+                        break;
+                }
+            }
+
+            return theme;
         }
 
         /**

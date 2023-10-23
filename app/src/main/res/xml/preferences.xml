@@ -89,7 +89,7 @@
             app:singleLineTitle="false"
             app:entries="@array/themes"
             app:entryValues="@array/themeValues"
-            app:defaultValue="DARK"
+            app:defaultValue="AUTO"
             app:useSimpleSummaryProvider="true"/>
 
         <Preference
