@@ -197,11 +197,11 @@
     </string-array>
 
     <string-array name="themes">
-        <item>Auto (switch between Light and Black Breeze)</item>
-        <item>Light</item>
-        <item>Dark Breeze</item>
-        <item>Black Breeze</item>
-        <item>Nord Polar Night</item>
+        <item>Auto Light/Dark</item>
+        <item>Wanikani</item>
+        <item>Breeze</item>
+        <item>Black</item>
+        <item>Nord</item>
     </string-array>
 
     <string-array name="themeValues">

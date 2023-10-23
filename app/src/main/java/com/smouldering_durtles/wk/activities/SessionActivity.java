@@ -377,7 +377,7 @@ public final class SessionActivity extends AbstractActivity {
             return;
         }
 
-        final String message = "Alternatives: " + FloatingUiState.alternativesForLastCorrectAnswer;
+        final String message = "Alt: " + FloatingUiState.alternativesForLastCorrectAnswer;
         view.setText(message);
 
         final Animation fadeIn = new AlphaAnimation(0, 1);
@@ -386,7 +386,7 @@ public final class SessionActivity extends AbstractActivity {
 
         final Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setStartOffset(3000);
+        fadeOut.setStartOffset(750);
         fadeOut.setDuration(1500);
 
         final AnimationSet animationSet = new AnimationSet(false);

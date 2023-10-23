@@ -24,10 +24,16 @@
         android:id="@+id/breakdownBucket0View"
         android:layout_width="0dp"
         android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/small_rounded_corners"
+        app:layout_constraintEnd_toStartOf="@id/breakdownBucket1View"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/breakdownBucket1View"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/breakdownBucket0Count"
@@ -39,20 +45,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:text="Apprentice"
-            android:textSize="11sp"
             android:textColor="?attr/colorPrimaryInverse"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -60,9 +66,15 @@
         android:id="@+id/breakdownBucket1View"
         android:layout_width="0dp"
         android:layout_height="72dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/small_rounded_corners"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/breakdownBucket2View"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/breakdownBucket0View"
-        app:layout_constraintEnd_toStartOf="@id/breakdownBucket2View"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -75,20 +87,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:text="Guru"
-            android:textSize="11sp"
             android:textColor="?attr/colorPrimaryInverse"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -96,9 +108,15 @@
         android:id="@+id/breakdownBucket2View"
         android:layout_width="0dp"
         android:layout_height="72dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/small_rounded_corners"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/breakdownBucket3View"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/breakdownBucket1View"
-        app:layout_constraintEnd_toStartOf="@id/breakdownBucket3View"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -111,20 +129,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:text="Master"
-            android:textSize="11sp"
             android:textColor="?attr/colorPrimaryInverse"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -132,9 +150,15 @@
         android:id="@+id/breakdownBucket3View"
         android:layout_width="0dp"
         android:layout_height="72dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/small_rounded_corners"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/breakdownBucket4View"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/breakdownBucket2View"
-        app:layout_constraintEnd_toStartOf="@id/breakdownBucket4View"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -147,20 +171,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:text="Enlightened"
-            android:textSize="11sp"
             android:textColor="?attr/colorPrimaryInverse"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -168,9 +192,17 @@
         android:id="@+id/breakdownBucket4View"
         android:layout_width="0dp"
         android:layout_height="72dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/small_rounded_corners"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/breakdownBucket3View"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -183,20 +215,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
             android:text="Burned"
-            android:textSize="11sp"
             android:textColor="?attr/colorPrimaryInverse"
+            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

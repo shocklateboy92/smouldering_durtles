@@ -16,8 +16,11 @@
 
 package com.smouldering_durtles.wk;
 
+
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.util.Log;
+
 
 import androidx.preference.PreferenceManager;
 
@@ -46,7 +49,9 @@ import com.smouldering_durtles.wk.model.SubjectSelectionRules;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
@@ -116,6 +121,54 @@ public final class GlobalSettings {
         editor.putInt("first_time_setup", value);
         editor.apply();
     }
+
+    /**
+     * This is the handler for user settings backup
+     *
+     */
+    public static Map<String, ?> getAllSettings() {
+        Map<String, ?> entries = prefs().getAll();
+        Map<String, Object> result = new HashMap<>();
+        // ...
+
+        for (Map.Entry<String, ?> entry : entries.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            Log.d("Settings", "Key: " + key + " Value: " + value.toString() + " Type: " + value.getClass().getSimpleName());
+            // ...
+            result.put(key, value);
+            }
+        return result;
+    }
+
+    public static void setAllSettings(Map<String, Object> settings) {
+        SharedPreferences.Editor editor = prefs().edit();
+
+        for (Map.Entry<String, Object> entry : settings.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            Log.d("Settings", "Key: " + key + " Value: " + value.toString());
+
+            if (value instanceof Integer) {
+                editor.putInt(key, (Integer) value);
+            } else if (value instanceof Boolean) {
+                editor.putBoolean(key, (Boolean) value);
+            } else if (value instanceof Float) {
+                editor.putFloat(key, (Float) value);
+            } else if (value instanceof Long) {
+                editor.putLong(key, (Long) value);
+            } else if (value instanceof String) {
+                editor.putString(key, (String) value);
+            } else {
+                throw new IllegalArgumentException("Unsupported setting type: " + value.getClass().getName());
+            }
+        }
+        editor.apply();
+    }
+
+
 
     /**
      * Global unlock of all of the advanced settings.
@@ -973,6 +1026,29 @@ public final class GlobalSettings {
         }
 
         /**
+         * Limit the level progression bars on the dashboard for previously complete levels.
+         *
+         * @return the value
+         */
+        public static boolean getLimitPreviousLevelProgression() {
+            return prefs().getBoolean("previous_level_progression_limit", false);
+        }
+
+        /**
+         * Limit the amount of levels previous to show progression bars for on the dashboard.
+         *
+         * @return the value
+         */
+        public static int getPreviousLevelProgressionLimitedAmount() {
+            try {
+                final int value = Integer.parseInt(prefs().getString("previous_level_progression_limit_amount", "1"));
+                return value;
+            } catch (NumberFormatException e) {
+                return 1;
+            }
+        }
+
+        /**
          * Show the post-60 progression bar on the dashboard.
          *
          * @return the value
@@ -1497,6 +1573,14 @@ public final class GlobalSettings {
          *
          * @return the value
          */
+        public static boolean enable_haptic_feedback_success() {
+            return prefs().getBoolean("enable_haptic_feedback_success", false);
+        }
+
+        public static boolean enable_haptic_feedback_failure() {
+            return prefs().getBoolean("enable_haptic_feedback_failure", false);
+        }
+
         public static CloseEnoughAction getCloseEnoughAction() {
             final @Nullable String value = prefs().getString("close_enough_action", null);
             if (value != null) {

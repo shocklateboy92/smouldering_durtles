@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Ernst Jan Plugge <rmc@dds.nl>
+ * Copyright 2019-2022 Ernst Jan Plugge <rmc@dds.nl>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -255,20 +255,20 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
         if (index < 4) {
             return ActiveTheme.getBaseSubjectTypeBucketColors()[index];
         }
-        if (index < 10) {
+        if (index < 11) {
             return ActiveTheme.getBaseShallowStageBucketColors()[index-4];
         }
-        if (index < 14) {
-            return ActiveTheme.getBasePrePassedBucketColors()[index-10];
+        if (index < 15) {
+            return ActiveTheme.getBasePrePassedBucketColors()[index-11];
         }
-        if (index < 16) {
-            return ActiveTheme.getBasePassedBucketColors()[index-14];
+        if (index < 17) {
+            return ActiveTheme.getBasePassedBucketColors()[index-15];
         }
-        if (index < 26) {
-            return ActiveTheme.getBaseLevelProgressionBucketColors()[index-16];
+        if (index < 27) {
+            return ActiveTheme.getBaseLevelProgressionBucketColors()[index-17];
         }
-        if (index < 32) {
-            return ActiveTheme.getBaseAnkiColors()[index-26];
+        if (index < 33) {
+            return ActiveTheme.getBaseAnkiColors()[index-27];
         }
         return 0;
     }
@@ -284,24 +284,24 @@ public final class ThemeCustomizationActivity extends AbstractActivity {
             selectionViews[index].setTextColor(textColor);
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 10) {
+        else if (index < 11) {
             final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseShallowStageBucketColors()[index-4] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 14) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePrePassedBucketColors()[index-10] : chosenColor;
+        else if (index < 15) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePrePassedBucketColors()[index-11] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 16) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePassedBucketColors()[index-14] : chosenColor;
+        else if (index < 17) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBasePassedBucketColors()[index-15] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 26) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseLevelProgressionBucketColors()[index-16] : chosenColor;
+        else if (index < 27) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseLevelProgressionBucketColors()[index-17] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
-        else if (index < 32) {
-            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseAnkiColors()[index-26] : chosenColor;
+        else if (index < 33) {
+            final int backgroundColor = chosenColor == 0 ? ActiveTheme.getBaseAnkiColors()[index-27] : chosenColor;
             selectionViews[index].setBackgroundColor(backgroundColor);
         }
 

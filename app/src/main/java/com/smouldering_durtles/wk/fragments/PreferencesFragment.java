@@ -17,6 +17,7 @@
 package com.smouldering_durtles.wk.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -37,6 +38,7 @@ import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.R;
 import com.smouldering_durtles.wk.activities.AboutActivity;
 import com.smouldering_durtles.wk.activities.AbstractActivity;
+import com.smouldering_durtles.wk.activities.BackupActivity;
 import com.smouldering_durtles.wk.activities.DataImportExportActivity;
 import com.smouldering_durtles.wk.activities.FontImportActivity;
 import com.smouldering_durtles.wk.activities.FontSelectionActivity;
@@ -134,6 +136,8 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
             return true;
         }));
 
+
+
         setOnPreferenceClick("reset_tutorials", preference -> safe(false, () -> {
             new AlertDialog.Builder(preference.getContext())
                     .setTitle("Reset confirmations and tutorials?")
@@ -146,6 +150,40 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
                     })).create().show();
             return true;
         }));
+
+        setOnPreferenceClick("backup_settings", preference -> {
+            new AlertDialog.Builder(preference.getContext())
+                    .setTitle("Backup settings?")
+                    .setMessage("Are you sure you want to backup your settings?")
+                    .setIcon(R.drawable.ic_baseline_warning_24px)
+                    .setNegativeButton("No", (dialog, which) -> {})
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        try {
+                            startBackup();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }).create().show();
+            return true;
+        });
+
+        setOnPreferenceClick("restore_settings", preference -> {
+            new AlertDialog.Builder(preference.getContext())
+                    .setTitle("Restore settings?")
+                    .setMessage("Are you sure you want to restore your settings?")
+                    .setIcon(R.drawable.ic_baseline_warning_24px)
+                    .setNegativeButton("No", (dialog, which) -> {})
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        try {
+                            startRestore();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }).create().show();
+            return true;
+        });
+
+
 
         setOnPreferenceClick("upload_debug_log", preference -> safe(false, () -> {
             new AlertDialog.Builder(preference.getContext())
@@ -183,7 +221,7 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
         setVisibility("advanced_other_settings", GlobalSettings.getAdvancedEnabled());
         setVisibility("ime_hint_reading", Build.VERSION.SDK_INT >= Build.VERSION_CODES.N);
         setVisibility("ime_hint_meaning", Build.VERSION.SDK_INT >= Build.VERSION_CODES.N);
-        setVisibility("web_password", Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+        setVisibility("web_password", true);
 
         setSummaryHtml("api_key_help", API_KEY_PERMISSION_NOTICE);
         setSummaryHtml("experimental_status", EXPERIMENTAL_PREFERENCE_STATUS_NOTICE);
@@ -295,6 +333,23 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
             return true;
         }));
     }
+
+    private void startBackup() {
+        safe(() -> {
+            Intent intent = new Intent(getActivity(), BackupActivity.class);
+            intent.setAction("com.smouldering_durtles.wk.BACKUP");
+            startActivity(intent);
+        });
+    }
+
+    private void startRestore() {
+        safe(() -> {
+            Intent intent = new Intent(getActivity(), BackupActivity.class);
+            intent.setAction("com.smouldering_durtles.wk.RESTORE");
+            startActivity(intent);
+        });
+    }
+
 
     private void setNumberInputType(final CharSequence key) {
         safe(() -> {

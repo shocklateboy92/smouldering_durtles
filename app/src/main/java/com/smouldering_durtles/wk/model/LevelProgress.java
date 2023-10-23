@@ -124,6 +124,20 @@ public final class LevelProgress {
     }
 
     /**
+     * Clean up the chart by removing bars where everything has already been passed or where
+     * everything is locked, or where the level is less than userLevel - prevLevelProgressLimit
+     *
+     * @param userLevel the user's level
+     * @param prevLevelLimit the amount of previously completed levels to still show
+     */
+    public void removePassedAndLockedAndOldBars(final int userLevel, final int prevLevelLimit) {
+        entries.removeIf(entry -> entry.totalCount == 0
+                || entry.numPassed >= entry.totalCount
+                || entry.level < userLevel - prevLevelLimit
+                || (entry.level > userLevel && entry.numLocked >= entry.totalCount));
+    }
+
+    /**
      * An entry in the chart for one bar.
      */
     public static final class BarEntry {

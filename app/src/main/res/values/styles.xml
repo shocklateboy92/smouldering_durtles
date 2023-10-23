@@ -30,6 +30,7 @@
         <item name="colorWaterfallLine">@color/wkLightColorWaterfallLine</item>
         <item name="colorLevelProgressTarget">@color/wkLightColorLevelProgressTarget</item>
         <item name="customToastColorPrimary">@color/wkLightCustomToastColorPrimary</item>
+        <item name="alternativeToastColorPrimary">@color/wkLightAlternativeToastColorPrimary</item>
         <item name="correctColorBackground">@color/wkLightCorrectColorBackground</item>
         <item name="incorrectColorBackground">@color/wkLightIncorrectColorBackground</item>
         <item name="meaningHintColor">@color/wkLightMeaningHintColor</item>
@@ -67,6 +68,7 @@
         <item name="colorWaterfallLine">@color/wkDarkColorWaterfallLine</item>
         <item name="colorLevelProgressTarget">@color/wkDarkColorLevelProgressTarget</item>
         <item name="customToastColorPrimary">@color/wkDarkCustomToastColorPrimary</item>
+        <item name="alternativeToastColorPrimary">@color/wkDarkAlternativeToastColorPrimary</item>
         <item name="correctColorBackground">@color/wkDarkCorrectColorBackground</item>
         <item name="incorrectColorBackground">@color/wkDarkIncorrectColorBackground</item>
         <item name="meaningHintColor">@color/wkDarkMeaningHintColor</item>
@@ -104,6 +106,7 @@
         <item name="colorWaterfallLine">@color/wkDarkColorWaterfallLine</item>
         <item name="colorLevelProgressTarget">@color/wkDarkColorLevelProgressTarget</item>
         <item name="customToastColorPrimary">@color/wkDarkCustomToastColorPrimary</item>
+        <item name="alternativeToastColorPrimary">@color/wkDarkAlternativeToastColorPrimary</item>
         <item name="correctColorBackground">@color/wkDarkCorrectColorBackground</item>
         <item name="incorrectColorBackground">@color/wkDarkIncorrectColorBackground</item>
         <item name="meaningHintColor">@color/wkDarkMeaningHintColor</item>
@@ -141,6 +144,7 @@
         <item name="colorWaterfallLine">@color/wkNordColorWaterfallLine</item>
         <item name="colorLevelProgressTarget">@color/wkNordColorLevelProgressTarget</item>
         <item name="customToastColorPrimary">@color/wkNordCustomToastColorPrimary</item>
+        <item name="alternativeToastColorPrimary">@color/wkNordAlternativeToastColorPrimary</item>
         <item name="correctColorBackground">@color/wkNordCorrectColorBackground</item>
         <item name="incorrectColorBackground">@color/wkNordIncorrectColorBackground</item>
         <item name="meaningHintColor">@color/wkNordMeaningHintColor</item>
@@ -193,9 +197,15 @@
     </style>
 
     <style name="WK.TextView.CustomToast" parent="WK.TextView.Normal">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">?attr/customToastColorPrimary</item>
         <item name="android:background">@drawable/rounded_corners</item>
+    </style>
+
+    <style name="WK.TextView.AlternativeToast" parent="WK.TextView.Normal">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/alternativeToastColorPrimary</item>
+        <item name="android:background">@drawable/alternative_toast</item>
     </style>
 
     <style name="WK.TextView.InlineButton" parent="WK.TextView.Normal.Bold">
