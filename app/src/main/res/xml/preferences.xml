@@ -524,6 +524,20 @@
             app:singleLineTitle="false"
             app:defaultValue="false"/>
 
+        <SwitchPreferenceCompat
+            app:key="enable_haptic_feedback_success"
+            app:title="Enable haptic feedback on correct answer"
+            app:summary="The device will give a short buzz to indicate a correct answer "
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
+        <SwitchPreferenceCompat
+            app:key="enable_haptic_feedback_failure"
+            app:title="Enable haptic feedback on incorrect answer"
+            app:summary="The device will give a long buzz to indicate an incorrect answer"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
         <ListPreference
             app:key="close_enough_action"
             app:title="Action for &quot;close enough&quot; answer"

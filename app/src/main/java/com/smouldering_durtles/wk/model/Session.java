@@ -16,7 +16,11 @@
 
 package com.smouldering_durtles.wk.model;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -68,6 +72,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import static com.smouldering_durtles.wk.GlobalSettings.Review.enable_haptic_feedback_success;
 import static com.smouldering_durtles.wk.enums.SessionItemState.ABANDONED;
 import static com.smouldering_durtles.wk.enums.SessionState.ACTIVE;
 import static com.smouldering_durtles.wk.enums.SessionState.FINISHING;
@@ -113,6 +118,7 @@ public final class Session implements SubjectChangeListener {
     private final Deque<Question> history = new ArrayDeque<>();
     private long lastTypedIncorrectAnswer = 0;
     private boolean forceNewFragment = false;
+
 
     /**
      * Get the singleton instance.
@@ -727,9 +733,12 @@ s     *
                 FloatingUiState.toastOldSrsStage = currentQuestion.getItem().getSrsStage();
                 FloatingUiState.toastNewSrsStage = currentQuestion.getItem().getNewSrsStage();
                 FloatingUiState.showSrsStageChangedToast = true;
+
             }
+
             answered = true;
             correct = true;
+
             FloatingUiState.lastVerdict = verdict;
             List<String> alternatives = null;
             if (currentQuestion.getType().isMeaning() && subject.getMeanings().size() > 1) {
@@ -737,6 +746,7 @@ s     *
             } else if (currentQuestion.getType().isReading() && subject.getAcceptedReadings().size() > 1) {
                 alternatives = subject.getAcceptedReadings().stream().map(Reading::getReading).collect(Collectors.toList());
             }
+
             if (alternatives != null) {
                 List<String> filteredAlternatives = new ArrayList<>();
                 Set<String> uniqueAlternativesWithoutThe = new HashSet<>();
@@ -765,12 +775,6 @@ s     *
                 FloatingUiState.alternativesForLastCorrectAnswer = null;
             }
 
-
-
-
-
-
-
             FloatingUiState.showCloseToast = verdict.isNearMatch();
             FloatingUiState.toastPlayed = false;
             LiveSessionProgress.getInstance().ping();
@@ -790,6 +794,8 @@ s     *
         LOGGER.info("End submit: %s judged normally", verdict);
         return verdict;
     }
+
+
 
     /**
      * Submit the current answer as answer for the current question. The session doesn't advance yet,

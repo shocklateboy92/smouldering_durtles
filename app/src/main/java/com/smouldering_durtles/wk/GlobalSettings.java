@@ -1559,6 +1559,14 @@ public final class GlobalSettings {
          *
          * @return the value
          */
+        public static boolean enable_haptic_feedback_success() {
+            return prefs().getBoolean("enable_haptic_feedback_success", false);
+        }
+
+        public static boolean enable_haptic_feedback_failure() {
+            return prefs().getBoolean("enable_haptic_feedback_failure", false);
+        }
+
         public static CloseEnoughAction getCloseEnoughAction() {
             final @Nullable String value = prefs().getString("close_enough_action", null);
             if (value != null) {

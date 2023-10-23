@@ -16,14 +16,18 @@
 
 package com.smouldering_durtles.wk.fragments;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +52,12 @@ import com.smouldering_durtles.wk.util.Logger;
 import com.smouldering_durtles.wk.util.PseudoIme;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
+import static com.smouldering_durtles.wk.GlobalSettings.Review.enable_haptic_feedback_failure;
+import static com.smouldering_durtles.wk.GlobalSettings.Review.enable_haptic_feedback_success;
 import static com.smouldering_durtles.wk.util.ObjectSupport.isTrue;
 import static com.smouldering_durtles.wk.util.ObjectSupport.orElse;
 import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
@@ -262,6 +269,7 @@ public final class UnansweredSessionFragment extends AbstractSessionFragment {
                     FloatingUiState.getCurrentAnswer(), subject.getCharacters(), subject.getId());
             final AnswerVerdict verdict = session.submit(matchingKanji);
             if (verdict.isRetry()) {
+                Log.d("HapticFeedback", "Retry verdict received");
                 final TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
                 shake.setDuration(1000);
                 shake.setInterpolator(new CycleInterpolator(7));
@@ -270,6 +278,19 @@ public final class UnansweredSessionFragment extends AbstractSessionFragment {
                 questionEdit.setTag(true);
                 questionEdit.requestFocusInTouchMode();
                 showSoftInput(questionEdit);
+                if (enable_haptic_feedback_failure()) {
+                    Log.d("HapticFeedback", "Vibing");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        requireView().performHapticFeedback(HapticFeedbackConstants.REJECT); // Assuming REJECT is the desired feedback for a failure
+                    } else {
+                        // Fallback for older API versions using Vibrator
+                        Vibrator vibrator = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        if (vibrator != null && vibrator.hasVibrator()) {
+                            // Vibrate for 200 milliseconds for a slightly longer feedback on failure
+                            vibrator.vibrate(300);
+                        }
+                    }
+                }
             }
         }));
     }
@@ -419,6 +440,8 @@ public final class UnansweredSessionFragment extends AbstractSessionFragment {
         if (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
             return true;
         }
+
+
         if (ok && interactionEnabled) {
             if (!session.isAnswered()) {
                 questionEdit.setTag(false);
@@ -427,17 +450,49 @@ public final class UnansweredSessionFragment extends AbstractSessionFragment {
                 LOGGER.info("Submitting answer '%s' for subject '%s' (%d) via keyboard action",
                         FloatingUiState.getCurrentAnswer(), subject.getCharacters(), subject.getId());
                 final AnswerVerdict verdict = session.submit(match);
+
+                if (verdict.isOk() && enable_haptic_feedback_success()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        requireView().performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+                    } else {
+                        // Fallback for older API versions using Vibrator
+                        Vibrator vibrator = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        if (vibrator != null && vibrator.hasVibrator()) {
+                            // Vibrate for 100 milliseconds as a short feedback
+                            vibrator.vibrate(100);
+                        }
+                    }
+                }
+
                 if (verdict.isRetry()) {
+                    Log.d("HapticFeedback", "A Retry verdict received");
                     final TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
                     shake.setDuration(1000);
                     shake.setInterpolator(new CycleInterpolator(7));
                     questionEdit.startAnimation(shake);
                     questionEdit.setTag(true);
+                    if (enable_haptic_feedback_failure()) {
+                        Log.d("HapticFeedback", "Vibing");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            requireView().performHapticFeedback(HapticFeedbackConstants.REJECT); // Assuming REJECT is the desired feedback for a failure
+                        } else {
+                            // Fallback for older API versions using Vibrator
+                            Vibrator vibrator = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+                            if (vibrator != null && vibrator.hasVibrator()) {
+                                // Vibrate for 200 milliseconds for a slightly longer feedback on failure
+                                vibrator.vibrate(200);
+                            }
+                        }
+                    }
                 }
             }
             return true;
         }
+
         return false;
+
+
+
     }
 
     private void addActionListenerToEditText() {
