@@ -33,6 +33,7 @@ import com.smouldering_durtles.wk.api.model.Reading;
 import com.smouldering_durtles.wk.db.model.Subject;
 import com.smouldering_durtles.wk.enums.SubjectInfoDump;
 import com.smouldering_durtles.wk.model.FloatingUiState;
+import com.smouldering_durtles.wk.model.GenderedFile;
 import com.smouldering_durtles.wk.model.PitchInfo;
 import com.smouldering_durtles.wk.model.Session;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
@@ -249,24 +250,41 @@ public final class SubjectInfoHeadlineView extends ConstraintLayout {
         }
 
         // Play audio button(s)
-        if (showReadingAnswers) {
-            for (final Reading r: subject.getReadings()) {
-                final @Nullable File testAudioFile = AudioUtil.getOneAudioFileMustMatch(subject, r.getReading());
-                if (testAudioFile == null) {
-                    continue;
+        if (showReadingAnswers || subject.getType().isKanaVocabulary()) {
+            if (subject.getType().isKanaVocabulary()) {
+                if (AudioUtil.hasAudio(subject)) { // Ensure there's audio available for this subject
+                    final Button playButton = new Button(getContext());
+                    playButton.setText(subject.getCharacters());
+                    playButton.setTextSize(FONT_SIZE_SMALL);
+                    playButton.setCompoundDrawablesWithIntrinsicBounds(
+                            ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_volume_up_24px), null, null, null);
+                    playButton.setOnClickListener(v -> safe(() -> AudioUtil.playAudio(subject, null)));
+                    final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+                    layoutParams.width = WRAP_CONTENT;
+                    layoutParams.height = WRAP_CONTENT;
+                    buttonsColumn.addView(playButton, layoutParams);
                 }
-                final Button playButton = new Button(getContext());
-                playButton.setText(r.getValue(GlobalSettings.Other.getShowOnInKatakana()));
-                playButton.setTextSize(FONT_SIZE_SMALL);
-                playButton.setCompoundDrawablesWithIntrinsicBounds(
-                        ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_volume_up_24px), null, null, null);
-                playButton.setOnClickListener(v -> safe(() -> AudioUtil.playAudio(subject, r.getReading())));
-                final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
-                layoutParams.width = WRAP_CONTENT;
-                layoutParams.height = WRAP_CONTENT;
-                buttonsColumn.addView(playButton, layoutParams);
+            }
+            else {
+                for (final Reading r: subject.getReadings()) {
+                    final @Nullable File testAudioFile = AudioUtil.getOneAudioFileMustMatch(subject, r.getReading());
+                    if (testAudioFile == null) {
+                        continue;
+                    }
+                    final Button playButton = new Button(getContext());
+                    playButton.setText(r.getValue(GlobalSettings.Other.getShowOnInKatakana()));
+                    playButton.setTextSize(FONT_SIZE_SMALL);
+                    playButton.setCompoundDrawablesWithIntrinsicBounds(
+                            ContextCompat.getDrawable(getContext(), R.drawable.ic_baseline_volume_up_24px), null, null, null);
+                    playButton.setOnClickListener(v -> safe(() -> AudioUtil.playAudio(subject, r.getReading())));
+                    final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+                    layoutParams.width = WRAP_CONTENT;
+                    layoutParams.height = WRAP_CONTENT;
+                    buttonsColumn.addView(playButton, layoutParams);
+                }
             }
         }
+
 
         revealButton.setText(getSubjectInfoDump().getRevealButtonLabel());
 

@@ -29,6 +29,11 @@
         <attr name="android:layout_gravity"/>
     </declare-styleable>
 
+    <declare-styleable name="EditLimitedIntPreference">
+        <attr name="minValue" format="integer"/>
+        <attr name="maxValue" format="integer"/>
+    </declare-styleable>
+
     <attr name="colorPrimaryInverse" format="reference"/>
     <attr name="colorPrimaryLight" format="reference"/>
     <attr name="colorPrimaryTonedDown" format="reference"/>
@@ -40,6 +45,7 @@
     <attr name="colorWaterfallLine" format="reference"/>
     <attr name="colorLevelProgressTarget" format="reference"/>
     <attr name="customToastColorPrimary" format="reference"/>
+    <attr name="alternativeToastColorPrimary" format="reference"/>
     <attr name="correctColorBackground" format="reference"/>
     <attr name="incorrectColorBackground" format="reference"/>
     <attr name="meaningHintColor" format="reference"/>

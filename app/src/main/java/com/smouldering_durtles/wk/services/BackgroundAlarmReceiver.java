@@ -34,7 +34,6 @@ import com.smouldering_durtles.wk.StableIds;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.livedata.LiveAlertContext;
 import com.smouldering_durtles.wk.model.AlertContext;
-import com.smouldering_durtles.wk.services.SessionWidgetProvider;
 import com.smouldering_durtles.wk.util.Logger;
 
 import javax.annotation.Nullable;
@@ -89,7 +88,7 @@ public final class BackgroundAlarmReceiver extends BroadcastReceiver {
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiver.class);
-            final int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+            final int flags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
             @SuppressLint("UnspecifiedImmutableFlag")
             final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
                     StableIds.BACKGROUND_ALARM_REQUEST_CODE_1, intent, flags);
@@ -106,22 +105,16 @@ public final class BackgroundAlarmReceiver extends BroadcastReceiver {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     BackgroundAlarmReceiverPost23.scheduleAlarm();
                 }
-                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    BackgroundAlarmReceiverPost19.scheduleAlarm();
-                }
                 else {
-                    scheduleAlarm();
+                    BackgroundAlarmReceiverPost19.scheduleAlarm();
                 }
             }
             else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     BackgroundAlarmReceiverPost23.cancelAlarm();
                 }
-                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    BackgroundAlarmReceiverPost19.cancelAlarm();
-                }
                 else {
-                    cancelAlarm();
+                    BackgroundAlarmReceiverPost19.cancelAlarm();
                 }
             }
         });

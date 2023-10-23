@@ -106,7 +106,12 @@ public final class LiveLevelProgress extends ConservativeLiveData<LevelProgress>
             }
         }
 
-        levelProgress.removePassedAndLockedBars(userLevel);
+        if (GlobalSettings.Dashboard.getLimitPreviousLevelProgression()) {
+            final int limit = GlobalSettings.Dashboard.getPreviousLevelProgressionLimitedAmount();
+            levelProgress.removePassedAndLockedAndOldBars(userLevel, limit);
+        } else {
+            levelProgress.removePassedAndLockedBars(userLevel);
+        }
 
         levelProgress.getEntries().forEach(
                 entry -> db.subjectCollectionsDao().getLevelProgressSubjects(entry.getLevel(), entry.getType())

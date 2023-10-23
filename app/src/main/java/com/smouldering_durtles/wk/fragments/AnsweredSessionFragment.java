@@ -16,7 +16,12 @@
 
 package com.smouldering_durtles.wk.fragments;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.util.Log;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -39,6 +44,7 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
+import static com.smouldering_durtles.wk.GlobalSettings.Review.enable_haptic_feedback_failure;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 /**
@@ -137,6 +143,19 @@ public final class AnsweredSessionFragment extends AbstractSessionFragment {
         }
         else {
             questionEdit.setBackgroundColor(ThemeUtil.getColor(R.attr.incorrectColorBackground));
+            if (enable_haptic_feedback_failure()) {
+                Log.d("HapticFeedback", "Vibing");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    requireView().performHapticFeedback(HapticFeedbackConstants.REJECT); // Assuming REJECT is the desired feedback for a failure
+                } else {
+                    // Fallback for older API versions using Vibrator
+                    Vibrator vibrator = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+                    if (vibrator != null && vibrator.hasVibrator()) {
+                        // Vibrate for 200 milliseconds for a slightly longer feedback on failure
+                        vibrator.vibrate(300);
+                    }
+                }
+            }
         }
 
         questionEdit.setSingleLine();

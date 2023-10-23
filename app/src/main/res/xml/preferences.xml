@@ -225,6 +225,23 @@
             app:defaultValue="false"/>
 
         <SwitchPreferenceCompat
+            app:key="previous_level_progression_limit"
+            app:title="Limit progression bars for the completed levels to only the most recent levels"
+            app:singleLineTitle="false"
+            android:summary="This can help if many new items were added to previous levels and you now have all those levels on your dashboard."
+            app:defaultValue="false"/>
+
+        <com.smouldering_durtles.wk.components.EditLimitedIntPreference
+            app:key="previous_level_progression_limit_amount"
+            app:title="Number of previous levels to show progression bars for"
+            app:singleLineTitle="false"
+            android:inputType="number"
+            android:dependency="previous_level_progression_limit"
+            app:minValue="0"
+            app:maxValue="60"
+            app:defaultValue="1"/>
+
+        <SwitchPreferenceCompat
             app:key="show_post60_progression"
             app:title="Show post-60 progression bar"
             app:singleLineTitle="false"
@@ -504,6 +521,20 @@
             app:key="enable_alternatives_toast"
             app:title="Enable alternative readings/meanings toast"
             app:summary="Show a toast with alternative readings or meanings upon correct answer"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
+        <SwitchPreferenceCompat
+            app:key="enable_haptic_feedback_success"
+            app:title="Enable haptic feedback on correct answer"
+            app:summary="The device will give a short buzz to indicate a correct answer "
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
+        <SwitchPreferenceCompat
+            app:key="enable_haptic_feedback_failure"
+            app:title="Enable haptic feedback on incorrect answer"
+            app:summary="The device will give a long buzz to indicate an incorrect answer"
             app:singleLineTitle="false"
             app:defaultValue="false"/>
 
@@ -1210,6 +1241,16 @@
             app:title="Reset database"
             app:key="reset_database"
             app:summary="Clear all data in the app"/>
+
+        <Preference
+            android:key="backup_settings"
+            android:title="Backup your settings"
+            android:summary="Backup your settings to a file" />
+
+        <Preference
+            android:key="restore_settings"
+            android:title="Restore your settings"
+            android:summary="Restore from a backup of your settings file" />
 
         <Preference
             app:title="Upload debug log"

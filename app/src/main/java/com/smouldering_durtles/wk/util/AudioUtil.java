@@ -490,7 +490,7 @@ public final class AudioUtil {
      * @param reading the reading to find audio for
      * @return the file, or null if none exists
      */
-    private static @Nullable GenderedFile getOneAudioFileShouldMatch(final Subject subject, final @Nullable String reading) {
+    public static @Nullable GenderedFile getOneAudioFileShouldMatch(final Subject subject, final @Nullable String reading) {
         final @Nullable GenderedFile file = getOneAudioFileMustMatch(subject, reading);
         return file == null ? getOneAudioFile(subject) : file;
     }
@@ -1049,6 +1049,22 @@ public final class AudioUtil {
         return new File(destinationParent, file.getName());
     }
 
+    /**
+    * Simple check specifically for kana only vocab audio file checking
+    * @param subject the subject to check
+    */
+    public static boolean hasAudio(final Subject subject) {
+        final Iterable<String> locationValues = getLocationValues(); // Assuming you have this method as it's used elsewhere
+        final List<PronunciationAudio> audios = subject.getParsedPronunciationAudios(); // Get all audio files related to the subject
+
+        for (PronunciationAudio audio : audios) {
+            if (hasAudioFileFor(subject.getLevel(), audio, locationValues)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
     /**
      * Move a misplaced audio file to its preferred location.
      *

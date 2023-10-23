@@ -16,8 +16,13 @@
 
 package com.smouldering_durtles.wk.model;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Vibrator;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.WkApplication;
@@ -53,17 +58,21 @@ import com.smouldering_durtles.wk.util.PitchInfoUtil;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import static com.smouldering_durtles.wk.GlobalSettings.Review.enable_haptic_feedback_success;
 import static com.smouldering_durtles.wk.enums.SessionItemState.ABANDONED;
 import static com.smouldering_durtles.wk.enums.SessionState.ACTIVE;
 import static com.smouldering_durtles.wk.enums.SessionState.FINISHING;
@@ -109,6 +118,7 @@ public final class Session implements SubjectChangeListener {
     private final Deque<Question> history = new ArrayDeque<>();
     private long lastTypedIncorrectAnswer = 0;
     private boolean forceNewFragment = false;
+
 
     /**
      * Get the singleton instance.
@@ -723,9 +733,12 @@ s     *
                 FloatingUiState.toastOldSrsStage = currentQuestion.getItem().getSrsStage();
                 FloatingUiState.toastNewSrsStage = currentQuestion.getItem().getNewSrsStage();
                 FloatingUiState.showSrsStageChangedToast = true;
+
             }
+
             answered = true;
             correct = true;
+
             FloatingUiState.lastVerdict = verdict;
             List<String> alternatives = null;
             if (currentQuestion.getType().isMeaning() && subject.getMeanings().size() > 1) {
@@ -733,12 +746,35 @@ s     *
             } else if (currentQuestion.getType().isReading() && subject.getAcceptedReadings().size() > 1) {
                 alternatives = subject.getAcceptedReadings().stream().map(Reading::getReading).collect(Collectors.toList());
             }
+
             if (alternatives != null) {
-                FloatingUiState.alternativesForLastCorrectAnswer = TextUtils.join(", ", alternatives);
-                FloatingUiState.showAlternativesToast = true;
+                List<String> filteredAlternatives = new ArrayList<>();
+                Set<String> uniqueAlternativesWithoutThe = new HashSet<>();
+                String lowerCaseCurrentAnswer = currentAnswer.toLowerCase().replaceFirst("^the ", "");
+                String closeEnoughAnswer = FloatingUiState.lastVerdict != null ? FloatingUiState.lastVerdict.getMatchedAnswer().toLowerCase().replaceFirst("^the ", "") : null;
+
+                for (String alternative : alternatives) {
+                    String lowerCaseAlternative = alternative.toLowerCase();
+                    String alternativeWithoutThe = lowerCaseAlternative.replaceFirst("^the ", "");
+
+                    if (alternativeWithoutThe.equals(lowerCaseCurrentAnswer) || alternativeWithoutThe.equals(closeEnoughAnswer)) {
+                        continue;
+                    }
+
+                    if (uniqueAlternativesWithoutThe.contains(alternativeWithoutThe)) {
+                        continue;
+                    }
+
+                    uniqueAlternativesWithoutThe.add(alternativeWithoutThe);
+                    filteredAlternatives.add(alternative);
+                }
+
+                FloatingUiState.alternativesForLastCorrectAnswer = String.join(", ", filteredAlternatives);
+                FloatingUiState.showAlternativesToast = !filteredAlternatives.isEmpty();
             } else {
                 FloatingUiState.alternativesForLastCorrectAnswer = null;
             }
+
             FloatingUiState.showCloseToast = verdict.isNearMatch();
             FloatingUiState.toastPlayed = false;
             LiveSessionProgress.getInstance().ping();
@@ -759,6 +795,8 @@ s     *
         return verdict;
     }
 
+
+
     /**
      * Submit the current answer as answer for the current question. The session doesn't advance yet,
      * it just records the status for the current question, and processes the result in the database
@@ -773,7 +811,7 @@ s     *
         return verdict;
     }
 
-    /**
+    /*
      * Process a correct answer for Anki mode.
      */
     public void submitAnkiCorrect() {

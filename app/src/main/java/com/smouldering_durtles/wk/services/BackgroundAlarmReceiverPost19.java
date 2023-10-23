@@ -27,10 +27,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import com.smouldering_durtles.wk.StableIds;
 import com.smouldering_durtles.wk.WkApplication;
 import com.smouldering_durtles.wk.livedata.LiveAlertContext;
@@ -59,7 +55,6 @@ public final class BackgroundAlarmReceiverPost19 extends BroadcastReceiver {
      * of each hour, but depending on circumstances, the delivery of the alarm
      * can be delayed a bit by the device.
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void scheduleAlarm() {
         final long nextTrigger = getTopOfHour(System.currentTimeMillis()) + HOUR;
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
@@ -76,12 +71,11 @@ public final class BackgroundAlarmReceiverPost19 extends BroadcastReceiver {
     /**
      * Cancel the notification alarm.
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void cancelAlarm() {
         final @Nullable AlarmManager alarmManager = (AlarmManager) WkApplication.getInstance().getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             final Intent intent = new Intent(WkApplication.getInstance(), BackgroundAlarmReceiverPost19.class);
-            final int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+            final int flags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
             @SuppressLint("UnspecifiedImmutableFlag")
             final PendingIntent pendingIntent = PendingIntent.getBroadcast(WkApplication.getInstance(),
                     StableIds.BACKGROUND_ALARM_REQUEST_CODE_2, intent, flags);

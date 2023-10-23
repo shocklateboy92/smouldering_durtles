@@ -67,7 +67,7 @@
                     android:id="@+id/srsIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="-10dp"
                     android:text=""
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -166,24 +166,24 @@
 
                 <TextView
                     android:id="@+id/alternativesToastText"
+                    style="@style/WK.TextView.AlternativeToast"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginStart="4dp"
-                    android:paddingLeft="16dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="75dp"
                     android:paddingStart="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingEnd="16dp"
+                    android:paddingLeft="16dp"
                     android:paddingTop="2dp"
+                    android:paddingEnd="16dp"
+                    android:paddingRight="16dp"
                     android:paddingBottom="4dp"
                     android:text=""
                     android:textSize="14sp"
                     android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/closeToastText"
-                    style="@style/WK.TextView.CustomToast"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/closeToastText" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/toastAnimation"
