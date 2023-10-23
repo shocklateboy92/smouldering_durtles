@@ -22,7 +22,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.smouldering_durtles.wk.views.SwipingScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -269,7 +269,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.smouldering_durtles.wk.views.SwipingScrollView>
 
     <Button
         android:id="@+id/nextButton2"
