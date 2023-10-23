@@ -18,6 +18,9 @@ package com.smouldering_durtles.wk.views;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -92,7 +95,12 @@ public final class SrsBreakDownView extends ConstraintLayout {
         views.add(new ViewProxy(this, R.id.breakdownBucket4View));
 
         for (int i=0; i<5; i++) {
-            views.get(i).setBackgroundColor(ActiveTheme.getShallowStageBucketColors5()[i]);
+            Drawable background = views.get(i).getBackground();
+            if (background != null) {
+                background.setColorFilter(new PorterDuffColorFilter(
+                        ActiveTheme.getShallowStageBucketColors5()[i],
+                        PorterDuff.Mode.SRC_ATOP));
+            }
             if (ActiveTheme.getCurrentTheme() == ActiveTheme.LIGHT) {
                 counts.get(i).setShadowLayer(3, 1, 1, Color.BLACK);
             }
