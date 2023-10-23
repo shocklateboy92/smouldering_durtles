@@ -197,6 +197,7 @@
     </string-array>
 
     <string-array name="themes">
+        <item>Auto (switch between Light and Black Breeze)</item>
         <item>Light</item>
         <item>Dark Breeze</item>
         <item>Black Breeze</item>
@@ -204,6 +205,7 @@
     </string-array>
 
     <string-array name="themeValues">
+        <item>AUTO</item>
         <item>LIGHT</item>
         <item>DARK</item>
         <item>BLACK_BREEZE</item>
