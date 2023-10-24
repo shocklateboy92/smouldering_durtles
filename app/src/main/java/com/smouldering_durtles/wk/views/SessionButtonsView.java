@@ -136,7 +136,7 @@ public final class SessionButtonsView extends LinearLayout {
         }
 
         // indicate the primary button to the user with an arrow
-        primaryButton.setText(primaryButton.getText() + "→");
+        primaryButton.setText(primaryButton.getText() + " →");
 
         resumeButton.setVisibility(resumeButtonVisible);
         resumeButtonRow.setVisibility(resumeButtonVisible);
