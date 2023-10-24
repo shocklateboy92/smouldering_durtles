@@ -124,10 +124,11 @@ public final class SwipingScrollView extends ScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent ev) {
-        handleTouchEvent(ev);
-        if (ev.getAction() == MotionEvent.ACTION_UP) {
+        boolean accepted = handleTouchEvent(ev);
+        if (accepted) {
             return true;
         }
+
         return super.onInterceptTouchEvent(ev);
     }
 
