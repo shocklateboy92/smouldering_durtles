@@ -33,6 +33,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.R;
 import com.smouldering_durtles.wk.WkApplication;
+import com.smouldering_durtles.wk.activities.SessionActivity;
 import com.smouldering_durtles.wk.db.AppDatabase;
 import com.smouldering_durtles.wk.db.model.SessionItem;
 import com.smouldering_durtles.wk.db.model.Subject;
@@ -45,7 +46,9 @@ import com.smouldering_durtles.wk.livedata.LiveLevelProgress;
 import com.smouldering_durtles.wk.livedata.LiveSrsBreakDown;
 import com.smouldering_durtles.wk.livedata.LiveTimeLine;
 import com.smouldering_durtles.wk.model.Question;
+import com.smouldering_durtles.wk.model.TimeLine;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
+import com.smouldering_durtles.wk.util.Logger;
 import com.smouldering_durtles.wk.util.ThemeUtil;
 import com.smouldering_durtles.wk.views.SwipingScrollView;
 
@@ -62,9 +65,12 @@ import javax.annotation.Nullable;
  * Fragment for the session summary.
  */
 public final class SummarySessionFragment extends AbstractSessionFragment implements SwipingScrollView.OnSwipeListener {
+    private final static Logger LOGGER = Logger.get(SummarySessionFragment.class);
+
     private final ViewProxy specialButton1 = new ViewProxy();
     private final ViewProxy specialButton2 = new ViewProxy();
     private final ViewProxy specialButton3 = new ViewProxy();
+    private final ViewProxy continueButton = new ViewProxy();
     private final ViewProxy finishButton = new ViewProxy();
     private final ViewProxy showButton = new ViewProxy();
     private final ViewProxy resurrectIncorrectButton = new ViewProxy();
@@ -90,6 +96,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment implem
     private final ViewProxy correctStarSpinner = new ViewProxy();
     private final ViewProxy correctStarButton = new ViewProxy();
     private final ViewProxy scrollView = new ViewProxy();
+    private final TimeLine timeLine = LiveTimeLine.getInstance().get();
 
     /**
      * The constructor.
@@ -139,6 +146,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment implem
         specialButton1.setDelegate(view, R.id.specialButton1);
         specialButton2.setDelegate(view, R.id.specialButton2);
         specialButton3.setDelegate(view, R.id.specialButton3);
+        continueButton.setDelegate(view, R.id.continueButton);
         finishButton.setDelegate(view, R.id.finishButton);
         showButton.setDelegate(view, R.id.showButton);
         resurrectIncorrectButton.setDelegate(view, R.id.resurrectIncorrectButton);
@@ -272,6 +280,19 @@ public final class SummarySessionFragment extends AbstractSessionFragment implem
             enableInteraction();
         }));
 
+        boolean canContinue = false;
+        switch (session.getType())
+        {
+            case LESSON:
+                canContinue = timeLine.hasAvailableLessons();
+                break;
+            case REVIEW:
+                canContinue = timeLine.hasAvailableReviews();
+                break;
+        }
+        continueButton.setVisibility(canContinue);
+        continueButton.setOnClickListener(v -> continueSession());
+
         if (hasResurrecttableIncorrect()) {
             resurrectIncorrectButton.setVisibility(true);
             resurrectIncorrectButton.setOnClickListener(v -> safe(() -> goToResurrectActivity(getResurrectableIds())));
@@ -335,6 +356,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment implem
         safe(() -> {
             finishButton.enableInteraction();
             showButton.enableInteraction();
+            continueButton.enableInteraction();
             specialButton1.enableInteraction();
             specialButton2.enableInteraction();
             specialButton3.enableInteraction();
@@ -348,6 +370,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment implem
             interactionEnabled = false;
             finishButton.disableInteraction();
             showButton.disableInteraction();
+            continueButton.disableInteraction();
             specialButton1.disableInteraction();
             specialButton2.disableInteraction();
             specialButton3.disableInteraction();
@@ -553,7 +576,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment implem
 
     @Override
     public void onSwipeRight(SwipingScrollView view) {
-        onFinishClick(view);
+        continueSession();
     }
 
     private void onFinishClick(View v) {
@@ -563,6 +586,32 @@ public final class SummarySessionFragment extends AbstractSessionFragment implem
             }
             disableInteraction();
             finishSession();
+        });
+    }
+
+    private void continueSession()
+    {
+        safe(() -> {
+            runAsync(this, () -> {
+                switch (session.getType()) {
+                    case LESSON:
+                        session.startNewLessonSession(timeLine.getAvailableLessons());
+                        return true;
+                    case REVIEW:
+                        session.startNewReviewSession(timeLine.getAvailableReviews());
+                        return true;
+                    default:
+                        return false;
+                }
+            }, result -> {
+                if (!result) {
+                    LOGGER.info("User somehow clicked on the continue when they shouldn't be able to");
+                    continueButton.setVisibility(false);
+                    return;
+                }
+
+                goToActivity(SessionActivity.class);
+            });
         });
     }
 }
