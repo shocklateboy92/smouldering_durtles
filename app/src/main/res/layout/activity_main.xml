@@ -180,123 +180,117 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone"/>
 
-    <androidx.core.widget.NestedScrollView
+    <com.smouldering_durtles.wk.views.SwipingScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.smouldering_durtles.wk.views.SwipingScrollView
-            android:id="@+id/swipingScrollView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <LinearLayout
+            <com.smouldering_durtles.wk.views.LevelDurationView
+                android:id="@+id/levelDurationView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:gravity="center_horizontal" />
 
-                <com.smouldering_durtles.wk.views.LevelDurationView
-                    android:id="@+id/levelDurationView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal" />
+            <com.smouldering_durtles.wk.views.AvailableSessionsView
+                android:id="@+id/availableSessionsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
 
-                <com.smouldering_durtles.wk.views.AvailableSessionsView
-                    android:id="@+id/availableSessionsView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp" />
+            <com.smouldering_durtles.wk.views.UpcomingReviewsView
+                android:id="@+id/upcomingReviewsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="" />
 
-                <com.smouldering_durtles.wk.views.UpcomingReviewsView
-                    android:id="@+id/upcomingReviewsView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:gravity="center_horizontal"
-                    android:text="" />
+            <com.smouldering_durtles.wk.views.SyncProgressView
+                android:id="@+id/syncProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="" />
 
-                <com.smouldering_durtles.wk.views.SyncProgressView
-                    android:id="@+id/syncProgressView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:gravity="center_horizontal"
-                    android:text="" />
+            <com.smouldering_durtles.wk.views.SessionButtonsView
+                android:id="@+id/sessionButtonsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
 
-                <com.smouldering_durtles.wk.views.SessionButtonsView
-                    android:id="@+id/sessionButtonsView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp" />
+            <com.smouldering_durtles.wk.views.LessonReviewBreakdownView
+                android:id="@+id/lessonReviewBreakdownView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:visibility="gone" />
 
-                <com.smouldering_durtles.wk.views.LessonReviewBreakdownView
-                    android:id="@+id/lessonReviewBreakdownView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:padding="4dp"
-                    android:visibility="gone" />
+            <com.smouldering_durtles.wk.views.TimeLineBarChart
+                android:id="@+id/timeLineBarChart"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.TimeLineBarChart
-                    android:id="@+id/timeLineBarChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="8dp" />
+            <com.smouldering_durtles.wk.views.SrsBreakDownView
+                android:id="@+id/srsBreakDownView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.SrsBreakDownView
-                    android:id="@+id/srsBreakDownView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+            <com.smouldering_durtles.wk.views.LevelProgressView
+                android:id="@+id/levelProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.LevelProgressView
-                    android:id="@+id/levelProgressView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+            <com.smouldering_durtles.wk.views.Post60ProgressView
+                android:id="@+id/post60ProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
 
-                <com.smouldering_durtles.wk.views.Post60ProgressView
-                    android:id="@+id/post60ProgressView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:visibility="gone" />
+            <com.smouldering_durtles.wk.views.JoyoProgressView
+                android:id="@+id/joyoProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.JoyoProgressView
-                    android:id="@+id/joyoProgressView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+            <com.smouldering_durtles.wk.views.JlptProgressView
+                android:id="@+id/jlptProgressView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.JlptProgressView
-                    android:id="@+id/jlptProgressView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+            <com.smouldering_durtles.wk.views.LiveRecentUnlocksSubjectTableView
+                android:id="@+id/recentUnlocksView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.LiveRecentUnlocksSubjectTableView
-                    android:id="@+id/recentUnlocksView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+            <com.smouldering_durtles.wk.views.LiveCriticalConditionSubjectTableView
+                android:id="@+id/criticalConditionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.LiveCriticalConditionSubjectTableView
-                    android:id="@+id/criticalConditionView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+            <com.smouldering_durtles.wk.views.LiveBurnedItemsSubjectTableView
+                android:id="@+id/burnedItemsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
 
-                <com.smouldering_durtles.wk.views.LiveBurnedItemsSubjectTableView
-                    android:id="@+id/burnedItemsView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+        </LinearLayout>
 
-            </LinearLayout>
-
-        </com.smouldering_durtles.wk.views.SwipingScrollView>
-
-    </androidx.core.widget.NestedScrollView>
+    </com.smouldering_durtles.wk.views.SwipingScrollView>
 
 </LinearLayout>

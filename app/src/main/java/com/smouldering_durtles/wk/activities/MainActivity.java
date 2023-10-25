@@ -98,7 +98,7 @@ public final class MainActivity extends AbstractActivity implements SwipingScrol
         final ViewProxy startLessonsButton = new ViewProxy(this, R.id.startLessonsButton);
         final ViewProxy startReviewsButton = new ViewProxy(this, R.id.startReviewsButton);
         final ViewProxy resumeButton = new ViewProxy(this, R.id.resumeButton);
-        final ViewProxy swipingScrollView = new ViewProxy(this, R.id.swipingScrollView);
+        final ViewProxy swipingScrollView = new ViewProxy(this, R.id.scrollView);
 
         retryApiErrorButton1.setOnClickListener(v -> retryApiError());
         retryApiErrorButton2.setOnClickListener(v -> retryApiError());
