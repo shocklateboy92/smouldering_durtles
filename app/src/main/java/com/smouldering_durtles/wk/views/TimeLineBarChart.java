@@ -402,7 +402,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
         paint.setTextSize(density * 10);
         paint.setTextAlign(Paint.Align.LEFT);
 
-        float x = originX + density * 4;
+        float x = density * 8;
         final float boxY = originY + density * 18;
         final float textY = originY + density * 26;
 
