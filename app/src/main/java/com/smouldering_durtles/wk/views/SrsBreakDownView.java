@@ -80,7 +80,7 @@ public final class SrsBreakDownView extends ConstraintLayout {
      */
     private void init() {
         inflate(getContext(), R.layout.srs_breakdown, this);
-        setBackgroundColor(ThemeUtil.getColor(R.attr.tileColorBackground));
+        setBackgroundResource(R.drawable.main_activity_view_background);
 
         counts.add(new ViewProxy(this, R.id.breakdownBucket0Count));
         counts.add(new ViewProxy(this, R.id.breakdownBucket1Count));

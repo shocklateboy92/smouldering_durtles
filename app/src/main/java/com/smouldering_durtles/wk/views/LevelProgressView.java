@@ -76,7 +76,7 @@ public final class LevelProgressView extends TableLayout {
             inflate(getContext(), R.layout.level_progress, this);
             setColumnStretchable(0, true);
             setColumnShrinkable(0, true);
-            setBackgroundColor(ThemeUtil.getColor(R.attr.tileColorBackground));
+            setBackgroundResource(R.drawable.main_activity_view_background);
 
             legendBuckets.add(new ViewProxy(this, R.id.legendBucket0));
             legendBuckets.add(new ViewProxy(this, R.id.legendBucket1));
