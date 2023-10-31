@@ -135,6 +135,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
     private void init() {
         safe(() -> {
             setBackgroundResource(R.drawable.main_activity_view_background);
+            setPadding(0, 0, 0, (int) (4 * density));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 setNestedScrollingEnabled(true);
             }

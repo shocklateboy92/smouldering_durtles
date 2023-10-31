@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal">
 
         <View
@@ -56,51 +57,59 @@
             android:text="Passed"
             style="@style/WK.TextView.XSmall"/>
 
-        <View
-            android:id="@+id/legendBucket1"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_marginLeft="4dp"
+        <LinearLayout
+            android:id="@+id/apprenticeBucketContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_gravity="center_vertical"/>
-
-        <View
-            android:id="@+id/legendBucket2"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_gravity="center_vertical"/>
-
-        <View
-            android:id="@+id/legendBucket3"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_gravity="center_vertical"/>
-
-        <View
-            android:id="@+id/legendBucket4"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_gravity="center_vertical"/>
-
-        <View
-            android:id="@+id/legendBucket5"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_gravity="center_vertical"/>
-
-        <View
-            android:id="@+id/legendBucket6"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_gravity="center_vertical"/>
-
-        <View
-            android:id="@+id/legendBucket7"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_marginRight="4dp"
+            android:background="@drawable/small_rounded_corners"
+            android:layout_gravity="center_vertical">
+
+            <View
+                android:id="@+id/legendBucket1"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical"/>
+
+            <View
+                android:id="@+id/legendBucket2"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical" />
+
+            <View
+                android:id="@+id/legendBucket3"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical" />
+
+            <View
+                android:id="@+id/legendBucket4"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical" />
+
+            <View
+                android:id="@+id/legendBucket5"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical" />
+
+            <View
+                android:id="@+id/legendBucket6"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical" />
+
+            <View
+                android:id="@+id/legendBucket7"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

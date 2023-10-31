@@ -17,7 +17,11 @@
 package com.smouldering_durtles.wk.views;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TableLayout;
 
 import com.smouldering_durtles.wk.Actment;
@@ -90,8 +94,21 @@ public final class LevelProgressView extends TableLayout {
             legendBuckets.add(new ViewProxy(this, R.id.legendBucket9));
 
             for (int i=0; i<legendBuckets.size(); i++) {
-                legendBuckets.get(i).setBackgroundColor(ActiveTheme.getLevelProgressionBucketColors()[i]);
+                // These are the apprentice ones. They are in a container with clipping set
+                if (i > 0 && i < 8) {
+                    legendBuckets.get(i).setBackgroundColor(ActiveTheme.getLevelProgressionBucketColors()[i]);
+                } else {
+                    Drawable background = getResources().getDrawable(R.drawable.small_rounded_corners);
+                    background.setColorFilter(new PorterDuffColorFilter(
+                            ActiveTheme.getLevelProgressionBucketColors()[i],
+                            PorterDuff.Mode.SRC_ATOP));
+                    legendBuckets.get(i).setBackground(background);
+                }
             }
+
+            View apprenticeBucketContainer = findViewById(R.id.apprenticeBucketContainer);
+            // According to the android docs, this property cannot be set in XML
+            apprenticeBucketContainer.setClipToOutline(true);
         });
     }
 
