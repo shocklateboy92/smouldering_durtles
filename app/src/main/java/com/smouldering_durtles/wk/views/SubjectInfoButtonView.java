@@ -24,6 +24,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -64,7 +66,7 @@ public final class SubjectInfoButtonView extends View {
     private int textColor = 0;
     private @Nullable ColorFilter textColorFilter = null;
     private @Nullable ColorFilter shadowColorFilter = null;
-    private int backgroundColor = 0;
+    private Drawable background = getResources().getDrawable(R.drawable.small_rounded_corners);
     private @Nullable Drawable image = null;
     private int sizeSp = -1;
     private int maxWidth = -1;
@@ -260,7 +262,11 @@ public final class SubjectInfoButtonView extends View {
     private void prepare(final int measureMaxWidth, final int measureMaxHeight) {
         paint.setTypeface(typefaceConfiguration.getTypeface());
         ViewUtil.setJapaneseLocale(paint);
-        setBackgroundColor(transparent ? Constants.TRANSPARENT : backgroundColor);
+        if (transparent) {
+            setBackgroundColor(Constants.TRANSPARENT);
+        } else {
+            setBackground(background);
+        }
 
         if (sizeSp >= 0) {
             textHeight = sp2px(sizeSp);
@@ -395,7 +401,10 @@ public final class SubjectInfoButtonView extends View {
                 textColorFilter = new SimpleColorFilter(textColor);
                 shadowColorFilter = new SimpleColorFilter(Color.BLACK);
             }
-            backgroundColor = subject.getButtonBackgroundColor();
+            background.setColorFilter(new PorterDuffColorFilter(
+                    subject.getButtonBackgroundColor(),
+                    PorterDuff.Mode.SRC_ATOP));
+
             setTag(R.id.subjectId, subject.getId());
             invalidate();
             requestLayout();
