@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.smouldering_durtles.wk.Actment;
@@ -377,7 +376,7 @@ public final class SubjectInfoView extends LinearLayout implements SubjectChange
      * @param japanese the view containing the japanese text of the sentence
      * @param english the view containing the english text of the sentence
      */
-    private void showContextSentence(final boolean show, final List<ContextSentence> sentences,
+    private static void showContextSentence(final boolean show, final List<ContextSentence> sentences,
                                             final int index, final ViewProxy japanese, final ViewProxy english) {
         if (index < sentences.size()) {
             final ContextSentence sentence = sentences.get(index);
@@ -386,7 +385,7 @@ public final class SubjectInfoView extends LinearLayout implements SubjectChange
             japanese.setJapaneseLocale();
             if (GlobalSettings.SubjectInfo.getHideSentenceTranslations()) {
                 english.setText("-- Tap to reveal translation --");
-                english.setBackground(ContextCompat.getDrawable(this.getContext(), R.drawable.main_activity_view_background));
+                english.setBackgroundColor(ThemeUtil.getColor(R.attr.tileColorBackground));
                 english.setClickableAndNotFocusable(true);
                 english.setOnClickListener(v -> safe(() -> {
                     english.setText("- " + sentence.getEnglish());
