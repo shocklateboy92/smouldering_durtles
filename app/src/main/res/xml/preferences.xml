@@ -89,8 +89,17 @@
             app:singleLineTitle="false"
             app:entries="@array/themes"
             app:entryValues="@array/themeValues"
-            app:defaultValue="AUTO"
+            app:defaultValue="LIGHT"
             app:useSimpleSummaryProvider="true"/>
+
+        <ListPreference
+            app:key="nightTheme"
+            app:title="Night Theme"
+            app:singleLineTitle="false"
+            app:entries="@array/themes"
+            app:entryValues="@array/themeValues"
+            app:defaultValue="BLACK_BREEZE"
+            app:summary="Switch to this theme when device is in dark mode"/>
 
         <Preference
             app:title="Theme customization..."
