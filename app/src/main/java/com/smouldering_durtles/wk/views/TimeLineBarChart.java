@@ -135,7 +135,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
     private void init() {
         safe(() -> {
             setBackgroundResource(R.drawable.main_activity_view_background);
-            setPadding(0, 0, 0, (int) (4 * density));
+            setPadding(0, (int) (4 * density), 0, (int) (4 * density));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 setNestedScrollingEnabled(true);
             }
@@ -326,12 +326,13 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
         for (int i=0; i<entries.size(); i++) {
             final BarEntry entry = entries.get(i);
 
+            final int y = getPaddingTop();
             final float x = originX + barAdvance * i + barAdvance / 2 - scrollOffset;
             if (entry.numLevelUpItems == 0 || arrowIcon == null || x < originX || x > originX + axisSizeX) {
                 continue;
             }
 
-            arrowIcon.setBounds((int) (x - density * 6), 1, (int) (x + density * 6), (int) (1 + density * 9));
+            arrowIcon.setBounds((int) (x - density * 6), y, (int) (x + density * 6), (int) (y + density * 9));
             arrowIcon.draw(canvas);
         }
 
@@ -352,7 +353,7 @@ public final class TimeLineBarChart extends View implements GestureDetector.OnGe
             }
             lastX = x + textWidth/2 + density;
 
-            canvas.drawText(text, x, 1 - paint.ascent(), paint);
+            canvas.drawText(text, x, getPaddingTop() - paint.ascent(), paint);
         }
 
         paint.setColor(colorPrimary);
