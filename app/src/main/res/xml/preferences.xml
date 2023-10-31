@@ -308,7 +308,7 @@
             app:key="hide_sentence_translations"
             app:title="Hide context sentence translations until tapped"
             app:singleLineTitle="false"
-            app:defaultValue="false"/>
+            app:defaultValue="true"/>
 
         <SwitchPreferenceCompat
             app:key="show_pitch_info"
