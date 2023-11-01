@@ -385,19 +385,26 @@ public final class SubjectInfoView extends LinearLayout implements SubjectChange
             japanese.setText(sentence.getJapanese());
             japanese.setJapaneseLocale();
 
-            english.setText("- " + sentence.getEnglish());
+            // Add a space at the end so prevent the blur from getting clipped
+            english.setText("- " + sentence.getEnglish() + " ");
             english.setBackgroundColor(Constants.TRANSPARENT);
             english.setClickableAndNotFocusable(false);
             if (GlobalSettings.SubjectInfo.getHideSentenceTranslations()) {
 
                 TextView textView = (TextView) english.getDelegate();
-                float radius = textView.getTextSize() / 3;
-                BlurMaskFilter filter = new BlurMaskFilter(radius, BlurMaskFilter.Blur.NORMAL);
-                textView.getPaint().setMaskFilter(filter);
+                if (textView != null) {
+                    float radius = textView.getTextSize() / 3;
+                    BlurMaskFilter filter = new BlurMaskFilter(radius, BlurMaskFilter.Blur.NORMAL);
+                    textView.getPaint().setMaskFilter(filter);
+                }
 
                 english.setClickableAndNotFocusable(true);
                 english.setOnClickListener(v -> safe(() -> {
                     english.setClickableAndNotFocusable(false);
+                    if (textView == null) {
+                        return;
+                    }
+
                     textView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
                     textView.getPaint().setMaskFilter(null);
                 }));
