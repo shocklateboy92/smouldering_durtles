@@ -197,6 +197,8 @@ public final class SubjectInfoButtonView extends View {
 
                 return true;
             }));
+
+            setElevation(dp2px(4));
         });
     }
 
