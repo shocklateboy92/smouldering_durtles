@@ -779,14 +779,13 @@ public final class GlobalSettings {
                 }
             }
 
-            if (theme == ActiveTheme.AUTO) {
-                switch (application.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        theme = ActiveTheme.BLACK_BREEZE;
-                        break;
-                    default:
-                        theme = ActiveTheme.LIGHT;
-                        break;
+            int uiMode = application.getResources().getConfiguration().uiMode;
+            uiMode &= Configuration.UI_MODE_NIGHT_MASK;
+            if  (uiMode == Configuration.UI_MODE_NIGHT_YES) {
+                try {
+                    theme = ActiveTheme.valueOf(prefs().getString("nightTheme", null));
+                } catch (Exception e) {
+                    //
                 }
             }
 
