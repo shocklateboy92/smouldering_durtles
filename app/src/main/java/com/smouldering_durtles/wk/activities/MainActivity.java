@@ -20,6 +20,7 @@ import static com.smouldering_durtles.wk.util.ObjectSupport.runAsync;
 import static com.smouldering_durtles.wk.util.ObjectSupport.safe;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.smouldering_durtles.wk.GlobalSettings;
 import com.smouldering_durtles.wk.R;
@@ -55,6 +56,7 @@ import com.smouldering_durtles.wk.views.LiveRecentUnlocksSubjectTableView;
 import com.smouldering_durtles.wk.views.Post60ProgressView;
 import com.smouldering_durtles.wk.views.SessionButtonsView;
 import com.smouldering_durtles.wk.views.SrsBreakDownView;
+import com.smouldering_durtles.wk.views.SwipingScrollView;
 import com.smouldering_durtles.wk.views.SyncProgressView;
 import com.smouldering_durtles.wk.views.TimeLineBarChart;
 import com.smouldering_durtles.wk.views.UpcomingReviewsView;
@@ -70,7 +72,7 @@ import javax.annotation.Nullable;
  *     instances.
  * </p>
  */
-public final class MainActivity extends AbstractActivity {
+public final class MainActivity extends AbstractActivity implements SwipingScrollView.OnSwipeListener {
     private final ViewProxy apiErrorView = new ViewProxy();
     private final ViewProxy apiKeyRejectedView = new ViewProxy();
     private final ViewProxy keyboardHelpView = new ViewProxy();
@@ -96,6 +98,7 @@ public final class MainActivity extends AbstractActivity {
         final ViewProxy startLessonsButton = new ViewProxy(this, R.id.startLessonsButton);
         final ViewProxy startReviewsButton = new ViewProxy(this, R.id.startReviewsButton);
         final ViewProxy resumeButton = new ViewProxy(this, R.id.resumeButton);
+        final ViewProxy swipingScrollView = new ViewProxy(this, R.id.scrollView);
 
         retryApiErrorButton1.setOnClickListener(v -> retryApiError());
         retryApiErrorButton2.setOnClickListener(v -> retryApiError());
@@ -105,6 +108,7 @@ public final class MainActivity extends AbstractActivity {
         startLessonsButton.setOnClickListener(v -> startLessonSession());
         startReviewsButton.setOnClickListener(v -> startReviewSession());
         resumeButton.setOnClickListener(v -> resumeSession());
+        swipingScrollView.setSwipeListener(this);
 
         LiveApiState.getInstance().observe(this, t -> safe(() -> {
             apiErrorView.setVisibility(t == ApiState.ERROR);
@@ -333,5 +337,21 @@ public final class MainActivity extends AbstractActivity {
                 goToActivity(SessionActivity.class);
             }
         });
+    }
+
+    @Override
+    public void onSwipeLeft(SwipingScrollView view) {
+
+    }
+
+    @Override
+    public void onSwipeRight(SwipingScrollView view) {
+        final @Nullable SessionButtonsView sessionButtonsView = findViewById(R.id.sessionButtonsView);
+        if (sessionButtonsView != null) {
+            View delegate = sessionButtonsView.getPrimaryButton().getDelegate();
+            if (delegate != null) {
+                delegate.callOnClick();
+            }
+        }
     }
 }
