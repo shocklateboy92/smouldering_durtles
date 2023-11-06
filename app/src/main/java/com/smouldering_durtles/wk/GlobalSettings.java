@@ -3248,7 +3248,7 @@ public final class GlobalSettings {
             if (!getAdvancedEnabled()) {
                 return false;
             }
-            return prefs().getBoolean("shake_on_matching_kanji", false);
+            return prefs().getBoolean("shake_on_matching_kanji", true);
         }
 
         /**

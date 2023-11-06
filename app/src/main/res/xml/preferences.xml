@@ -1204,7 +1204,7 @@
                 app:title="Soft-reject on single-kanji vocabulary"
                 app:singleLineTitle="false"
                 app:summary="If an incorrect reading is an alternative reading for the kanji, do a shake-and-retry instead of failing"
-                app:defaultValue="false"/>
+                app:defaultValue="true"/>
 
             <SwitchPreferenceCompat
                 app:key="full_session_log"
