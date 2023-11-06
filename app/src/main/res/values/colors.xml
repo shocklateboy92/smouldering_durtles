@@ -100,7 +100,7 @@
     <color name="wkNordCorrectColorBackground">#434C5E</color>
     <color name="wkNordIncorrectColorBackground">#434C5E</color>
     <color name="wkNordMeaningHintColor">#E5E9F0</color>
-    <color name="wkNordReadingHintColor">#D8DEE9</color>
+    <color name="wkNordReadingHintColor">#434C5E</color>
     <color name="wkNordEditTextHintColor">#434C5E</color>
     <color name="wkNordEditTextHintColorInverse">#ECEFF4</color>
     <color name="wkNordWindowBackground">#2E3440</color>
