@@ -22,7 +22,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.smouldering_durtles.wk.views.SwipingScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -76,14 +76,14 @@
 
                 <Button
                     android:id="@+id/nextButton"
+                    style="@style/WK.Button.Borderless.Light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Next"
-                    android:paddingBottom="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:gravity="end|bottom"
-                    style="@style/WK.Button.Borderless.Light"/>
+                    android:paddingBottom="4dp"
+                    android:text="Next →"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <Button
                     android:id="@+id/specialButton1"
@@ -269,7 +269,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.smouldering_durtles.wk.views.SwipingScrollView>
 
     <Button
         android:id="@+id/nextButton2"

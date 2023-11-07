@@ -85,21 +85,28 @@
 
         <ListPreference
             app:key="theme"
-            app:title="Theme"
+            app:title="Light Theme"
             app:singleLineTitle="false"
             app:entries="@array/themes"
             app:entryValues="@array/themeValues"
-            app:defaultValue="DARK"
-            app:useSimpleSummaryProvider="true"/>
+            app:defaultValue="LIGHT"/>
+
+        <ListPreference
+            app:key="nightTheme"
+            app:title="Dark Theme"
+            app:singleLineTitle="false"
+            app:entries="@array/themes"
+            app:entryValues="@array/themeValues"
+            app:defaultValue="DARK"/>
 
         <Preference
-            app:title="Theme customization..."
+            app:title="Theme Customisation"
             app:key="theme_customization"
-            app:summary="Customize some dynamic colors in the current theme"/>
+            app:summary="Customise colors in the current theme"/>
 
         <SwitchPreferenceCompat
             app:key="center_caret"
-            app:title="Center the caret in the quiz answer edit box"
+            app:title="Center caret in quiz answer box"
             app:singleLineTitle="false"
             app:defaultValue="false"/>
 
@@ -116,7 +123,7 @@
 
         <SeekBarPreference
             app:key="quiz_question_view_height"
-            app:title="Fixed height of the main quiz question view"
+            app:title="Fix height of main quiz question view"
             app:singleLineTitle="false"
             app:defaultValue="0"
             app:min="0"
@@ -308,7 +315,7 @@
             app:key="hide_sentence_translations"
             app:title="Hide context sentence translations until tapped"
             app:singleLineTitle="false"
-            app:defaultValue="false"/>
+            app:defaultValue="true"/>
 
         <SwitchPreferenceCompat
             app:key="show_pitch_info"
@@ -1197,7 +1204,7 @@
                 app:title="Soft-reject on single-kanji vocabulary"
                 app:singleLineTitle="false"
                 app:summary="If an incorrect reading is an alternative reading for the kanji, do a shake-and-retry instead of failing"
-                app:defaultValue="false"/>
+                app:defaultValue="true"/>
 
             <SwitchPreferenceCompat
                 app:key="full_session_log"

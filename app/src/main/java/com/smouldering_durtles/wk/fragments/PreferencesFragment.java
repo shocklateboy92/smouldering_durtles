@@ -58,6 +58,7 @@ import com.smouldering_durtles.wk.util.DbLogger;
 import com.smouldering_durtles.wk.util.ThemeUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
@@ -80,6 +81,8 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(final @Nullable Bundle savedInstanceState, final @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
+
+
     }
 
     private void onViewCreatedBase(final View view, final @Nullable Bundle savedInstanceState) {
@@ -119,6 +122,8 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
                     setVisibility("advanced_self_study_settings", enabled);
                     setVisibility("advanced_other_settings", enabled);
                 }
+                this.updateTheme();
+                requireActivity().recreate();
                 return true;
             }));
         }
@@ -391,5 +396,45 @@ public final class PreferencesFragment extends PreferenceFragmentCompat {
                 pref.setVisible(visible);
             }
         });
+        ListPreference nightThemePreference = Objects.requireNonNull(findPreference("nightTheme"));
+        ListPreference themePreference = Objects.requireNonNull(findPreference("theme"));
+
+// Set the summary provider for night theme to update the summary when the preference changes
+        nightThemePreference.setSummaryProvider(preference -> {
+            CharSequence entry = Objects.requireNonNull(((ListPreference) preference).getEntry());
+            return entry + " is used in system wide dark mode";
+        });
+
+// Set the summary provider for theme to update the summary when the preference changes
+        themePreference.setSummaryProvider(preference -> {
+            CharSequence entry = Objects.requireNonNull(((ListPreference) preference).getEntry());
+            return entry + " theme is currently selected";
+        });
+
+// Listen for changes to update the summary for night theme accordingly
+        nightThemePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            // Update the state of the Preference with the new value.
+            // The SummaryProvider will handle updating the summary.
+            this.updateTheme();
+            requireActivity().recreate();
+            return true;
+        });
+
+// Listen for changes to update the summary for theme accordingly
+        themePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            // Update the state of the Preference with the new value.
+            // The SummaryProvider will handle updating the summary.
+            return true;
+        });
+
+
     }
+    // In PreferencesFragment
+    public void updateTheme() {
+        View view = requireView();
+        view.setBackgroundColor(ThemeUtil.getColor(R.attr.colorBackground));
+    }
+
+
 }
+

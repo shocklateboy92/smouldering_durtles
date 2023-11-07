@@ -88,7 +88,7 @@ public final class LessonReviewBreakdownView extends TableLayout {
     private void init() {
         inflate(getContext(), R.layout.lesson_review_breakdown, this);
         setColumnStretchable(0, true);
-        setBackgroundColor(ThemeUtil.getColor(R.attr.tileColorBackground));
+        setBackgroundResource(R.drawable.main_activity_view_background);
 
         headerRad.setDelegate(this, R.id.headerRad);
         headerKan.setDelegate(this, R.id.headerKan);

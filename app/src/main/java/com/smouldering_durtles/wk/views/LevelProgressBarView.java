@@ -51,6 +51,8 @@ public final class LevelProgressBarView extends View {
      */
     public LevelProgressBarView(final Context context) {
         super(context);
+
+        init();
     }
 
     /**
@@ -61,6 +63,8 @@ public final class LevelProgressBarView extends View {
      */
     public LevelProgressBarView(final Context context, final @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        init();
     }
 
     /**
@@ -72,6 +76,8 @@ public final class LevelProgressBarView extends View {
      */
     public LevelProgressBarView(final Context context, final @Nullable AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        init();
     }
 
     /**
@@ -94,6 +100,11 @@ public final class LevelProgressBarView extends View {
         for (final int value: values) {
             total += value;
         }
+    }
+
+    private void init() {
+        setBackgroundResource(R.drawable.small_rounded_corners);
+        setClipToOutline(true);
     }
 
     @Override

@@ -112,7 +112,7 @@ public final class JoyoProgressView extends TableLayout {
         setColumnShrinkable(4, true);
         setColumnStretchable(0, true);
 
-        setBackgroundColor(ThemeUtil.getColor(R.attr.tileColorBackground));
+        setBackgroundResource(R.drawable.main_activity_view_background);
     }
 
     /**

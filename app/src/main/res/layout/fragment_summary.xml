@@ -15,10 +15,11 @@
   ~ limitations under the License.
   -->
 
-<ScrollView
+<com.smouldering_durtles.wk.views.SwipingScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,12 +30,12 @@
 
         <Button
             android:id="@+id/finishButton"
+            style="@style/WK.Button.Normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Finish"
+            android:text="Finish →"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/WK.Button.Normal"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/showButton"
@@ -557,4 +558,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</com.smouldering_durtles.wk.views.SwipingScrollView>

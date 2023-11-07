@@ -65,7 +65,7 @@ public final class Post60ProgressView extends LinearLayout {
         safe(() -> {
             inflate(getContext(), R.layout.post60_progress, this);
             setOrientation(VERTICAL);
-            setBackgroundColor(ThemeUtil.getColor(R.attr.tileColorBackground));
+            setBackgroundResource(R.drawable.main_activity_view_background);
             barView.setDelegate(this, R.id.bar);
         });
     }

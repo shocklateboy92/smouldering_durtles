@@ -324,8 +324,6 @@ public enum ActiveTheme {
         }
     };
 
-
-
     private final boolean identBackground;
     private final int styleId;
     private final int levelUpArrowDrawableId;

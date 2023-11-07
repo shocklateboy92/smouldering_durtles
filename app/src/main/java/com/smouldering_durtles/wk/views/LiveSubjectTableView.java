@@ -75,7 +75,7 @@ public abstract class LiveSubjectTableView extends TableLayout {
             setColumnShrinkable(0, true);
             setColumnStretchable(1, true);
             setColumnShrinkable(1, true);
-            setBackgroundColor(ThemeUtil.getColor(R.attr.tileColorBackground));
+            setBackgroundResource(R.drawable.main_activity_view_background);
         });
     }
 

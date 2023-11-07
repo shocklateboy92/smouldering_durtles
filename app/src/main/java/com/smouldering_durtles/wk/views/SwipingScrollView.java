@@ -73,7 +73,8 @@ public final class SwipingScrollView extends ScrollView {
         this.swipeListener = swipeListener;
     }
 
-    private void handleTouchEvent(final MotionEvent event) {
+    private boolean handleTouchEvent(final MotionEvent event) {
+        final float density = getContext().getResources().getDisplayMetrics().density;
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (!active) {
                 active = true;
@@ -87,6 +88,17 @@ public final class SwipingScrollView extends ScrollView {
             if (active) {
                 endX = event.getRawX();
                 endY = event.getRawY();
+
+                final float deltaX = endX - startX;
+                final float deltaY = endY - startY;
+                float absX = Math.abs(deltaX);
+                final boolean horizontal = absX > Math.abs(deltaY);
+
+                // If we've gone past a significant threshold, accept the gesture
+                // so that views under us (like buttons) don't also trigger
+                if (horizontal && absX > 10 * density) {
+                    return true;
+                }
             }
         }
         else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -94,7 +106,6 @@ public final class SwipingScrollView extends ScrollView {
                 active = false;
                 final float deltaX = endX - startX;
                 final float deltaY = endY - startY;
-                final float density = getContext().getResources().getDisplayMetrics().density;
                 final boolean horizontal = Math.abs(deltaX) > Math.abs(deltaY);
                 if (swipeListener != null && horizontal && deltaX < -100 * density) {
                     swipeListener.onSwipeRight(this);
@@ -107,18 +118,28 @@ public final class SwipingScrollView extends ScrollView {
         else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
             active = false;
         }
+
+        return false;
     }
 
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent ev) {
-        handleTouchEvent(ev);
+        boolean accepted = handleTouchEvent(ev);
+        if (accepted) {
+            return true;
+        }
+
         return super.onInterceptTouchEvent(ev);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(final MotionEvent ev) {
-        handleTouchEvent(ev);
+        boolean accepted = handleTouchEvent(ev);
+        if (accepted) {
+            return true;
+        }
+
         return super.onTouchEvent(ev);
     }
 

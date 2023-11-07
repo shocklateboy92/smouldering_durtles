@@ -47,6 +47,7 @@ import com.smouldering_durtles.wk.livedata.LiveTimeLine;
 import com.smouldering_durtles.wk.model.Question;
 import com.smouldering_durtles.wk.proxy.ViewProxy;
 import com.smouldering_durtles.wk.util.ThemeUtil;
+import com.smouldering_durtles.wk.views.SwipingScrollView;
 
 import java.util.Comparator;
 import java.util.List;
@@ -60,7 +61,7 @@ import javax.annotation.Nullable;
 /**
  * Fragment for the session summary.
  */
-public final class SummarySessionFragment extends AbstractSessionFragment {
+public final class SummarySessionFragment extends AbstractSessionFragment implements SwipingScrollView.OnSwipeListener {
     private final ViewProxy specialButton1 = new ViewProxy();
     private final ViewProxy specialButton2 = new ViewProxy();
     private final ViewProxy specialButton3 = new ViewProxy();
@@ -88,6 +89,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
     private final ViewProxy incorrectStarButton = new ViewProxy();
     private final ViewProxy correctStarSpinner = new ViewProxy();
     private final ViewProxy correctStarButton = new ViewProxy();
+    private final ViewProxy scrollView = new ViewProxy();
 
     /**
      * The constructor.
@@ -259,13 +261,7 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
             GlobalSettings.AdvancedOther.getSpecialButton3Behavior().perform();
         }));
 
-        finishButton.setOnClickListener(v -> safe(() -> {
-            if (!interactionEnabled) {
-                return;
-            }
-            disableInteraction();
-            finishSession();
-        }));
+        finishButton.setOnClickListener(this::onFinishClick);
 
         showButton.setOnClickListener(v -> safe(() -> {
             if (!interactionEnabled) {
@@ -319,6 +315,9 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
                 updateCorrectStars(newNumStars);
             }
         }));
+
+        scrollView.setDelegate(view, R.id.scrollView);
+        scrollView.setSwipeListener(this);
     }
 
     @Override
@@ -545,5 +544,25 @@ public final class SummarySessionFragment extends AbstractSessionFragment {
                     return null;
                 }, result -> Toast.makeText(requireContext(), "Star ratings updated", Toast.LENGTH_SHORT).show())))
                 .create().show();
+    }
+
+    @Override
+    public void onSwipeLeft(SwipingScrollView view) {
+
+    }
+
+    @Override
+    public void onSwipeRight(SwipingScrollView view) {
+        onFinishClick(view);
+    }
+
+    private void onFinishClick(View v) {
+        safe(() -> {
+            if (!interactionEnabled) {
+                return;
+            }
+            disableInteraction();
+            finishSession();
+        });
     }
 }

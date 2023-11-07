@@ -18,6 +18,7 @@ package com.smouldering_durtles.wk;
 
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.util.Log;
 
 
@@ -767,16 +768,26 @@ public final class GlobalSettings {
          * @return the value
          */
         public static ActiveTheme getTheme() {
-            final @Nullable String value = prefs().getString("theme", null);
-            if (value != null) {
+            final @Nullable String value = prefs().getString("theme", "LIGHT");
+            ActiveTheme theme = ActiveTheme.LIGHT;
+            try {
+                theme = ActiveTheme.valueOf(value);
+            } catch (final Exception e) {
+                //
+            }
+
+            assert application != null;
+            int uiMode = application.getResources().getConfiguration().uiMode;
+            uiMode &= Configuration.UI_MODE_NIGHT_MASK;
+            if  (uiMode == Configuration.UI_MODE_NIGHT_YES) {
                 try {
-                    return ActiveTheme.valueOf(value);
-                }
-                catch (final Exception e) {
+                    theme = ActiveTheme.valueOf(prefs().getString("nightTheme", "DARK"));
+                } catch (Exception e) {
                     //
                 }
             }
-            return ActiveTheme.DARK;
+
+            return theme;
         }
 
         /**
@@ -1027,8 +1038,7 @@ public final class GlobalSettings {
          */
         public static int getPreviousLevelProgressionLimitedAmount() {
             try {
-                final int value = Integer.parseInt(prefs().getString("previous_level_progression_limit_amount", "1"));
-                return value;
+                return Integer.parseInt(prefs().getString("previous_level_progression_limit_amount", "1"));
             } catch (NumberFormatException e) {
                 return 1;
             }
@@ -3235,7 +3245,7 @@ public final class GlobalSettings {
             if (!getAdvancedEnabled()) {
                 return false;
             }
-            return prefs().getBoolean("shake_on_matching_kanji", false);
+            return prefs().getBoolean("shake_on_matching_kanji", true);
         }
 
         /**
