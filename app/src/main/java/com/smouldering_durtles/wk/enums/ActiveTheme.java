@@ -322,28 +322,7 @@ public enum ActiveTheme {
             stageDeepBucketColors[10] = stageBucketColors7[6];
             dirty = false;
         }
-    },
-
-    AUTO(
-            false,
-            R.style.WKDarkTheme,
-            R.drawable.ic_arrow_up_small_dark,
-            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},
-            new int[] {0xFF232629, 0xFF232629, 0xFF232629, 0xFF232629},
-            new int[] {0xFF404040, 0xFF404040, 0xFF404040, 0xFF404040},
-            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFFF65700},
-            new int[] {0xFF1D2023, 0xFFC1C0C1, 0xFF1D99F3, 0xFF1CDC9A, 0xFFC9CE3B, 0xFFF67400, 0xFFD53B49},
-            new int[] {0xFF7DC9FC, 0xFF5DB9F9, 0xFF3DA9F6, 0xFF0D89E3},
-            new int[] {0xFF20FCAA, 0xFF1CDC9A},
-            new int[] {0xFF1A3A45, 0xFF0D89E3, 0xFF2599EC, 0xFF3DA9F6, 0xFF4DB1F7, 0xFF5DB9F9, 0xFF6DC1FA, 0xFF7DC9FC, 0xFFC1C0C1, 0xFF1D2023},
-            new int[] {0xFF606000, 0xFF606000, 0xFF006000, 0xFF600000, 0xFFE8E8E8, 0xFF606000}) {
-        @Override
-        protected void loadCustomizations() {
-            // This theme is never actually active, it gets replaced by light or dark
-        }
     };
-
-
 
     private final boolean identBackground;
     private final int styleId;

@@ -768,22 +768,20 @@ public final class GlobalSettings {
          * @return the value
          */
         public static ActiveTheme getTheme() {
-            final @Nullable String value = prefs().getString("theme", null);
-            ActiveTheme theme = ActiveTheme.AUTO;
-            if (value != null) {
-                try {
-                    theme = ActiveTheme.valueOf(value);
-                }
-                catch (final Exception e) {
-                    //
-                }
+            final @Nullable String value = prefs().getString("theme", "LIGHT");
+            ActiveTheme theme = ActiveTheme.LIGHT;
+            try {
+                theme = ActiveTheme.valueOf(value);
+            } catch (final Exception e) {
+                //
             }
 
+            assert application != null;
             int uiMode = application.getResources().getConfiguration().uiMode;
             uiMode &= Configuration.UI_MODE_NIGHT_MASK;
             if  (uiMode == Configuration.UI_MODE_NIGHT_YES) {
                 try {
-                    theme = ActiveTheme.valueOf(prefs().getString("nightTheme", null));
+                    theme = ActiveTheme.valueOf(prefs().getString("nightTheme", "DARK"));
                 } catch (Exception e) {
                     //
                 }
@@ -1040,8 +1038,7 @@ public final class GlobalSettings {
          */
         public static int getPreviousLevelProgressionLimitedAmount() {
             try {
-                final int value = Integer.parseInt(prefs().getString("previous_level_progression_limit_amount", "1"));
-                return value;
+                return Integer.parseInt(prefs().getString("previous_level_progression_limit_amount", "1"));
             } catch (NumberFormatException e) {
                 return 1;
             }

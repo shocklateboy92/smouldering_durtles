@@ -97,7 +97,7 @@
             app:singleLineTitle="false"
             app:entries="@array/themes"
             app:entryValues="@array/themeValues"
-            app:defaultValue="BLACK_BREEZE"/>
+            app:defaultValue="DARK"/>
 
         <Preference
             app:title="Theme Customisation"
