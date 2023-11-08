@@ -254,15 +254,15 @@ public enum ActiveTheme {
             false,
             R.style.WKBlackTheme,
             R.drawable.ic_arrow_up_small_dark,
-            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFF9808F3},
             new int[] {0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000},
             new int[] {0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000},
-            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},
-            new int[] {0xFF1D2023, 0xFFC1C0C1, 0xFF1D99F3, 0xFF1CDC9A, 0xFFC9CE3B, 0xFFF67400, 0xFFD53B49},
-            new int[] {0xFF7DC9FC, 0xFF5DB9F9, 0xFF3DA9F6, 0xFF0D89E3},
-            new int[] {0xFF20FCAA, 0xFF1CDC9A},
-            new int[] {0xFF1A3A45, 0xFF0D89E3, 0xFF2599EC, 0xFF3DA9F6, 0xFF4DB1F7, 0xFF5DB9F9, 0xFF6DC1FA, 0xFF7DC9FC, 0xFFC1C0C1, 0xFF1D2023},
-            new int[] {0xFF606000, 0xFF606000, 0xFF006000, 0xFF600000, 0xFFE8E8E8, 0xFF606000}) {
+            new int[] {0xFF0098F0, 0xFFE80092, 0xFF9808F3, 0xFF9808F3},
+            new int[] {0xFFEEEEEE, 0xFFC1C0C1, 0xFFD80088, 0xFF7D2893, 0xFF2344D6, 0xFF0094EB, 0xFF444444},
+            new int[] {0xFFD6AFCA, 0xFFCB8FB3, 0xFFD660AB, 0xFFD80088},
+            new int[] {0xFF9D30A3, 0xFF7D2893},
+            new int[] {0xFF621899, 0xFFB24188, 0xFFDE5FAE, 0xFFD86CB0, 0xFFD077AF, 0xFFCB8FB3, 0xFFD09FBE, 0xFFD6AFCA, 0xFFC1C0C1, 0xFFEEEEEE},
+            new int[] {0xFF909000, 0xFF909000, 0xFF00A000, 0xFFA00000, 0xFFFFFFFF, 0xFF909000}) {
         @Override
         protected void loadCustomizations() {
             final List<Integer> custom = GlobalSettings.Display.getThemeCustomizations(this);
