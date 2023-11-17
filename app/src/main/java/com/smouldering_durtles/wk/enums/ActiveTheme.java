@@ -254,7 +254,7 @@ public enum ActiveTheme {
             false,
             R.style.WKBlackTheme,
             R.drawable.ic_arrow_up_small_dark,
-            new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},
+            new int[] {0xFF00AAFF, 0xFFFF00AA, 0xFFAA00FF, 0xFFAA00FF},
             new int[] {0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000},
             new int[] {0xFF000000, 0xFF000000, 0xFF000000, 0xFF000000},
             new int[] {0xFF3DAEE9, 0xFFFDBC4B, 0xFF2ECC71, 0xFF2ECC71},
